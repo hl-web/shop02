@@ -1,0 +1,13 @@
+<div id="maincontainer">
+  <section id="product">
+    <div class="container">
+      <tp-collapse-group [multiple]="false">
+        <tp-collapse *ngFor="let post of posts" [title]="post.title" [selected]="false">
+          <div>
+            {{ post.body }}
+          </div>
+        </tp-collapse>
+      </tp-collapse-group>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,120 @@
+<!-- Header Start -->
+<header>
+  <div class="headerstrip">
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <a routerLink="" class="logo pull-left js-home"><img src="{{domain}}public/user/img/logo.png" alt="SimpleOne" title="SimpleOne"></a>
+          <!-- Top Nav Start -->
+          <div class="pull-left">
+            <div class="navbar" id="topnav">
+              <div class="navbar-inner">
+                <ul class="nav">
+                  <li><a class="home active js-home" routerLink="">Trang chủ</a>
+                  </li>
+                  <li><a class="myaccount" routerLink="/thong-tin">Tài khoản</a>
+                  </li>
+                  <li><a class="shoppingcart" routerLink="/gio-hang">Giỏ hàng {{count_c}}</a>
+                  </li>
+                  <li><a class="checkout" routerLink="/thanh-toan">Thanh Toán</a>
+                  </li>
+                  <li><a class="shoppingcart" routerLink="/faq">FAQ</a>
+                  </li>
+                  <li *ngIf="check_login || (flag_login == 1) || (flag_login == 2)"><a class="myaccount" (click)="thoat()">Thoát</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- Top Nav End -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <h6 style="text-align: right;">Thời tiết Đà Nẵng hôm nay {{ date | date:'fullDate' | uppercase }}, Nhiệt độ: {{ nhietdo | tempConverter}} C. {{day}}.</h6>
+  </div>
+  <div class="container">
+
+    <div id="categorymenu">
+      <nav class="subnav">
+        <ul class="nav-pills categorymenu">
+          <li><a class="active js-home" routerLink="">Trang chủ</a></li>
+          <li *ngFor="let item of menu" #name id="{{item.id}}"><a on-mouseover="menu_cap_2(name.id)">{{item.name}}</a>
+            <div *ngIf="id_menu_current == item.id">
+              <app-spinner [isRunning]="isRequesting"></app-spinner>
+              <ul>
+                <li *ngFor="let item of menu_2" #name2 id="{{item.id}}"><a routerLink="/loai-san-pham/{{item.id}}/{{item.alias}}" class="js-img">{{item.name}}</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li><a routerLink="/lien-he">Liên hệ</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <section id="featured" class="row">
+    <div class="container">
+
+      <div class="input-group" style="width: 20%;float: left">
+        <input #search style="width: 100%" type="text" class="form-control" placeholder="Tìm kiểm sản phẩm" [(ngModel)]="filter"
+          (keyup)="onFilter(filter,select_cate_search,selectedPrice)">
+      </div>
+      <div style="float: left" *ngIf="flag_search" [style.color]="wselect" class="pdl15">
+        <select [(ngModel)]="selectedCate" (change)="CateChild(selectedCate)" (change)="onFilter(filter,selectedCate,selectedPrice)">
+          <option value="">Chọn danh mục tìm kiếm</option>
+          <option value="{{cate.id}}" *ngFor="let cate of cates">{{cate.name}}</option>
+      </select>
+        <select [(ngModel)]="selectedCateChild" *ngIf="selectedCate!==''" (change)="onFilter(filter,selectedCateChild,selectedPrice)">
+          <option value="">Chọn danh mục tìm kiếm</option>
+          <option value="{{cate.id}}" *ngFor="let cate of catechild">{{cate.name}}</option>
+      </select>
+      </div>
+      <div style="width: 20%;float: left" *ngIf="flag_price" class="pdl15">
+        <select [(ngModel)]="selectedPrice" (change)="onFilter(filter,selectedCateChild,selectedPrice)">
+          <option value="">Chọn giá tìm kiếm</option>
+          <option value="0">> 0k</option>
+          <option value="50000">> 50k</option>
+          <option value="100000">> 100k</option>
+          <option value="200000">> 200k</option>
+          <option value="500000">> 500k</option>
+          <option value="800000">> 800k</option>
+          <option value="1000000">> 1000k</option>
+      </select>
+      </div>
+      <div style="width: 20%;float: left" class="pdl15">
+        <button style="padding: 5px;border: 0;border-radius: 5px" class="btn-orange js-home" type="button" (click)="onClear()">Xóa</button>
+      </div>
+
+      <h1 style="width: 100%;float: left" class="heading1" *ngIf="flag_search">
+        <span class="maintext">Kết quả tìm kiếm</span>
+      </h1>
+      <div class="clearfix"></div>
+      <div>{{noresult}}</div>
+      <ul class="thumbnails">
+        <li class="span3" *ngFor="let product of products_search">
+          <a class="prdocutname" routerLink="/chi-tiet-san-pham/{{product.id}}/{{product.alias}}">{{product.name}}</a>
+          <div class="thumbnail">
+            <span class="sale tooltip-test">Sale</span>
+            <a routerLink="/chi-tiet-san-pham/{{product.id}}/{{product.alias}}"><img alt="" src="{{link_img}}{{product.image}}"></a>
+            <div class="pricetag">
+              <span class="spiral"></span><a (click)="addcart(cart.id)" class="productcart" id="{{product.id}}" #cart>ADD TO CART</a>
+              <div class="price">
+                <div class="pricenew">{{product.price}} D</div>
+              </div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </section>
+</header>
+<!-- Header End -->
+
+<app-dialog [(visible)]="showDialog">
+  <p class="alert alert-success" style="margin:0">Mua sản phẩm thành công</p>
+  <p style="margin-top:10px"><a routerLink="/gio-hang"><button (click)="hidepop()" class="btn btn-orange pull-right">Xem giỏ hàng</button></a></p>
+</app-dialog>

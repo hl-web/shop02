@@ -1,0 +1,198 @@
+<div id="maincontainer" *ngIf="!flag_search1">
+  <section id="product">
+    <div class="container">
+      <!--  breadcrumb -->
+      <ul class="breadcrumb">
+        <li>
+          <a routerLink="" class="js-home">Trang chủ</a>
+          <span class="divider">/</span>
+        </li>
+        <li class="active">Thông tin tài khoản</li>
+      </ul>
+      <!-- Account Login-->
+      <ul class="tabs">
+        <li class="tab-link current" data-tab="tab-1" (click)="unsub()">Thông tin</li>
+        <li class="tab-link" data-tab="tab-2" (click)="loading()">Đơn hàng</li>
+      </ul>
+      <div id="tab-1" class="tab-container current">
+        Xin chào {{account.name}}
+        <p>Chúc bạn một ngày tốt lành</p>
+
+        <form class="form-horizontal" (ngSubmit)="updateInfo(f,id)" #f="ngForm" *ngIf="!(flag_info == 2)">
+
+          <h3 class="heading3">Your Email</h3>
+          <div class="registerbox">
+            <fieldset>
+              <div class="control-group">
+                <label class="control-label"><span class="red">*</span> Name:</label>
+                <div class="controls">
+                  <input type="text" id="name" class="form-control" required minlength="4" maxlength="24" name="name" [(ngModel)]="account.name"
+                    #name="ngModel" value="{{name}}">
+                  <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
+                    <div [hidden]="!name.errors.required">
+                      name is required
+                    </div>
+                    <div [hidden]="!name.errors.minlength">
+                      name must be at least 4 characters long.
+                    </div>
+                    <div [hidden]="!name.errors.maxlength">
+                      name cannot be more than 24 characters long.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label class="control-label"><span class="red">*</span> Email:</label>
+                <div class="controls">
+                  <input type="text" id="email" class="form-control" required name="email" [(ngModel)]="account.email" #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                    value="{{email}}" (keyup)="checkemail_same(email.value)">
+                  <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+                    <div [hidden]="!email.errors.required">
+                      Email is required
+                    </div>
+                    <div [hidden]="!email.errors.pattern">
+                      Email is invalid
+                    </div>
+                  </div>
+
+                  <div *ngIf="flag_validate_email" class="alert alert-danger">
+                    Email has been used
+                  </div>
+
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <h3 class="heading3">Your Password</h3>
+          <div class="registerbox">
+            <fieldset>
+              <div class="control-group">
+                <label class="control-label"><span class="red">*</span> Password New:</label>
+                <div class="controls">
+                  <input type="password" class="form-control" name="password" [ngModel]="account.password" required validateEqual="confirmPassword"
+                    reverse="true" #password="ngModel">
+                  <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger">
+                    <div [hidden]="!password.errors.required">
+                      Password is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label class="control-label"><span class="red">*</span> Password New Confirm:</label>
+                <div class="controls">
+                  <input type="password" class="form-control" name="confirmPassword" [ngModel]="" required validateEqual="password" reverse="false"
+                    #confirmPassword="ngModel">
+
+                  <div *ngIf="confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)" class="alert alert-danger">
+                    <div [hidden]="!confirmPassword.errors.required">
+                      Password is required
+                    </div>
+                    <div [hidden]="confirmPassword.valid || (confirmPassword.pristine )">
+                      Password not same
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <div class="controls">
+                  <input type="submit" [disabled]="!f.form.valid || flag_validate_email" class="btn btn-orange" value="Edit">
+                </div>
+              </div>
+              <div [@visibilityChanged]="visibility" *ngIf="flag_success" class="alert alert-success">
+                You have updated the information successfully
+              </div>
+
+            </fieldset>
+          </div>
+        </form>
+      </div>
+      <app-spinner [isRunning]="isRequesting"></app-spinner>
+      <div id="tab-2" class="tab-container">
+          
+        <div class="cart-info" id="cart-info" *ngIf="!no_product">
+
+          <table class="table table-striped table-bordered">
+            <tr>
+              <th>STT</th>
+              <th>Date</th>
+              <th>Email</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Xem chi tiết</th>
+            </tr>
+
+            <tr *ngFor="let item of products_order; let i= index;">
+              <td>{{i + 1}}</td>
+              <td>{{item.created_at}}</td>
+              <td>{{item.email}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.phone}}</td>
+
+              <td><a #id_order (click)="detail_order(id_order.id)" class="js-open-modal" data-modal-id="popup" id="{{item.id}}"> Click me </a></td>
+            </tr>
+
+          </table>
+
+        </div>
+        <div class="container" *ngIf="no_product">
+          <p>Không có sản phẩm nào trong giỏ hàng. Vui lòng quay lại mua sắm !</p>
+          <p>
+            <a routerLink=""><input value="Tiếp tục mua sắm" class="btn btn-orange pull-left"></a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<div id="popup" class="modal-box">
+  <header>
+    <a class="js-modal-close close">×</a>
+    <h3>Chi tiết đơn hàng</h3>
+  </header>
+  
+  <div class="modal-body">
+    <table class="table table-striped table-bordered" id="table_aj">
+      <tr>
+        <th>STT</th>
+        <th>Hình ảnh</th>
+        <th>Tên sản phẩm</th>
+        <th>Đơn giá</th>
+        <th>Số lượng</th>
+        <th>Tổng tiền</th>
+      </tr>
+      <tr *ngFor="let item of detail_order_product; let i= index;">
+        <td>{{i + 1}}</td>
+        <td><img src="{{link_img}}{{item.image}}" width="80" height="80"></td>
+        <td>{{item.name}}</td>
+        <td>{{item.price}}</td>
+        <td>{{item.qty}}</td>
+        <td>{{item.price*item.qty}}</td>
+      </tr>
+    </table>
+
+    <div class="pull-right">
+      <div class="span4 pull-right">
+        <table class="table table-striped table-bordered ">
+          <tbody>
+            <tr>
+              <td><span class="extra bold totalamout">Tổng tiền :</span></td>
+              <td><span class="bold totalamout" id="totalamout">{{sTotal}} D</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="span6 pull-right">
+      </div>
+    </div>
+
+
+
+  </div>
+  <footer>
+    <a class="js-modal-close">Close</a>
+  </footer>
+</div>

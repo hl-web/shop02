@@ -1,0 +1,7 @@
+ #featured .thumbnail img,#latest .thumbnail img{
+    height: 300px;
+    width: 100% !important;
+  }
+  .thumbnail .price {
+      margin-top: 10px;
+  }

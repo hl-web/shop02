@@ -1,0 +1,8 @@
+ul.bestseller li{
+    float: left;
+    width: 100%;
+}
+ #categorygrid .thumbnail img{
+    height: 300px;
+    width: 100% !important;
+  }
