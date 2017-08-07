@@ -128,7 +128,7 @@ export class CheckoutComponent implements OnInit {
 
       jQuery(document).on("click", ".js-home", function () {
         jQuery('#mainslider').removeData("flexslider");
-        jQuery('#mainslider').flexslider({
+        (<any>jQuery('#mainslider')).flexslider({
           animation: "slide",
           start: function (slider) {
             jQuery('body').removeClass('loading');

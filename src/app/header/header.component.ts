@@ -217,7 +217,7 @@ export class HeaderComponent implements OnInit {
 
       jQuery(document).on("click", ".js-home", function () {
         jQuery('#mainslider').removeData("flexslider");
-        jQuery('#mainslider').flexslider({
+        (<any>jQuery('#mainslider')).flexslider({
           animation: "slide",
           start: function (slider) {
             jQuery('body').removeClass('loading');
@@ -252,5 +252,6 @@ export class HeaderComponent implements OnInit {
   }
   hidepop() {
     this.showDialog = false;
+    window.scrollTo(0, 0);
   }
 }

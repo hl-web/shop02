@@ -64,55 +64,6 @@ export class HomeComponent implements OnInit {
 
   }
 
-  // addcart(id) {
-
-  //   this.xyzUserListService.addcart(id).subscribe((response) => {
-
-  //     this.temp_pro = response.content;
-
-  //     if (this.xyzUserListService.giohang.length <= 0) {
-  //       this.xyzUserListService.giohang.push(this.temp_pro);
-  //       this.abc = this.xyzUserListService.giohang;
-  //       localStorage.setItem("cart", JSON.stringify(this.abc));
-  //       this.xyzUserListService.count_cart = 1;
-
-  //     }
-  //     else {
-
-  //       for (var _i = 0; _i < this.xyzUserListService.giohang.length; _i++) {
-
-  //         var num = this.xyzUserListService.giohang[_i];
-  //         if (num[0].id == id) {
-  //           this.flag_cart = false;
-  //           this.xyzUserListService.giohang[_i][0].qty++;
-  //           this.xyzUserListService.giohang[_i][0].subtotal = this.xyzUserListService.giohang[_i][0].qty * this.xyzUserListService.giohang[_i][0].price;
-  //           this.xyzUserListService.count_cart++;
-  //           this.abc = this.xyzUserListService.giohang;
-  //           localStorage.setItem("cart", JSON.stringify(this.abc));
-  //           break;
-  //         }
-  //         else {
-  //           this.flag_cart = true;
-  //         }
-
-  //       }
-  //       if (this.flag_cart) {
-  //         this.xyzUserListService.giohang.push(this.temp_pro);
-  //         this.abc = this.xyzUserListService.giohang;
-  //         localStorage.setItem("cart", JSON.stringify(this.abc));
-  //         this.xyzUserListService.count_cart++;
-  //       }
-
-
-  //     }
-
-  //     console.log(this.xyzUserListService.count_cart);
-  //     this.xyzUserListService.emitChange(this.xyzUserListService.count_cart);
-  //   });
-
-
-
-  // }
 
 
 }

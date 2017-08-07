@@ -28,7 +28,10 @@ export class InfoComponent implements OnInit {
   confirmPassword: string;
   check_token: boolean;
   name: string;
+  editName: string;
   email: string;
+  editEmail:string;
+  editPassword:string='';
   usernam: string;
   id: string;
   password: string;
@@ -54,8 +57,13 @@ export class InfoComponent implements OnInit {
 
       });
   }
-  unsub() {
-    this.sub.unsubscribe();
+  canDeactivate() {
+    
+    if ((this.editName !=  this.account.name) || (this.editEmail !=  this.account.email) || (this.editPassword != this.account.password)) {
+      return window.confirm('Discard changes?');
+    }
+
+    return true;
   }
   loading() {
 
@@ -74,9 +82,7 @@ export class InfoComponent implements OnInit {
       }
     });
   }
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
+
 
   ngOnInit() {
 

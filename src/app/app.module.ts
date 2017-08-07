@@ -19,6 +19,7 @@ import { SignupComponent } from './signup/signup.component';
 import { InfoComponent } from './info/info.component';
 import { EqualValidatorDirective } from './equal-validator.directive';
 import { AuthGuard } from './guard/auth.guard';
+import { CanDeactivateGuard } from './saveinfo.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CollapseComponent } from './collapse/collapse.component';
 import { CollapseGroupComponent } from './collapse-group/collapse-group.component';
@@ -51,7 +52,7 @@ const routes: Routes = [
   { path: 'dang-nhap', component: SigninComponent },
   { path: 'dang-ky', component: SignupComponent },
   { path: 'faq', component: FaqComponent },
-  { path: 'thong-tin', component: InfoComponent, canActivate: [AuthGuard] },
+  { path: 'thong-tin', component: InfoComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard] },
   { path: '', component: HomeComponent },
 ];
 @NgModule({
@@ -87,7 +88,7 @@ const routes: Routes = [
     AngularFireDatabaseModule,
     AngularFireAuthModule
   ],
-  providers: [XyzUserListService, AuthGuard],
+  providers: [XyzUserListService, AuthGuard,CanDeactivateGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
