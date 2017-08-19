@@ -36,7 +36,7 @@ export class DetailComponent implements OnInit {
   ngOnInit() {
 
     this.sub = this.activatedRoute.params.subscribe((params: Params) => {
-      window.scrollTo(0, 0);
+      
       this.id = params['id'];
       this.xyzUserListService.getdetail_product(this.id).subscribe((response) => {
         this.products_detail = response.product_cate;

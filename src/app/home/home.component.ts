@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.isRequesting = true;
     this.xyzUserListService.get().subscribe((response) => {
       this.isRequesting = false;
