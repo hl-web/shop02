@@ -27,7 +27,7 @@
             <li *ngFor="let item of products_order">
               <img width="50" height="50" src="{{link_img}}{{item.image}}" alt="product" title="product">
               <a class="productname" routerLink="/chi-tiet-san-pham/{{item.id}}/{{item.alias}}">{{item.name}}</a>
-              <span class="price">{{item.price}}</span>
+              <span class="price">{{item.price | formatNumVN }} D</span>
             </li>
           </ul>
         </div>
@@ -38,7 +38,7 @@
             <li *ngFor="let item of lasted_product | slice:0:4; let i=index">
               <img width="50" height="50" src="{{link_img}}{{item.image}}" alt="product" title="product">
               <a class="productname" routerLink="/chi-tiet-san-pham/{{item.id}}/{{item.alias}}">{{item.name}}</a>
-              <span class="price">{{item.price}}</span>
+              <span class="price">{{item.price | formatNumVN }} D</span>
             </li>
           </ul>
         </div>
@@ -61,7 +61,7 @@
                       <div class="pricetag">
                         <span class="spiral"></span><a (click)="addcart(cart.id)" class="productcart" id="{{item.id}}" #cart>ADD TO CART</a>
                         <div class="price">
-                          <div class="pricenew">{{item.price}}</div>
+                          <div class="pricenew">{{item.price | formatNumVN }} D</div>
                         </div>
                       </div>
                     </div>

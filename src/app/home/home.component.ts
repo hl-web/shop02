@@ -1,6 +1,6 @@
 import { XyzUserListService } from './../home.service';
 import { Component, OnInit, ElementRef, ViewEncapsulation } from '@angular/core';
-
+import { FormatNumVNPipe } from './../format-num-vn.pipe';
 
 @Component({
   selector: 'app-home',
@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
       text => {
 
         this.flag_search1 = text;
-        console.log(this.flag_search1);
+        // console.log(this.flag_search1);
 
       });
   }

@@ -46,7 +46,7 @@
               <h1 class="productname"><span class="bgnone">{{name_product_detail}}</span></h1>
               <div class="productprice">
                 <div class="productpageprice">
-                  <span class="spiral"></span>{{price_product_detail}}</div>
+                  <span class="spiral"></span>{{price_product_detail | formatNumVN }} D</div>
               </div>
               <ul class="productpagecart">
                 <li><a (click)="addcart(cart.id)" class="productcart" id="{{id_product_detail}}" #cart>ADD TO CART</a>
@@ -76,7 +76,7 @@
             <div class="pricetag">
               <span class="spiral"></span><a (click)="addcart(cart.id)" class="productcart" id="{{id_product_detail}}" #cart>ADD TO CART</a>
               <div class="price">
-                <div class="pricenew">{{item.price}}</div>
+                <div class="pricenew">{{item.price | formatNumVN }} D</div>
               </div>
             </div>
           </div>

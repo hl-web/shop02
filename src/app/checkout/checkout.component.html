@@ -114,8 +114,8 @@
                     <td class="quantity"><input type="text" size="1" value='{{item[0].qty}}' name="quantity" class="span1 qty" disabled="disabled">
                     </td>
 
-                    <td class="price">{{item[0].price}} D</td>
-                    <td class="total">{{item[0].subtotal}} D</td>
+                    <td class="price">{{item[0].price | formatNumVN }} D</td>
+                    <td class="total">{{item[0].subtotal | formatNumVN }} D</td>
                   </tr>
 
 
@@ -128,7 +128,7 @@
                       <tbody>
                         <tr>
                           <td><span class="extra bold totalamout">Tổng tiền :</span></td>
-                          <td><span class="bold totalamout">{{total}} D</span></td>
+                          <td><span class="bold totalamout">{{total | formatNumVN }} D</span></td>
                         </tr>
                       </tbody>
                     </table>
@@ -141,7 +141,7 @@
             <div class="container" *ngIf="no_product">
               <p>Không có sản phẩm nào trong giỏ hàng. Vui lòng quay lại mua sắm !</p>
               <p>
-                <a routerLink=""><button class="btn btn-orange pull-left">Tiếp tục mua sắm</button></a>
+                <a routerLink=""><button class="btn btn-orange pull-left js-home">Tiếp tục mua sắm</button></a>
               </p>
             </div>
           </div>

@@ -1,4 +1,7 @@
+import { ReplacePipe } from './../replace.pipe';
 
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser'
+import { FormatNumVNPipe } from './../format-num-vn.pipe';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { XyzUserListService } from './../home.service';
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
@@ -8,6 +11,7 @@ import * as $ from 'jquery';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
+  providers: [ReplacePipe],
   encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent implements OnInit {
@@ -33,7 +37,7 @@ export class HeaderComponent implements OnInit {
   selectedPrice: any = '';
   flag_price: boolean;
   wselect: string;
-
+  html22: any;
   flag_cart: boolean;
   check_login: boolean;
   flag_login: any;
@@ -44,7 +48,7 @@ export class HeaderComponent implements OnInit {
   night: any;
   isRequesting: boolean;
   @Output() onVote = new EventEmitter<any>();
-  constructor(private xyzUserListService: XyzUserListService, private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(private xyzUserListService: XyzUserListService, private activatedRoute: ActivatedRoute, private router: Router, private replacePipe: ReplacePipe, private formatNumVNPipe: FormatNumVNPipe, private sanitizer: DomSanitizer) {
     xyzUserListService.changeEmitted$.subscribe(
       text => {
 
@@ -150,13 +154,43 @@ export class HeaderComponent implements OnInit {
         this.selectedPrice = '';
         this.noresult = '';
         this.flag_price = false;
-      })
+      });
+      // const suggestions = document.querySelector('.html-search');
+      // suggestions.innerHTML = '';
+
     }
     else {
       this.xyzUserListService.search(filter, select_cate_search, selectedPrice).subscribe(response => {
-        console.log(response);
+
 
         this.products_search = response;
+
+    //     const suggestions = document.querySelector('.html-search');
+    //     let html = this.products_search.map(product => {
+    //       const productName = this.replacePipe.transform(product.name, this.filter, `<span class="hl">${this.filter}</span>`);
+    //       const productPrice = this.formatNumVNPipe.transform(product.price);
+    //       return `
+    //   <li class="span3">
+    //       <a class="prdocutname" routerLink="/chi-tiet-san-pham/${product.id}/${product.alias}">${productName}</a>
+    //       <div class="thumbnail">
+    //         <span class="sale tooltip-test">Sale</span>
+    //         <a routerLink="/chi-tiet-san-pham/${product.id}/${product.alias}"><img alt="" src="${this.link_img}${product.image}"></a>
+    //         <div class="pricetag">
+    //           <span class="spiral"></span><a (click)="addcart(${product.id})" class="productcart" id="${product.id}" #cart>ADD TO CART</a>
+    //           <div class="price">
+    //             <div class="pricenew">${productPrice} D</div>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </li>
+    // `;
+    //     }).join('');
+
+    //     //suggestions.innerHTML = html;
+      
+    //       this.html22 = this.sanitizer.bypassSecurityTrustHtml(html);
+        
+
         if (response == '') {
           this.noresult = 'Không có sản phẩm nào phù hợp với kết quả tìm kiếm của bạn. Vui lòng chọn lại !'
         }
@@ -201,6 +235,9 @@ export class HeaderComponent implements OnInit {
       this.products_order = response.products_buy;
     })
     this.filter = '';
+    // const suggestions = document.querySelector('.html-search');
+    // suggestions.innerHTML = '';
+
     this.flag_search = false;
     this.xyzUserListService.flag_search1 = false;
     this.xyzUserListService.emitChange2(this.xyzUserListService.flag_search1);
@@ -225,10 +262,27 @@ export class HeaderComponent implements OnInit {
         });
 
       });
+      jQuery(document).on("keyup", "#search", function () {
+        console.log($(this).val().trim().length);
+
+        if ($(this).val().trim() == '') {
+          jQuery('#mainslider').removeData("flexslider");
+          (<any>jQuery('#mainslider')).flexslider({
+            animation: "slide",
+            start: function (slider) {
+              jQuery('body').removeClass('loading');
+            }
+          });
+        }
+
+
+      });
     });
 
     this.search11.nativeElement.focus();
+
   }
+
   menu_cap_2(id) {
     this.id_menu_current = id;
     this.menu_2 = [];

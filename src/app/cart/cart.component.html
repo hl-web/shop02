@@ -36,8 +36,8 @@
             </td>
 
 
-            <td class="price">{{item[0].price}}</td>
-            <td class="total">{{item[0].subtotal}}</td>
+            <td class="price">{{item[0].price | formatNumVN }} D</td>
+            <td class="total">{{item[0].subtotal | formatNumVN }} D</td>
 
           </tr>
 
@@ -51,18 +51,18 @@
             <table class="table table-striped table-bordered ">
               <tr>
                 <td><span class="extra bold totalamout">Tổng tiền :</span></td>
-                <td><span class="bold totalamout" id="totalamout">{{total}} D</span></td>
+                <td><span class="bold totalamout" id="totalamout">{{total | formatNumVN }} D</span></td>
               </tr>
             </table>
             <button routerLink="/thanh-toan" class="btn btn-orange pull-right">Thanh toán</button>
-            <button routerLink="" class="btn btn-orange pull-right mr10">Tiếp tục mua sắm</button>
+            <button routerLink="" class="btn btn-orange pull-right mr10 js-home">Tiếp tục mua sắm</button>
           </div>
         </div>
       </div>
       <div class="container" *ngIf="no_product">
         <p>Không có sản phẩm nào trong giỏ hàng. Vui lòng quay lại mua sắm !</p>
         <p>
-          <a routerLink=""><button class="btn btn-orange pull-left">Tiếp tục mua sắm</button></a>
+          <a routerLink=""><button class="btn btn-orange pull-left js-home">Tiếp tục mua sắm</button></a>
         </p>
       </div>
     </div>

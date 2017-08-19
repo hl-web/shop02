@@ -42,7 +42,7 @@
             <div class="pricetag">
               <span class="spiral"></span><a (click)="addcart(cart.id)" class="productcart" id="{{product.id}}" #cart>ADD TO CART</a>
               <div class="price">
-                <div class="pricenew">{{product.price}} D</div>
+                <div class="pricenew">{{product.price | formatNumVN }} D</div>
               </div>
             </div>
           </div>
@@ -64,7 +64,7 @@
             <div class="pricetag">
               <span class="spiral"></span><a (click)="addcart(cart.id)" class="productcart" id="{{product.id}}" #cart>ADD TO CART</a>
               <div class="price">
-                <div class="pricenew">{{product.price}} D</div>
+                <div class="pricenew">{{product.price | formatNumVN }} D</div>
               </div>
             </div>
           </div>

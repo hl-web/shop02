@@ -25,7 +25,7 @@ export class CartComponent implements OnInit {
         console.log(this.flag_search1);
 
       });
-      
+
   }
 
   ngOnInit() {
@@ -40,11 +40,21 @@ export class CartComponent implements OnInit {
 
 
       this.product_giohang = JSON.parse(sessionStorage.cart);
-      for (var _i = 0; _i < this.product_giohang.length; _i++) {
+      // for (var _i = 0; _i < this.product_giohang.length; _i++) {
 
-        this.total = this.total + this.product_giohang[_i][0].subtotal;
+      //   this.total = this.total + this.product_giohang[_i][0].subtotal;
 
-      }
+      // }
+
+
+      this.total = this.product_giohang.reduce((total1, currentValue) => {
+        console.log(currentValue[0].subtotal);
+        return total1 + currentValue[0].subtotal;
+      }, 0);
+
+      // console.log(totalYears);
+
+
       if (typeof (Storage) !== "undefined") {
         // Gán dữ liệu
         sessionStorage.total = JSON.stringify(this.total);
@@ -110,6 +120,25 @@ export class CartComponent implements OnInit {
     }
 
     console.log(this.product_giohang);
+
+
+  }
+  ngAfterViewInit() {
+
+    jQuery(window).on('load', function () {
+
+      jQuery(document).on("click", ".js-home", function () {
+        jQuery('#mainslider').removeData("flexslider");
+        (<any>jQuery('#mainslider')).flexslider({
+          animation: "slide",
+          start: function (slider) {
+            jQuery('body').removeClass('loading');
+          }
+        });
+
+      });
+
+    });
 
 
   }

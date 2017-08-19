@@ -60,7 +60,7 @@
 
       <div class="input-group" style="width: 20%;float: left">
         <input #search style="width: 100%" type="text" class="form-control" placeholder="Tìm kiểm sản phẩm" [(ngModel)]="filter"
-          (keyup)="onFilter(filter,select_cate_search,selectedPrice)">
+          (keyup)="onFilter(filter,select_cate_search,selectedPrice)" id="search">
       </div>
       <div style="float: left" *ngIf="flag_search" [style.color]="wselect" class="pdl15">
         <select [(ngModel)]="selectedCate" (change)="CateChild(selectedCate)" (change)="onFilter(filter,selectedCate,selectedPrice)">
@@ -102,7 +102,7 @@
             <div class="pricetag">
               <span class="spiral"></span><a (click)="addcart(cart.id)" class="productcart" id="{{product.id}}" #cart>ADD TO CART</a>
               <div class="price">
-                <div class="pricenew">{{product.price}} D</div>
+                <div class="pricenew">{{product.price | formatNumVN }} D</div>
               </div>
             </div>
           </div>
@@ -118,3 +118,5 @@
   <p class="alert alert-success" style="margin:0">Mua sản phẩm thành công</p>
   <p style="margin-top:10px"><a routerLink="/gio-hang"><button (click)="hidepop()" class="btn btn-orange pull-right">Xem giỏ hàng</button></a></p>
 </app-dialog>
+
+

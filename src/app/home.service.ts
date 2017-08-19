@@ -152,6 +152,7 @@ export class XyzUserListService {
 
 
   get() {
+console.log(this.http.get(this.API + 'api/home'));
 
     return this.http.get(this.API + 'api/home').map(res => res.json());
   }

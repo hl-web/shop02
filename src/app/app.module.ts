@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+
 import { AppComponent } from './app.component';
 import { XyzUserListService } from './home.service';
 import { CategoryComponent } from './category/category.component';
@@ -28,11 +29,13 @@ import { TempConverterPipe } from './pipes/temp-converter.pipe';
 import { DialogComponent } from './dialog/dialog.component';
 
 import { AngularFireModule } from 'angularfire2';
-
+import { DecimalPipe } from '@angular/common';
 // New imports to update based on AngularFire2 version 4
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { ReplacePipe } from './replace.pipe';
+import { FormatNumVNPipe } from './format-num-vn.pipe';
 // Must export the config
 export const firebaseConfig = {
   apiKey: "AIzaSyCEPpvtiiK5D4r7HqD74yXA9OIyZf_lzmE",
@@ -75,7 +78,9 @@ const routes: Routes = [
     FaqComponent,
     TempConverterPipe,
     DialogComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ReplacePipe,
+    FormatNumVNPipe
 
   ],
   imports: [
@@ -88,7 +93,7 @@ const routes: Routes = [
     AngularFireDatabaseModule,
     AngularFireAuthModule
   ],
-  providers: [XyzUserListService, AuthGuard,CanDeactivateGuard],
+  providers: [XyzUserListService, AuthGuard, CanDeactivateGuard,ReplacePipe,FormatNumVNPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
