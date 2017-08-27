@@ -70,58 +70,97 @@ export class CartComponent implements OnInit {
     this.domain = this.xyzUserListService.domain;
 
   }
+
   delete(id) {
 
-    for (var _i = 0; _i < this.product_giohang.length; _i++) {
+    if (confirm('Bạn chắc chắn muốn xóa sản phẩm này?')) {
+      console.clear();
+      let item = this.product_giohang.find(function (value) {
+        return value[0].id == id;
+      });
+      let index = this.product_giohang.indexOf(item);
+      console.log(index);
 
-      var num = this.product_giohang[_i];
-      if (num[0].id == id) {
-        this.product_giohang.splice(_i, 1);
-
+      if (index > -1) {
+        this.product_giohang.splice(index, 1);
         this.flag_cart = true;
         if (this.product_giohang <= 0) {
           this.no_product = true;
         }
-
-        break;
       }
       else {
         this.flag_cart = false;
       }
 
-    }
-    if (this.flag_cart) {
+      // this.product_giohang.find((value, index) => {
+      //   console.log(value[0].id);
+      //   if (value[0].id == id) {
+      //     this.product_giohang.splice(index, 1);
 
+      //     this.flag_cart = true;
+      //     if (this.product_giohang <= 0) {
+      //       this.no_product = true;
+      //     }
+      //   }
+      //   else {
+      //     this.flag_cart = false;
+      //   }
+
+      // });
+      // for (var _i = 0; _i < this.product_giohang.length; _i++) {
+
+      //   var num = this.product_giohang[_i];
+      //   if (num[0].id == id) {
+      //     this.product_giohang.splice(_i, 1);
+
+      //     this.flag_cart = true;
+      //     if (this.product_giohang <= 0) {
+      //       this.no_product = true;
+      //     }
+
+      //     break;
+      //   }
+      //   else {
+      //     this.flag_cart = false;
+      //   }
+
+      // }
+
+      this.flagCart(this.flag_cart, this.product_giohang);
+
+
+
+      console.log(this.product_giohang);
+    } else {
+      return false;
+    }
+
+
+
+
+
+  }
+  flagCart(flag, cart) {
+    if (flag) {
+      console.log();
 
       if (typeof (Storage) !== "undefined") {
-        // Gán dữ liệu
-        sessionStorage.cart = JSON.stringify(this.product_giohang);
-
+        sessionStorage.cart = JSON.stringify(cart);
       } else {
         document.write('Trình duyệt của bạn không hỗ trợ sessionStorage');
       }
-      //localStorage.setItem("cart", JSON.stringify(this.product_giohang));
-
-      //this.xyzUserListService.giohang = JSON.parse(localStorage.getItem('cart'));
       this.xyzUserListService.giohang = JSON.parse(sessionStorage.cart);
       this.total = 0;
       this.count_c = 0;
-      for (var _i = 0; _i < this.product_giohang.length; _i++) {
-
-        this.total = this.total + this.product_giohang[_i][0].subtotal;
-        this.count_c = this.count_c + Number(this.product_giohang[_i][0].qty);
+      for (var _i = 0; _i < cart.length; _i++) {
+        this.total = this.total + cart[_i][0].subtotal;
+        this.count_c = this.count_c + Number(cart[_i][0].qty);
       }
-
-      //localStorage.setItem("total", JSON.stringify(this.total));
       sessionStorage.total = JSON.stringify(this.total);
       this.xyzUserListService.emitChange(this.count_c);
       sessionStorage.count_cart = this.count_c;
       this.xyzUserListService.count_cart = this.count_c;
     }
-
-    console.log(this.product_giohang);
-
-
   }
   ngAfterViewInit() {
 
@@ -142,9 +181,22 @@ export class CartComponent implements OnInit {
 
 
   }
-  update(value, id) {
-    if (value <= 0) {
-      this.delete(id);
+
+  validateNumber(n) {
+    if (n == '') {
+      alert("Vui lòng nhập số");
+
+    }
+  }
+
+  update(value, id, e) {
+    if (value == '0') {
+      if (confirm('Bạn chắc chắn muốn xóa sản phẩm này?')) {
+        this.delete(id);
+      } else {
+        return false;
+      }
+
     }
     console.log(typeof value);
     for (var _i = 0; _i < this.product_giohang.length; _i++) {
@@ -164,37 +216,7 @@ export class CartComponent implements OnInit {
     }
 
 
-    if (this.flag_cart) {
-
-
-      if (typeof (Storage) !== "undefined") {
-        // Gán dữ liệu
-        sessionStorage.cart = JSON.stringify(this.product_giohang);
-
-      } else {
-        document.write('Trình duyệt của bạn không hỗ trợ sessionStorage');
-      }
-      //localStorage.setItem("cart", JSON.stringify(this.product_giohang));
-
-      //this.xyzUserListService.giohang = JSON.parse(localStorage.getItem('cart'));
-      this.xyzUserListService.giohang = JSON.parse(sessionStorage.cart);
-      this.total = 0;
-      this.count_c = 0;
-      for (var _i = 0; _i < this.product_giohang.length; _i++) {
-
-        this.total = this.total + this.product_giohang[_i][0].subtotal;
-        this.count_c = this.count_c + Number(this.product_giohang[_i][0].qty);
-
-      }
-
-
-
-      //localStorage.setItem("total", JSON.stringify(this.total));
-      sessionStorage.total = JSON.stringify(this.total);
-      this.xyzUserListService.emitChange(this.count_c);
-      sessionStorage.count_cart = this.count_c;
-      this.xyzUserListService.count_cart = this.count_c;
-    }
+    this.flagCart(this.flag_cart, this.product_giohang);
   }
 
 }

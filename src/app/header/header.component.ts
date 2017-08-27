@@ -165,31 +165,31 @@ export class HeaderComponent implements OnInit {
 
         this.products_search = response;
 
-    //     const suggestions = document.querySelector('.html-search');
-    //     let html = this.products_search.map(product => {
-    //       const productName = this.replacePipe.transform(product.name, this.filter, `<span class="hl">${this.filter}</span>`);
-    //       const productPrice = this.formatNumVNPipe.transform(product.price);
-    //       return `
-    //   <li class="span3">
-    //       <a class="prdocutname" routerLink="/chi-tiet-san-pham/${product.id}/${product.alias}">${productName}</a>
-    //       <div class="thumbnail">
-    //         <span class="sale tooltip-test">Sale</span>
-    //         <a routerLink="/chi-tiet-san-pham/${product.id}/${product.alias}"><img alt="" src="${this.link_img}${product.image}"></a>
-    //         <div class="pricetag">
-    //           <span class="spiral"></span><a (click)="addcart(${product.id})" class="productcart" id="${product.id}" #cart>ADD TO CART</a>
-    //           <div class="price">
-    //             <div class="pricenew">${productPrice} D</div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </li>
-    // `;
-    //     }).join('');
+        //     const suggestions = document.querySelector('.html-search');
+        //     let html = this.products_search.map(product => {
+        //       const productName = this.replacePipe.transform(product.name, this.filter, `<span class="hl">${this.filter}</span>`);
+        //       const productPrice = this.formatNumVNPipe.transform(product.price);
+        //       return `
+        //   <li class="span3">
+        //       <a class="prdocutname" routerLink="/chi-tiet-san-pham/${product.id}/${product.alias}">${productName}</a>
+        //       <div class="thumbnail">
+        //         <span class="sale tooltip-test">Sale</span>
+        //         <a routerLink="/chi-tiet-san-pham/${product.id}/${product.alias}"><img alt="" src="${this.link_img}${product.image}"></a>
+        //         <div class="pricetag">
+        //           <span class="spiral"></span><a (click)="addcart(${product.id})" class="productcart" id="${product.id}" #cart>ADD TO CART</a>
+        //           <div class="price">
+        //             <div class="pricenew">${productPrice} D</div>
+        //           </div>
+        //         </div>
+        //       </div>
+        //     </li>
+        // `;
+        //     }).join('');
 
-    //     //suggestions.innerHTML = html;
-      
-    //       this.html22 = this.sanitizer.bypassSecurityTrustHtml(html);
-        
+        //     //suggestions.innerHTML = html;
+
+        //       this.html22 = this.sanitizer.bypassSecurityTrustHtml(html);
+
 
         if (response == '') {
           this.noresult = 'Không có sản phẩm nào phù hợp với kết quả tìm kiếm của bạn. Vui lòng chọn lại !'
@@ -250,6 +250,7 @@ export class HeaderComponent implements OnInit {
   @ViewChild('search') search11: ElementRef;
   ngAfterViewInit() {
 
+
     jQuery(window).on('load', function () {
 
       jQuery(document).on("click", ".js-home", function () {
@@ -262,17 +263,22 @@ export class HeaderComponent implements OnInit {
         });
 
       });
-      jQuery(document).on("keyup", "#search", function () {
-        console.log($(this).val().trim().length);
+      jQuery(document).on("keyup", "#search", function (e) {
 
-        if ($(this).val().trim() == '') {
-          jQuery('#mainslider').removeData("flexslider");
-          (<any>jQuery('#mainslider')).flexslider({
-            animation: "slide",
-            start: function (slider) {
-              jQuery('body').removeClass('loading');
-            }
-          });
+        if (e.keyCode == 8 && jQuery(this).val() == '') {
+          //  alert(1);
+
+          setTimeout(function () {
+            jQuery('#mainslider').removeData("flexslider");
+            (<any>jQuery('#mainslider')).flexslider({
+              animation: "slide",
+              start: function (slider) {
+                jQuery('body').removeClass('loading');
+              }
+            });
+          }, 500);
+
+
         }
 
 

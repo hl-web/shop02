@@ -27,7 +27,7 @@
                 <label class="control-label"><span class="red">*</span> Name:</label>
                 <div class="controls">
                   <input type="text" id="name" class="form-control" required minlength="4" maxlength="24" name="name" [(ngModel)]="account.name"
-                    #name="ngModel" value="{{name}}">
+                    #name="ngModel" value="{{name}}" (change)="isDirty = true">
                   <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
                     <div [hidden]="!name.errors.required">
                       name is required
@@ -46,7 +46,7 @@
                 <label class="control-label"><span class="red">*</span> Email:</label>
                 <div class="controls">
                   <input type="text" id="email" class="form-control" required name="email" [(ngModel)]="account.email" #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
-                    value="{{email}}" (keyup)="checkemail_same(email.value)">
+                    value="{{email}}" (keyup)="checkemail_same(email.value)" (change)="isDirty = true">
                   <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
                     <div [hidden]="!email.errors.required">
                       Email is required
@@ -71,7 +71,7 @@
                 <label class="control-label"><span class="red">*</span> Password New:</label>
                 <div class="controls">
                   <input type="password" class="form-control" name="password" [ngModel]="account.password" required validateEqual="confirmPassword"
-                    reverse="true" #password="ngModel">
+                    reverse="true" #password="ngModel" (change)="isDirty = true">
                   <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger">
                     <div [hidden]="!password.errors.required">
                       Password is required
@@ -84,7 +84,7 @@
                 <label class="control-label"><span class="red">*</span> Password New Confirm:</label>
                 <div class="controls">
                   <input type="password" class="form-control" name="confirmPassword" [ngModel]="" required validateEqual="password" reverse="false"
-                    #confirmPassword="ngModel">
+                    #confirmPassword="ngModel" (change)="isDirty = true">
 
                   <div *ngIf="confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)" class="alert alert-danger">
                     <div [hidden]="!confirmPassword.errors.required">
@@ -168,9 +168,9 @@
         <td>{{i + 1}}</td>
         <td><img src="{{link_img}}{{item.image}}" width="80" height="80"></td>
         <td>{{item.name}}</td>
-        <td>{{item.price}}</td>
+        <td>{{item.price | formatNumVN }} D</td>
         <td>{{item.qty}}</td>
-        <td>{{item.price*item.qty}}</td>
+        <td>{{item.price*item.qty | formatNumVN }} D</td>
       </tr>
     </table>
 
@@ -180,7 +180,7 @@
           <tbody>
             <tr>
               <td><span class="extra bold totalamout">Tổng tiền :</span></td>
-              <td><span class="bold totalamout" id="totalamout">{{sTotal}} D</span></td>
+              <td><span class="bold totalamout" id="totalamout">{{sTotal | formatNumVN }} D</span></td>
             </tr>
           </tbody>
         </table>

@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { element } from 'protractor';
 import { XyzUserListService } from './../home.service';
-import { Component, OnInit, AfterViewInit, ElementRef, trigger, state, animate, transition, style } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, trigger, state, animate, transition, style, ViewChild } from '@angular/core';
 import { NgForm } from "@angular/forms/src/forms";
 import * as $ from 'jquery';
 import { Account } from './../account';
@@ -30,8 +30,8 @@ export class InfoComponent implements OnInit {
   name: string;
   editName: string;
   email: string;
-  editEmail:string;
-  editPassword:string='';
+  editEmail: string;
+  editPassword: string = '';
   usernam: string;
   id: string;
   password: string;
@@ -47,6 +47,7 @@ export class InfoComponent implements OnInit {
   flag_info: number;
   load: boolean;
   temp: any;
+  isDirty: boolean = false;
   private sub: any;
   constructor(private xyzUserListService: XyzUserListService, private router: Router) {
     xyzUserListService.changeEmitted2.subscribe(
@@ -57,9 +58,10 @@ export class InfoComponent implements OnInit {
 
       });
   }
+  // @ViewChild('name') nameChange: ElementRef;
   canDeactivate() {
-    
-    if ((this.editName !=  this.account.name) || (this.editEmail !=  this.account.email) || (this.editPassword != this.account.password)) {
+
+    if (this.isDirty) {
       return window.confirm('Discard changes?');
     }
 
