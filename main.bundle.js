@@ -1570,20 +1570,20 @@ var HeaderComponent = (function () {
                     }
                 });
             });
-            jQuery(document).on("keyup", "#search", function (e) {
-                if (e.keyCode == 8 && jQuery(this).val() == '') {
-                    //  alert(1);
-                    setTimeout(function () {
-                        jQuery('#mainslider').removeData("flexslider");
-                        jQuery('#mainslider').flexslider({
-                            animation: "slide",
-                            start: function (slider) {
-                                jQuery('body').removeClass('loading');
-                            }
-                        });
-                    }, 2000);
-                }
-            });
+            // jQuery(document).on("keyup", "#search", function (e) {
+            //   if (e.keyCode == 8 && jQuery(this).val() == '') {
+            //     //  alert(1);
+            //     setTimeout(function () {
+            //       jQuery('#mainslider').removeData("flexslider");
+            //       (<any>jQuery('#mainslider')).flexslider({
+            //         animation: "slide",
+            //         start: function (slider) {
+            //           jQuery('body').removeClass('loading');
+            //         }
+            //       });
+            //     }, 2000);
+            //   }
+            // });
         });
         this.search11.nativeElement.focus();
     };
