@@ -1581,7 +1581,7 @@ var HeaderComponent = (function () {
                                 jQuery('body').removeClass('loading');
                             }
                         });
-                    }, 500);
+                    }, 2000);
                 }
             });
         });
