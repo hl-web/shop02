@@ -17,6 +17,9 @@ export class CartComponent implements OnInit {
   flag_cart: boolean;
   no_product: boolean;
   flag_search1: boolean;
+  showDialog: boolean = false;
+  deleteId: number;
+  cfdelete: boolean = false;
   constructor(private xyzUserListService: XyzUserListService, private router: Router) {
     xyzUserListService.changeEmitted2.subscribe(
       text => {
@@ -40,6 +43,7 @@ export class CartComponent implements OnInit {
 
 
       this.product_giohang = JSON.parse(sessionStorage.cart);
+      console.log(this.product_giohang);
       // for (var _i = 0; _i < this.product_giohang.length; _i++) {
 
       //   this.total = this.total + this.product_giohang[_i][0].subtotal;
@@ -66,6 +70,7 @@ export class CartComponent implements OnInit {
     }
 
 
+
     this.link_img = this.xyzUserListService.link_img;
     this.domain = this.xyzUserListService.domain;
 
@@ -73,72 +78,41 @@ export class CartComponent implements OnInit {
 
   delete(id) {
 
-    if (confirm('Bạn chắc chắn muốn xóa sản phẩm này?')) {
-      console.clear();
-      let item = this.product_giohang.find(function (value) {
-        return value[0].id == id;
-      });
-      let index = this.product_giohang.indexOf(item);
-      console.log(index);
 
-      if (index > -1) {
-        this.product_giohang.splice(index, 1);
-        this.flag_cart = true;
-        if (this.product_giohang <= 0) {
-          this.no_product = true;
-        }
+    console.clear();
+    let item = this.product_giohang.find(function (value) {
+      return value[0].id == id;
+    });
+    let index = this.product_giohang.indexOf(item);
+    console.log(index);
+
+    if (index > -1) {
+      this.product_giohang.splice(index, 1);
+      this.flag_cart = true;
+      if (this.product_giohang <= 0) {
+        this.no_product = true;
       }
-      else {
-        this.flag_cart = false;
-      }
-
-      // this.product_giohang.find((value, index) => {
-      //   console.log(value[0].id);
-      //   if (value[0].id == id) {
-      //     this.product_giohang.splice(index, 1);
-
-      //     this.flag_cart = true;
-      //     if (this.product_giohang <= 0) {
-      //       this.no_product = true;
-      //     }
-      //   }
-      //   else {
-      //     this.flag_cart = false;
-      //   }
-
-      // });
-      // for (var _i = 0; _i < this.product_giohang.length; _i++) {
-
-      //   var num = this.product_giohang[_i];
-      //   if (num[0].id == id) {
-      //     this.product_giohang.splice(_i, 1);
-
-      //     this.flag_cart = true;
-      //     if (this.product_giohang <= 0) {
-      //       this.no_product = true;
-      //     }
-
-      //     break;
-      //   }
-      //   else {
-      //     this.flag_cart = false;
-      //   }
-
-      // }
-
-      this.flagCart(this.flag_cart, this.product_giohang);
-
-
-
-      console.log(this.product_giohang);
-    } else {
-      return false;
+    }
+    else {
+      this.flag_cart = false;
     }
 
 
+    this.flagCart(this.flag_cart, this.product_giohang);
 
 
 
+    console.log(this.product_giohang);
+
+
+
+
+    this.showDialog = false;
+  }
+  cancel(){
+    
+    this.showDialog = false;
+    return false;
   }
   flagCart(flag, cart) {
     if (flag) {
@@ -182,6 +156,11 @@ export class CartComponent implements OnInit {
 
   }
 
+  fcshowDialog(id) {
+    this.showDialog = true;
+    this.deleteId = id;
+    this.cfdelete = true;
+  }
   validateNumber(n) {
     if (n == '') {
       alert("Vui lòng nhập số");

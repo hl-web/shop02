@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, OnChanges, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, OnChanges, EventEmitter, ViewChild, ContentChild } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { CartComponent } from "app/cart/cart.component";
 
 @Component({
   selector: 'app-dialog',
@@ -21,7 +22,7 @@ export class DialogComponent implements OnInit {
   @Input() closable = true;
   @Input() visible: boolean;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+ 
   constructor() { }
 
   ngOnInit() { }

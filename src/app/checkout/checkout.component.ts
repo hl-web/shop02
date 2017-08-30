@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CheckoutComponent implements OnInit {
   product_giohang: any;
-   showDialog = false;
+  showDialog = false;
 
   link_img: string;
   domain: string;
@@ -115,14 +115,14 @@ export class CheckoutComponent implements OnInit {
         delete sessionStorage.total;
         this.xyzUserListService.emitChange('');
         setTimeout(() => {
-           this.showDialog=true;
+          this.showDialog = true;
         }, 300)
       }, (err) => {
         this.error = err; alert(this.error);
       });
 
   }
-   ngAfterViewInit() {
+  ngAfterViewInit() {
 
     jQuery(window).on('load', function () {
 
@@ -138,7 +138,7 @@ export class CheckoutComponent implements OnInit {
       });
     });
   }
-   hidepop() {
+  hidepop() {
     this.showDialog = false;
   }
 }
