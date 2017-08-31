@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, RouterStateSnapshot } from '@angular/router';
 import { element } from 'protractor';
 import { XyzUserListService } from './../home.service';
 import { Component, OnInit, AfterViewInit, ElementRef, trigger, state, animate, transition, style, ViewChild } from '@angular/core';
@@ -49,6 +49,8 @@ export class InfoComponent implements OnInit {
   temp: any;
   isDirty: boolean = false;
   private sub: any;
+  showDialog: boolean = false;
+  active: boolean = false;
   constructor(private xyzUserListService: XyzUserListService, private router: Router) {
     xyzUserListService.changeEmitted2.subscribe(
       text => {
@@ -57,14 +59,15 @@ export class InfoComponent implements OnInit {
         console.log(this.flag_search1);
 
       });
+
   }
+
   // @ViewChild('name') nameChange: ElementRef;
   canDeactivate() {
-
+    //isDirty check su thay doi cua form
     if (this.isDirty) {
-      return window.confirm('Discard changes?');
+      return window.confirm('WARNING: You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.');
     }
-
     return true;
   }
   loading() {

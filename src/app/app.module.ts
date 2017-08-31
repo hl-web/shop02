@@ -36,6 +36,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ReplacePipe } from './replace.pipe';
 import { FormatNumVNPipe } from './format-num-vn.pipe';
+import { TokenManagerService } from './token-manager.service';
 // Must export the config
 export const firebaseConfig = {
   apiKey: "AIzaSyCEPpvtiiK5D4r7HqD74yXA9OIyZf_lzmE",
@@ -81,7 +82,6 @@ const routes: Routes = [
     SpinnerComponent,
     ReplacePipe,
     FormatNumVNPipe
-
   ],
   imports: [
     BrowserModule,
@@ -93,7 +93,7 @@ const routes: Routes = [
     AngularFireDatabaseModule,
     AngularFireAuthModule
   ],
-  providers: [XyzUserListService, AuthGuard, CanDeactivateGuard,ReplacePipe,FormatNumVNPipe],
+  providers: [XyzUserListService, AuthGuard, CanDeactivateGuard, ReplacePipe, FormatNumVNPipe, TokenManagerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

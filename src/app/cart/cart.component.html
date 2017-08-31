@@ -22,7 +22,7 @@
             <th class="total">Tổng tiền</th>
           </tr>
           <tr *ngFor="let item of product_giohang">
-            <td class="image">              
+            <td class="image">
               <a href="#"><img title="product" alt="product" src="{{link_img}}{{item[0].options.img}}" height="50" width="50"></a>
             </td>
             <td class="name"><a href="#">{{item[0].name}}</a></td>
@@ -44,8 +44,11 @@
       </div>
       <app-dialog [(visible)]="showDialog">
         <p>Bạn có chắc muốn xóa sản phẩm?</p>
-        <button (click)=delete(deleteId) type="button">OK</button>
-        <button (click)=cancel() type="button">Cancel</button>
+        <hr>
+        <div class="btn-wrap">
+          <button (click)=delete(deleteId) type="button" class="btn btn-success">OK</button>
+          <button (click)=cancel() type="button" class="btn btn-danger">Cancel</button>
+        </div>
       </app-dialog>
       <div class="container" *ngIf="!no_product">
         <div class="pull-right">
@@ -70,3 +73,6 @@
     </div>
   </section>
 </div>
+<app-dialog [(visible)]="showDialogvc">
+  <p class="alert alert-danger" style="margin:0">Vui lòng nhập số</p>
+</app-dialog>

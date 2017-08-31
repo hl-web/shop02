@@ -1,20 +1,14 @@
+import { TokenManagerService } from './token-manager.service';
 import { Headers, Http, Response } from '@angular/http';
 import 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-
-
-
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 import { AngularFireAuth } from 'angularfire2/auth';
 @Injectable()
 export class XyzUserListService {
-
-
-  constructor(private http: Http, private afAuth: AngularFireAuth) {
-
-  }
+  constructor(private http: Http, private afAuth: AngularFireAuth, private tokenManagerService: TokenManagerService) { }
   showDialog = false;
   temp_pro: any[] = [];
   abc: any;
@@ -152,7 +146,7 @@ export class XyzUserListService {
 
 
   get() {
-console.log(this.http.get(this.API + 'api/home'));
+    console.log(this.http.get(this.API + 'api/home'));
 
     return this.http.get(this.API + 'api/home').map(res => res.json());
   }
@@ -228,7 +222,8 @@ console.log(this.http.get(this.API + 'api/home'));
       .do(
       tokenData => {
         if (autologin) {
-          localStorage.setItem('token', tokenData.token);
+          this.tokenManagerService.generateNewToken(tokenData.token);
+          //localStorage.setItem('token', tokenData.token);
           localStorage.setItem('id', tokenData.id);
           localStorage.setItem('email', tokenData.email);
           localStorage.setItem('name', tokenData.name);
@@ -239,7 +234,8 @@ console.log(this.http.get(this.API + 'api/home'));
         else {
           if (typeof (Storage) !== "undefined") {
             // Gán dữ liệu
-            sessionStorage.token = tokenData.token;
+            
+           sessionStorage.token = tokenData.token;
             sessionStorage.id = tokenData.id;
             sessionStorage.email = tokenData.email;
             sessionStorage.name = tokenData.name;
@@ -280,7 +276,10 @@ console.log(this.http.get(this.API + 'api/home'));
 
 
   updateInfo(user, id) {
-    const token = this.getToken();
+    //const token = this.getToken();
+      let token =  this.tokenManagerService.retrieveToken();
+      console.log(token);
+      
     var headers = new Headers();
     headers.append('Content-type', 'application/json');
     return this.http.post(this.API + 'api/user/update/' + id + '?token=' + token, user, { headers: headers })

@@ -20,6 +20,7 @@ export class CartComponent implements OnInit {
   showDialog: boolean = false;
   deleteId: number;
   cfdelete: boolean = false;
+  showDialogvc: boolean = false;
   constructor(private xyzUserListService: XyzUserListService, private router: Router) {
     xyzUserListService.changeEmitted2.subscribe(
       text => {
@@ -109,8 +110,8 @@ export class CartComponent implements OnInit {
 
     this.showDialog = false;
   }
-  cancel(){
-    
+  cancel() {
+
     this.showDialog = false;
     return false;
   }
@@ -159,22 +160,18 @@ export class CartComponent implements OnInit {
   fcshowDialog(id) {
     this.showDialog = true;
     this.deleteId = id;
-    this.cfdelete = true;
+
   }
   validateNumber(n) {
     if (n == '') {
-      alert("Vui lòng nhập số");
+      this.showDialogvc = true;
 
     }
   }
 
   update(value, id, e) {
     if (value == '0') {
-      if (confirm('Bạn chắc chắn muốn xóa sản phẩm này?')) {
-        this.delete(id);
-      } else {
-        return false;
-      }
+      this.fcshowDialog(id);
 
     }
     console.log(typeof value);
