@@ -110,35 +110,36 @@
           </div>
         </form>
       </div>
-      <app-spinner [isRunning]="isRequesting"></app-spinner>
+      <app-spinner [isRunning]="!(products_order$ | async)"></app-spinner>
       <div id="tab-2" class="tab-container">
+        <div *ngIf="products_order$ | async as product_orders ">
+          <div class="cart-info" id="cart-info" *ngIf="product_orders.length > 0">
 
-        <div class="cart-info" id="cart-info" *ngIf="!no_product">
+            <table class="table table-striped table-bordered">
+              <tr>
+                <th>STT</th>
+                <th>Date</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Xem chi tiết</th>
+              </tr>
 
-          <table class="table table-striped table-bordered">
-            <tr>
-              <th>STT</th>
-              <th>Date</th>
-              <th>Email</th>
-              <th>Name</th>
-              <th>Phone</th>
-              <th>Xem chi tiết</th>
-            </tr>
+              <tr *ngFor="let item of product_orders; let i= index;">
+                <td>{{i + 1}}</td>
+                <td>{{item.created_at}}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.phone}}</td>
 
-            <tr *ngFor="let item of products_order; let i= index;">
-              <td>{{i + 1}}</td>
-              <td>{{item.created_at}}</td>
-              <td>{{item.email}}</td>
-              <td>{{item.name}}</td>
-              <td>{{item.phone}}</td>
+                <td><a #id_order (click)="detail_order(id_order.id)" class="js-open-modal" data-modal-id="popup" id="{{item.id}}"> Click me </a></td>
+              </tr>
 
-              <td><a #id_order (click)="detail_order(id_order.id)" class="js-open-modal" data-modal-id="popup" id="{{item.id}}"> Click me </a></td>
-            </tr>
+            </table>
 
-          </table>
-
+          </div>
         </div>
-        <div class="container" *ngIf="no_product">
+        <div class="container" *ngIf="(products_order$ | async)?.length==0">
           <p>Không có sản phẩm nào trong giỏ hàng. Vui lòng quay lại mua sắm !</p>
           <p>
             <a routerLink=""><input value="Tiếp tục mua sắm" class="btn btn-orange pull-left"></a>
@@ -188,11 +189,16 @@
       <div class="span6 pull-right">
       </div>
     </div>
-
-
-
   </div>
   <footer>
     <a class="js-modal-close">Close</a>
   </footer>
 </div>
+<app-dialog [(visible)]="showDialog">
+  <p>Bạn có chắc muốn xóa sản phẩm?</p>
+  <hr>
+  <div class="btn-wrap">
+    <button (click)="obs.next($event)" type="button" class="btn btn-success">OK</button>
+    <button (click)="obs1.next($event)" type="button" class="btn btn-danger">Cancel</button>
+  </div>
+</app-dialog>

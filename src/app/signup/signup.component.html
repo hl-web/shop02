@@ -1,7 +1,7 @@
 <div id="maincontainer" *ngIf="!flag_search1">
   <section id="product">
     <div class="container">
-     <!--  breadcrumb --> 
+      <!--  breadcrumb -->
       <ul class="breadcrumb">
         <li>
           <a routerLink="" class="js-home">Trang chủ</a>
@@ -9,87 +9,87 @@
         </li>
         <li class="active">Đăng ký tài khoản</li>
       </ul>
-      <div class="row">        
+      <div class="row">
         <!-- Register Account-->
         <div class="span9">
-         
+
           <h1 class="heading1"><span class="maintext">Đăng ký tài khoản</span><span class="subtext">Register Your details with us</span></h1>
-          <form class="form-horizontal"  (ngSubmit)="onSignup(f)" #f="ngForm">
-           
+          <form class="form-horizontal" (ngSubmit)="onSignup(f)" #f="ngForm">
+
             <h3 class="heading3">Your Personal Details</h3>
             <div class="registerbox">
               <fieldset>
                 <div class="control-group">
-                <label class="control-label"><span class="red">*</span> Name:</label>
-                <div class="controls">
-                  <input type="text" id="name" class="form-control" required minlength="4" maxlength="24" name="name" [(ngModel)]="account.name"
-                    #name="ngModel" value="{{name}}">
-                  <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
-                    <div [hidden]="!name.errors.required">
-                      Name is required
-                    </div>
-                    <div [hidden]="!name.errors.minlength">
-                      Name must be at least 4 characters long.
-                    </div>
-                    <div [hidden]="!name.errors.maxlength">
-                      Name cannot be more than 24 characters long.
+                  <label class="control-label"><span class="red">*</span> Name:</label>
+                  <div class="controls">
+                    <input type="text" id="name" class="form-control" required minlength="4" maxlength="24" name="name" [(ngModel)]="account.name"
+                      #name="ngModel" value="{{name}}">
+                    <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
+                      <div [hidden]="!name.errors.required">
+                        Name is required
+                      </div>
+                      <div [hidden]="!name.errors.minlength">
+                        Name must be at least 4 characters long.
+                      </div>
+                      <div [hidden]="!name.errors.maxlength">
+                        Name cannot be more than 24 characters long.
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-                 <div class="control-group">
-                <label class="control-label"><span class="red">*</span> Email:</label>
-                <div class="controls">
-                  <input type="text" id="email" class="form-control" required name="email" [(ngModel)]="account.email" #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
-                    value="{{email}}" (keyup)="checkemail_same(email.value)">
-                  <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
-                    <div [hidden]="!email.errors.required">
-                      Email is required
+                <div class="control-group">
+                  <label class="control-label"><span class="red">*</span> Email:</label>
+                  <div class="controls">
+                    <input type="text" id="email" class="form-control" required name="email" [(ngModel)]="account.email" #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                      value="{{email}}" (change)="checkemail_same(email.value)">
+                    <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+                      <div [hidden]="!email.errors.required">
+                        Email is required
+                      </div>
+                      <div [hidden]="!email.errors.pattern">
+                        Email is invalid
+                      </div>
                     </div>
-                    <div [hidden]="!email.errors.pattern">
-                      Email is invalid
-                    </div>
-                  </div>
 
-                  <div *ngIf="flag_validate_email" class="alert alert-danger">
-                    Email has been used
+                    <div *ngIf="result | async as rs">
+                      <p *ngIf="rs.success =='yes'" class="alert alert-danger">Email has been used</p>
+                    </div>
+
                   </div>
-                  
                 </div>
-              </div>
               </fieldset>
             </div>
             <h3 class="heading3">Your Password</h3>
             <div class="registerbox">
               <fieldset>
                 <div class="control-group">
-                <label class="control-label"><span class="red">*</span> Password New:</label>
-                <div class="controls">
-                  <input type="password" class="form-control" name="password" [ngModel]="account.password" required validateEqual="confirmPassword"
-                    reverse="true" #password="ngModel">
-                  <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger">
-                    <div [hidden]="!password.errors.required">
-                      Password is required
+                  <label class="control-label"><span class="red">*</span> Password New:</label>
+                  <div class="controls">
+                    <input type="password" class="form-control" name="password" [ngModel]="account.password" required validateEqual="confirmPassword"
+                      reverse="true" #password="ngModel">
+                    <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger">
+                      <div [hidden]="!password.errors.required">
+                        Password is required
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
                 <div class="control-group">
-                <label class="control-label"><span class="red">*</span> Password New Confirm:</label>
-                <div class="controls">
-                  <input type="password" class="form-control" name="confirmPassword" [ngModel]="" required validateEqual="password" reverse="false"
-                    #confirmPassword="ngModel">
+                  <label class="control-label"><span class="red">*</span> Password New Confirm:</label>
+                  <div class="controls">
+                    <input type="password" class="form-control" name="confirmPassword" [ngModel]="" required validateEqual="password" reverse="false"
+                      #confirmPassword="ngModel">
 
-                  <div *ngIf="confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)" class="alert alert-danger">
-                    <div [hidden]="!confirmPassword.errors.required">
-                      Password is required
-                    </div>
-                    <div [hidden]="confirmPassword.valid || (confirmPassword.pristine )">
-                      Password not same
+                    <div *ngIf="confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)" class="alert alert-danger">
+                      <div [hidden]="!confirmPassword.errors.required">
+                        Password is required
+                      </div>
+                      <div [hidden]="confirmPassword.valid || (confirmPassword.pristine )">
+                        Password not same
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
               </fieldset>
             </div>
             <div class="pull-right">

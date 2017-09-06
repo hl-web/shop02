@@ -1,4 +1,5 @@
-import { Router, RouterStateSnapshot } from '@angular/router';
+import { Subject } from 'rxjs/Subject';
+import { Router, RouterStateSnapshot, NavigationEnd, NavigationStart } from '@angular/router';
 import { element } from 'protractor';
 import { XyzUserListService } from './../home.service';
 import { Component, OnInit, AfterViewInit, ElementRef, trigger, state, animate, transition, style, ViewChild } from '@angular/core';
@@ -35,7 +36,7 @@ export class InfoComponent implements OnInit {
   usernam: string;
   id: string;
   password: string;
-  products_order: any;
+  products_order$: any;
   detail_order_product: any;
   flag_validate_email: boolean;
   link_img: string;
@@ -51,6 +52,13 @@ export class InfoComponent implements OnInit {
   private sub: any;
   showDialog: boolean = false;
   active: boolean = false;
+  urlNext: string;
+  flagshow: boolean = false;
+
+  private obs = new Subject();
+  public obs$ = this.obs.asObservable();
+  private obs1 = new Subject();
+  public obs11 = this.obs1.asObservable();
   constructor(private xyzUserListService: XyzUserListService, private router: Router) {
     xyzUserListService.changeEmitted2.subscribe(
       text => {
@@ -59,33 +67,77 @@ export class InfoComponent implements OnInit {
         console.log(this.flag_search1);
 
       });
-
   }
+  handleDialogButton(): Promise<boolean> {
+    var prom = new Promise<boolean>((resolve, reject) => {
+      this.obs$.subscribe((result) => {
+        // console.log(result);
 
+        if (result) {
+          resolve(true)
+        }
+        else {
+          this.showDialog = false;
+          reject(false);
+        }
+      });
+
+      this.obs11.subscribe((result) => {
+        // console.log(result);
+
+        if (result) {
+          this.showDialog = false;
+          reject(false);
+        }
+        else {
+
+          resolve(true);
+        }
+      });
+    });
+    return prom;
+  }
   // @ViewChild('name') nameChange: ElementRef;
-  canDeactivate() {
+  canDeactivate(): Promise<boolean> {
     //isDirty check su thay doi cua form
     if (this.isDirty) {
-      return window.confirm('WARNING: You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.');
+      this.showDialog = true;
+      return this.handleDialogButton().catch(function () {
+        return false;
+      });
     }
-    return true;
+    else {
+      return Promise.resolve(true).catch(function () {
+        return false;
+      });
+    }
+
+    //return window.confirm('WARNING: You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.');
+    // }
+    // return Promise.resolve(true);
+
   }
+
+
   loading() {
+    this.products_order$ = this.xyzUserListService.getOrderUser(this.id);
+   
+ 
+   
+    // this.isRequesting = true;
 
-    this.isRequesting = true;
+    // this.sub = this.xyzUserListService.getOrderUser(this.id).subscribe((response) => {
 
-    this.sub = this.xyzUserListService.getOrderUser(this.id).subscribe((response) => {
-
-      this.products_order = response;
-      this.isRequesting = false;
-      console.log(this.products_order);
-      if (this.products_order.length <= 0 || this.products_order == []) {
-        this.no_product = true;
-      }
-      else {
-        this.no_product = false;
-      }
-    });
+    //   this.products_order = response;
+    //   this.isRequesting = false;
+    //   console.log(this.products_order);
+    //   if (this.products_order.length <= 0 || this.products_order == []) {
+    //     this.no_product = true;
+    //   }
+    //   else {
+    //     this.no_product = false;
+    //   }
+    // });
   }
 
 
