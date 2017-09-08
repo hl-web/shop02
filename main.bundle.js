@@ -55,10 +55,10 @@ __decorate([
     __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */]) === "function" && _a || Object)
 ], CollapseComponent.prototype, "selectedChange", void 0);
 CollapseComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* Component */])({
         selector: 'tp-collapse',
-        template: __webpack_require__(562),
-        styles: [__webpack_require__(483)],
+        template: __webpack_require__(563),
+        styles: [__webpack_require__(484)],
         encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["q" /* ViewEncapsulation */].None
     }),
     __metadata("design:paramtypes", [])
@@ -106,6 +106,236 @@ FormatNumVNPipe = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_service__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_jquery__ = __webpack_require__(541);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__account__ = __webpack_require__(91);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InfoComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var InfoComponent = (function () {
+    function InfoComponent(xyzUserListService, router) {
+        var _this = this;
+        this.xyzUserListService = xyzUserListService;
+        this.router = router;
+        this.visibility = 'shown';
+        this.isVisible = true;
+        this.editPassword = '';
+        this.account = new __WEBPACK_IMPORTED_MODULE_5__account__["a" /* Account */]('', '', '');
+        this.isDirty = false;
+        this.showDialog = false;
+        this.active = false;
+        this.flagshow = false;
+        this.tab = false;
+        this.obs = new __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__["Subject"]();
+        this.obs$ = this.obs.asObservable();
+        this.obs1 = new __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__["Subject"]();
+        this.obs11 = this.obs1.asObservable();
+        xyzUserListService.changeEmitted2.subscribe(function (text) {
+            _this.flag_search1 = text;
+            console.log(_this.flag_search1);
+        });
+    }
+    InfoComponent.prototype.handleDialogButton = function () {
+        var _this = this;
+        var prom = new Promise(function (resolve, reject) {
+            _this.obs$.subscribe(function (result) {
+                // console.log(result);
+                if (result) {
+                    resolve(true);
+                }
+                else {
+                    _this.showDialog = false;
+                    reject(false);
+                }
+            });
+            _this.obs11.subscribe(function (result) {
+                // console.log(result);
+                if (result) {
+                    _this.showDialog = false;
+                    reject(false);
+                }
+                else {
+                    resolve(true);
+                }
+            });
+        });
+        return prom;
+    };
+    // @ViewChild('name') nameChange: ElementRef;
+    InfoComponent.prototype.canDeactivate = function () {
+        //isDirty check su thay doi cua form
+        if (this.isDirty) {
+            this.showDialog = true;
+            return this.handleDialogButton().catch(function () {
+                return false;
+            });
+        }
+        else {
+            return Promise.resolve(true).catch(function () {
+                return false;
+            });
+        }
+        //return window.confirm('WARNING: You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.');
+        // }
+        // return Promise.resolve(true);
+    };
+    InfoComponent.prototype.loading = function () {
+        this.products_order$ = this.xyzUserListService.getOrderUser(this.id);
+        this.tab = true;
+        // this.isRequesting = true;
+        // this.sub = this.xyzUserListService.getOrderUser(this.id).subscribe((response) => {
+        //   this.products_order = response;
+        //   this.isRequesting = false;
+        //   console.log(this.products_order);
+        //   if (this.products_order.length <= 0 || this.products_order == []) {
+        //     this.no_product = true;
+        //   }
+        //   else {
+        //     this.no_product = false;
+        //   }
+        // });
+    };
+    InfoComponent.prototype.ngOnInit = function () {
+        if ((localStorage.getItem("id") == null)) {
+            this.check_token = true;
+        }
+        else {
+            this.check_token = false;
+            this.account.name = localStorage.getItem("name");
+            this.account.email = localStorage.getItem("email");
+            this.id = localStorage.getItem("id");
+        }
+        if ((sessionStorage.id == null)) {
+            this.check_token = true;
+        }
+        else {
+            this.check_token = false;
+            this.account.name = sessionStorage.name;
+            this.account.email = sessionStorage.email;
+            this.id = sessionStorage.id;
+            this.flag_info = sessionStorage.login;
+        }
+        this.link_img = this.xyzUserListService.link_img;
+        this.domain = this.xyzUserListService.domain;
+    };
+    InfoComponent.prototype.detail_order = function (id) {
+        var _this = this;
+        this.xyzUserListService.getOrderUserDetail(id).subscribe(function (response) {
+            _this.detail_order_product = response;
+            var total = 0;
+            for (var _i = 0; _i < response.length; _i++) {
+                var product = response[_i];
+                console.log(product.price);
+                total += (product.price * product.qty);
+            }
+            _this.sTotal = total;
+        });
+    };
+    InfoComponent.prototype.updateInfo = function (form) {
+        var _this = this;
+        this.account.email = form.value.email;
+        this.account.name = form.value.name;
+        this.account.password = form.value.password;
+        var result = this.xyzUserListService.updateInfo(this.account, this.id);
+        result.subscribe(function (data) {
+            console.log(data);
+            if (data.status == 'yes') {
+                _this.flag_success = true;
+                _this.isVisible = !_this.isVisible;
+                console.log(_this.isVisible);
+                _this.visibility = _this.isVisible ? 'shown' : 'hidden';
+                form.controls.password.reset();
+                form.controls.confirmPassword.reset();
+                _this.router.navigate(['/thong-tin']);
+            }
+        }, function (errorData) {
+            console.log(errorData);
+        });
+    };
+    InfoComponent.prototype.checkemail_same = function (em, id) {
+        var _this = this;
+        this.flag_validate_email = false;
+        var result = this.xyzUserListService.validate_email_user(em, this.id);
+        result.subscribe(function (data) {
+            if (data.success === 'yes') {
+                _this.flag_validate_email = true;
+            }
+            else if (data.success === 'old') {
+                _this.flag_validate_email_old = true;
+            }
+        }, function (errorData) {
+        });
+    };
+    InfoComponent.prototype.ngAfterViewInit = function () {
+        __WEBPACK_IMPORTED_MODULE_4_jquery__(document).ready(function () {
+            __WEBPACK_IMPORTED_MODULE_4_jquery__('ul.tabs li').click(function () {
+                var tab = __WEBPACK_IMPORTED_MODULE_4_jquery__(this).data('tab');
+                __WEBPACK_IMPORTED_MODULE_4_jquery__('ul.tabs li').removeClass('current');
+                __WEBPACK_IMPORTED_MODULE_4_jquery__('.tab-container').removeClass('current');
+                __WEBPACK_IMPORTED_MODULE_4_jquery__(this).addClass('current');
+                __WEBPACK_IMPORTED_MODULE_4_jquery__("#" + tab).addClass('current');
+            });
+            var appendthis = ("<div class='modal-overlay js-modal-close'></div>");
+            __WEBPACK_IMPORTED_MODULE_4_jquery__(document).on("click", "a[data-modal-id]", function (e) {
+                e.preventDefault();
+                __WEBPACK_IMPORTED_MODULE_4_jquery__("body").append(appendthis);
+                __WEBPACK_IMPORTED_MODULE_4_jquery__(".modal-overlay").fadeTo(500, 0.7);
+                //$(".js-modalbox").fadeIn(500);
+                var modalBox = __WEBPACK_IMPORTED_MODULE_4_jquery__(this).attr('data-modal-id');
+                __WEBPACK_IMPORTED_MODULE_4_jquery__('#' + modalBox).fadeIn(__WEBPACK_IMPORTED_MODULE_4_jquery__(this).data());
+            });
+            __WEBPACK_IMPORTED_MODULE_4_jquery__(document).on("click", ".js-modal-close, .modal-overlay", function () {
+                __WEBPACK_IMPORTED_MODULE_4_jquery__(".modal-box, .modal-overlay").fadeOut(500, function () {
+                    __WEBPACK_IMPORTED_MODULE_4_jquery__(".modal-overlay").remove();
+                });
+            });
+        });
+    };
+    return InfoComponent;
+}());
+InfoComponent = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_15" /* Component */])({
+        selector: 'app-info',
+        template: __webpack_require__(571),
+        styles: [__webpack_require__(492)],
+        animations: [
+            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_17" /* trigger */])('visibilityChanged', [
+                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_18" /* state */])('shown', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_19" /* style */])({ opacity: 1 })),
+                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_18" /* state */])('hidden', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_19" /* style */])({ opacity: 0 })),
+                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_20" /* transition */])('* => *', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_21" /* animate */])('5s'))
+            ])
+        ],
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__home_service__["a" /* XyzUserListService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object])
+], InfoComponent);
+
+var _a, _b;
+//# sourceMappingURL=info.component.js.map
+
+/***/ }),
+
+/***/ 162:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(3);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReplacePipe; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -135,7 +365,7 @@ ReplacePipe = __decorate([
 
 /***/ }),
 
-/***/ 162:
+/***/ 163:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -177,7 +407,321 @@ var TokenManagerService = (function () {
 
 /***/ }),
 
-/***/ 274:
+/***/ 27:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__token_manager_service__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(238);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__ = __webpack_require__(122);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return XyzUserListService; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var XyzUserListService = (function () {
+    function XyzUserListService(http, afAuth, tokenManagerService) {
+        this.http = http;
+        this.afAuth = afAuth;
+        this.tokenManagerService = tokenManagerService;
+        this.showDialog = false;
+        this.temp_pro = [];
+        this.giohang = [];
+        this.giohangsum = [];
+        this.link_img = 'http://hunglx-ng-lar.esy.es/resources/upload/';
+        this.domain = 'http://hunglx-ng-lar.esy.es/';
+        this.API = 'https://cors-anywhere.herokuapp.com/http://hunglx-ng-lar.esy.es/';
+        // Observable string sources
+        this.emitChangeSource = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["Subject"]();
+        // Observable string streams
+        this.changeEmitted$ = this.emitChangeSource.asObservable();
+        // Observable string sources
+        this.emitChangeSource_1 = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["Subject"]();
+        // Observable string streams
+        this.changeEmitted_1 = this.emitChangeSource_1.asObservable();
+        // Observable string sources
+        this.emitChangeSource2 = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["Subject"]();
+        // Observable string streams
+        this.changeEmitted2 = this.emitChangeSource2.asObservable();
+        // Observable string sources
+        this.emitChangeSource3 = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["Subject"]();
+        // Observable string streams
+        this.changeEmitted3 = this.emitChangeSource3.asObservable();
+        // Observable string sources
+        this.emitChangeSource4 = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["Subject"]();
+        // Observable string streams
+        this.changeEmitted4 = this.emitChangeSource4.asObservable();
+        // Observable string sources
+        this.emitChangeSource5 = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["Subject"]();
+        // Observable string streams
+        this.changeEmitted5 = this.emitChangeSource5.asObservable();
+    }
+    // Service message commands
+    XyzUserListService.prototype.emitChange = function (change) {
+        this.emitChangeSource.next(change);
+    };
+    // Service message commands
+    XyzUserListService.prototype.emitChange_1 = function (change) {
+        this.emitChangeSource_1.next(change);
+    };
+    // Service message commands
+    XyzUserListService.prototype.emitChange2 = function (change) {
+        this.emitChangeSource2.next(change);
+    };
+    // Service message commands
+    XyzUserListService.prototype.emitChange3 = function (change) {
+        this.emitChangeSource3.next(change);
+    };
+    // Service message commands
+    XyzUserListService.prototype.emitChange4 = function (change) {
+        this.emitChangeSource4.next(change);
+    };
+    // Service message commands
+    XyzUserListService.prototype.emitChange5 = function (change) {
+        this.emitChangeSource5.next(change);
+    };
+    XyzUserListService.prototype.logoutSocial = function () {
+        this.afAuth.auth.signOut();
+    };
+    XyzUserListService.prototype.addcart = function (id) {
+        var _this = this;
+        this.http.get(this.API + 'api/mua-hang/' + id).map(function (res) { return res.json(); }).subscribe(function (response) {
+            _this.temp_pro = response.content;
+            if (sessionStorage.cart == null || JSON.parse(sessionStorage.cart).length <= 0) {
+                _this.giohang = [];
+                _this.giohang.push(_this.temp_pro);
+                _this.abc = _this.giohang;
+                // localStorage.setItem("cart", JSON.stringify(this.abc));
+                if (typeof (Storage) !== "undefined") {
+                    // Gán dữ liệu
+                    sessionStorage.cart = JSON.stringify(_this.abc);
+                }
+                else {
+                    document.write('Trình duyệt của bạn không hỗ trợ sessionStorage');
+                }
+                _this.count_cart = 1;
+                _this.showDialog = true;
+                console.log(_this.showDialog);
+            }
+            else {
+                for (var _i = 0; _i < _this.giohang.length; _i++) {
+                    var num = _this.giohang[_i];
+                    if (num[0].id == id) {
+                        _this.flag_cart = false;
+                        _this.giohang[_i][0].qty++;
+                        _this.giohang[_i][0].subtotal = _this.giohang[_i][0].qty * _this.giohang[_i][0].price;
+                        // console.log(this.count_cart);
+                        _this.count_cart++;
+                        _this.abc = _this.giohang;
+                        if (typeof (Storage) !== "undefined") {
+                            // Gán dữ liệu
+                            sessionStorage.cart = JSON.stringify(_this.abc);
+                        }
+                        else {
+                            document.write('Trình duyệt của bạn không hỗ trợ sessionStorage');
+                        }
+                        //localStorage.setItem("cart", JSON.stringify(this.abc));
+                        break;
+                    }
+                    else {
+                        _this.flag_cart = true;
+                    }
+                }
+                if (_this.flag_cart) {
+                    _this.giohang.push(_this.temp_pro);
+                    _this.abc = _this.giohang;
+                    //localStorage.setItem("cart", JSON.stringify(this.abc));
+                    if (typeof (Storage) !== "undefined") {
+                        // Gán dữ liệu
+                        sessionStorage.cart = JSON.stringify(_this.abc);
+                    }
+                    else {
+                        document.write('Trình duyệt của bạn không hỗ trợ sessionStorage');
+                    }
+                    _this.count_cart++;
+                    _this.showDialog = true;
+                    console.log(_this.showDialog);
+                }
+            }
+            //console.log(this.count_cart);
+            _this.emitChange(_this.count_cart);
+            _this.emitChange_1(_this.showDialog);
+            sessionStorage.count_cart = _this.count_cart;
+        });
+    };
+    XyzUserListService.prototype.get = function () {
+        console.log(this.http.get(this.API + 'api/home'));
+        return this.http.get(this.API + 'api/home').map(function (res) { return res.json(); });
+    };
+    XyzUserListService.prototype.get_menu = function () {
+        return this.http.get(this.API + 'api/menu').map(function (res) { return res.json(); });
+    };
+    XyzUserListService.prototype.get_menu_cap2 = function (id) {
+        return this.http.get(this.API + 'api/menu/' + id).map(function (res) { return res.json(); });
+    };
+    XyzUserListService.prototype.search = function (filter, selectedCate, price) {
+        var endpoint = (price) ? '/' + price : '';
+        var cate = (selectedCate) ? '/' + selectedCate : '';
+        return this.http.get(this.API + 'api/home/' + filter + cate + endpoint).map(function (res) { return res.json(); });
+    };
+    XyzUserListService.prototype.catechild = function (selectedCate) {
+        var endpoint = (selectedCate) ? selectedCate : 0;
+        return this.http.get(this.API + 'api/catechild/' + endpoint).map(function (res) { return res.json(); });
+    };
+    XyzUserListService.prototype.getproduct_cate = function (id) {
+        return this.http.get(this.API + 'api/loai-san-pham/' + id).map(function (res) { return res.json(); });
+    };
+    XyzUserListService.prototype.getdetail_product = function (id) {
+        return this.http.get(this.API + 'api/chi-tiet-san-pham/' + id).map(function (res) { return res.json(); });
+    };
+    XyzUserListService.prototype.getMoreTodos = function (id, page) {
+        return this.http.get(this.API + 'api/loai-san-pham/' + id + '?page=' + page).map(function (res) { return res.json(); });
+    };
+    XyzUserListService.prototype.checkout = function (products) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
+        headers.append('Content-type', 'application/json');
+        console.log(JSON.stringify(products));
+        return this.http.post(this.API + 'api/check-out', JSON.stringify(products), { headers: headers }).map(function (res) { return res.json(); }); // Reach here if fails;
+    };
+    XyzUserListService.prototype.signup = function (acc) {
+        console.log(JSON.stringify(acc));
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
+        headers.append('Content-type', 'application/json');
+        return this.http.post(this.API + 'api/user/signup', JSON.stringify(acc), { headers: headers }).map(function (res) { return res.json(); });
+    };
+    XyzUserListService.prototype.signin = function (acc, autologin) {
+        var _this = this;
+        return this.http.post(this.API + 'api/user/signin', acc, { headers: new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]({ 'X-Requested-With': 'XMLHttpRequest' }) })
+            .map(function (response) {
+            var token = response.json().token;
+            var email = response.json().email;
+            var name = response.json().name;
+            var id = response.json().id;
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace('-', '+').replace('_', '/');
+            return { id: id, email: email, name: name, token: token, decoded: JSON.parse(window.atob(base64)) };
+        })
+            .do(function (tokenData) {
+            if (autologin) {
+                _this.tokenManagerService.generateNewToken(tokenData.token);
+                //localStorage.setItem('token', tokenData.token);
+                localStorage.setItem('id', tokenData.id);
+                localStorage.setItem('email', tokenData.email);
+                localStorage.setItem('name', tokenData.name);
+                localStorage.setItem('login', '1');
+                _this.flag_logout = true;
+                _this.emitChange3(_this.flag_logout);
+            }
+            else {
+                if (typeof (Storage) !== "undefined") {
+                    // Gán dữ liệu
+                    sessionStorage.token = tokenData.token;
+                    sessionStorage.id = tokenData.id;
+                    sessionStorage.email = tokenData.email;
+                    sessionStorage.name = tokenData.name;
+                    sessionStorage.login = '1';
+                    _this.flag_logout = true;
+                    _this.emitChange3(_this.flag_logout);
+                }
+                else {
+                    document.write('Trình duyệt của bạn không hỗ trợ local storage');
+                }
+            }
+        });
+    };
+    XyzUserListService.prototype.getToken = function () {
+        if ((sessionStorage.token !== null)) {
+            return sessionStorage.token;
+        }
+        if ((localStorage.getItem("token") !== null)) {
+            return localStorage.getItem('token');
+        }
+    };
+    XyzUserListService.prototype.logOut = function () {
+        localStorage.clear();
+        sessionStorage.clear();
+        delete sessionStorage.cart;
+        delete sessionStorage.count_cart;
+        delete sessionStorage.total;
+        this.emitChange('');
+    };
+    XyzUserListService.prototype.updateInfo = function (user, id) {
+        //const token = this.getToken();
+        if ((sessionStorage.token !== null)) {
+            var token = this.getToken();
+        }
+        else {
+            var token = this.tokenManagerService.retrieveToken();
+        }
+        // console.log(token);
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
+        headers.append('Content-type', 'application/json');
+        return this.http.post(this.API + 'api/user/update/' + id + '?token=' + token, user, { headers: headers })
+            .map(function (response) {
+            var email = response.json().email;
+            var name = response.json().name;
+            var status = response.json().success;
+            return { email: email, name: name, status: status };
+        })
+            .do(function (tokenData) {
+            if ((sessionStorage.token !== null)) {
+                sessionStorage.email = tokenData.email;
+                sessionStorage.name = tokenData.name;
+            }
+            if ((localStorage.getItem("token") !== null)) {
+                localStorage.setItem('email', tokenData.email);
+                localStorage.setItem('name', tokenData.name);
+            }
+        });
+    };
+    XyzUserListService.prototype.getOrderUser = function (id) {
+        return this.http.get(this.API + 'api/user/order/' + id).map(function (res) { return res.json(); });
+    };
+    XyzUserListService.prototype.getOrderUserDetail = function (id) {
+        return this.http.get(this.API + 'api/user/order/detail/' + id).map(function (res) { return res.json(); });
+    };
+    XyzUserListService.prototype.validate_email_user = function (em, id) {
+        if (id === void 0) { id = '0'; }
+        return this.http.post(this.API + 'api/user/validate_email/' + id, { email: em }, { headers: new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]({ 'X-Requested-With': 'XMLHttpRequest' }) }).map(function (res) { return res.json(); });
+    };
+    XyzUserListService.prototype.contact = function (data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
+        headers.append('Content-type', 'application/json');
+        return this.http.post(this.API + 'api/user/lien-he', JSON.stringify(data), { headers: headers }).map(function (res) { return res.json(); });
+    };
+    XyzUserListService.prototype.weather = function () {
+        return this.http.get('https://query.yahooapis.com/v1/public/yql?q=select%20item.condition%20from%20weather.forecast%20where%20woeid%20%3D%2028349033&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys').map(function (res) { return res.json(); });
+    };
+    return XyzUserListService;
+}());
+XyzUserListService = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["c" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__["b" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__["b" /* AngularFireAuth */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__token_manager_service__["a" /* TokenManagerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__token_manager_service__["a" /* TokenManagerService */]) === "function" && _c || Object])
+], XyzUserListService);
+
+var _a, _b, _c;
+//# sourceMappingURL=home.service.js.map
+
+/***/ }),
+
+/***/ 275:
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -186,20 +730,20 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 274;
+webpackEmptyContext.id = 275;
 
 
 /***/ }),
 
-/***/ 275:
+/***/ 276:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(294);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_module__ = __webpack_require__(297);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(318);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(295);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_module__ = __webpack_require__(298);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(319);
 
 
 
@@ -212,13 +756,14 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 
 /***/ }),
 
-/***/ 296:
+/***/ 297:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_service__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common__ = __webpack_require__(90);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -232,18 +777,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AppComponent = (function () {
-    function AppComponent(router) {
+    function AppComponent(router, xyzUserListService) {
+        var _this = this;
         this.router = router;
+        this.xyzUserListService = xyzUserListService;
+        this.isRequesting1 = true;
+        this.isRequesting2 = true;
+        this.load = true;
+        xyzUserListService.changeEmitted4.subscribe(function (text) {
+            _this.isRequesting1 = text;
+            console.log(_this.isRequesting1);
+        });
+        xyzUserListService.changeEmitted5.subscribe(function (text) {
+            _this.isRequesting2 = text;
+            console.log(_this.isRequesting2);
+        });
     }
     AppComponent.prototype.ngOnInit = function () {
-        if (__WEBPACK_IMPORTED_MODULE_2__angular_common__["l" /* isPlatformBrowser */]) {
+        if (__WEBPACK_IMPORTED_MODULE_3__angular_common__["l" /* isPlatformBrowser */]) {
             this.routerSubscription = this.router.events
-                .filter(function (event) { return event instanceof __WEBPACK_IMPORTED_MODULE_1__angular_router__["d" /* NavigationEnd */]; })
+                .filter(function (event) { return event instanceof __WEBPACK_IMPORTED_MODULE_2__angular_router__["d" /* NavigationEnd */]; })
                 .subscribe(function (event) {
                 window.scrollTo(0, 0);
             });
         }
+    };
+    AppComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.load = false;
+            console.log(_this.load);
+        }, 3000);
     };
     AppComponent.prototype.ngOnDestroy = function () {
         this.routerSubscription.unsubscribe();
@@ -251,57 +817,58 @@ var AppComponent = (function () {
     return AppComponent;
 }());
 AppComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Component */])({
         selector: 'app-root',
-        template: __webpack_require__(557),
-        styles: [__webpack_require__(478)]
+        template: __webpack_require__(558),
+        styles: [__webpack_require__(479)],
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */]) === "function" && _b || Object])
 ], AppComponent);
 
-var _a;
+var _a, _b;
 //# sourceMappingURL=app.component.js.map
 
 /***/ }),
 
-/***/ 297:
+/***/ 298:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(120);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(296);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__home_service__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__category_category_component__ = __webpack_require__(299);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_router__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__home_home_component__ = __webpack_require__(311);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__detail_detail_component__ = __webpack_require__(303);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__contact_contact_component__ = __webpack_require__(302);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__footer_footer_component__ = __webpack_require__(308);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__header_header_component__ = __webpack_require__(310);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__cart_cart_component__ = __webpack_require__(298);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__checkout_checkout_component__ = __webpack_require__(300);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__signin_signin_component__ = __webpack_require__(315);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__signup_signup_component__ = __webpack_require__(316);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__info_info_component__ = __webpack_require__(312);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__equal_validator_directive__ = __webpack_require__(305);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__guard_auth_guard__ = __webpack_require__(309);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__saveinfo_guard__ = __webpack_require__(314);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__angular_platform_browser_animations__ = __webpack_require__(295);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(297);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__home_service__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__category_category_component__ = __webpack_require__(300);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_router__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__home_home_component__ = __webpack_require__(313);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__detail_detail_component__ = __webpack_require__(304);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__contact_contact_component__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__footer_footer_component__ = __webpack_require__(310);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__header_header_component__ = __webpack_require__(312);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__cart_cart_component__ = __webpack_require__(299);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__checkout_checkout_component__ = __webpack_require__(301);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__signin_signin_component__ = __webpack_require__(316);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__signup_signup_component__ = __webpack_require__(317);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__info_info_component__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__equal_validator_directive__ = __webpack_require__(307);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__guard_auth_guard__ = __webpack_require__(311);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__saveinfo_guard__ = __webpack_require__(315);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__angular_platform_browser_animations__ = __webpack_require__(296);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__collapse_collapse_component__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__collapse_group_collapse_group_component__ = __webpack_require__(301);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__faq_faq_component__ = __webpack_require__(306);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pipes_temp_converter_pipe__ = __webpack_require__(313);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__dialog_dialog_component__ = __webpack_require__(304);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_angularfire2__ = __webpack_require__(322);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_angularfire2_database__ = __webpack_require__(164);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29_angularfire2_auth__ = __webpack_require__(121);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__spinner_spinner_component__ = __webpack_require__(317);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__replace_pipe__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__collapse_group_collapse_group_component__ = __webpack_require__(302);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__faq_faq_component__ = __webpack_require__(308);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pipes_temp_converter_pipe__ = __webpack_require__(314);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__dialog_dialog_component__ = __webpack_require__(305);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_angularfire2__ = __webpack_require__(323);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_angularfire2_database__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29_angularfire2_auth__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__spinner_spinner_component__ = __webpack_require__(318);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__replace_pipe__ = __webpack_require__(162);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__format_num_vn_pipe__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__token_manager_service__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__token_manager_service__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__email_available_validator_directive__ = __webpack_require__(306);
 /* unused harmony export firebaseConfig */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -339,6 +906,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 // New imports to update based on AngularFire2 version 4
+
 
 
 
@@ -394,7 +962,8 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_26__dialog_dialog_component__["a" /* DialogComponent */],
             __WEBPACK_IMPORTED_MODULE_30__spinner_spinner_component__["a" /* SpinnerComponent */],
             __WEBPACK_IMPORTED_MODULE_31__replace_pipe__["a" /* ReplacePipe */],
-            __WEBPACK_IMPORTED_MODULE_32__format_num_vn_pipe__["a" /* FormatNumVNPipe */]
+            __WEBPACK_IMPORTED_MODULE_32__format_num_vn_pipe__["a" /* FormatNumVNPipe */],
+            __WEBPACK_IMPORTED_MODULE_34__email_available_validator_directive__["a" /* EmailAvailableValidatorDirective */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -415,12 +984,12 @@ AppModule = __decorate([
 
 /***/ }),
 
-/***/ 298:
+/***/ 299:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_service__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_service__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(3);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CartComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -571,10 +1140,10 @@ var CartComponent = (function () {
     return CartComponent;
 }());
 CartComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Component */])({
         selector: 'app-cart',
-        template: __webpack_require__(558),
-        styles: [__webpack_require__(479)]
+        template: __webpack_require__(559),
+        styles: [__webpack_require__(480)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__home_service__["a" /* XyzUserListService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* Router */]) === "function" && _b || Object])
 ], CartComponent);
@@ -584,12 +1153,12 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 299:
+/***/ 300:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_service__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_service__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(3);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CategoryComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -669,10 +1238,10 @@ var CategoryComponent = (function () {
     return CategoryComponent;
 }());
 CategoryComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Component */])({
         selector: 'app-category',
-        template: __webpack_require__(559),
-        styles: [__webpack_require__(480)]
+        template: __webpack_require__(560),
+        styles: [__webpack_require__(481)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _b || Object])
 ], CategoryComponent);
@@ -682,12 +1251,12 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 300:
+/***/ 301:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_service__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_service__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(3);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CheckoutComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -801,10 +1370,10 @@ var CheckoutComponent = (function () {
     return CheckoutComponent;
 }());
 CheckoutComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Component */])({
         selector: 'app-checkout',
-        template: __webpack_require__(560),
-        styles: [__webpack_require__(481)]
+        template: __webpack_require__(561),
+        styles: [__webpack_require__(482)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__home_service__["a" /* XyzUserListService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* Router */]) === "function" && _b || Object])
 ], CheckoutComponent);
@@ -814,7 +1383,7 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 301:
+/***/ 302:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -881,17 +1450,17 @@ var CollapseGroupComponent = (function () {
 }());
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* ContentChildren */])(__WEBPACK_IMPORTED_MODULE_1__collapse_collapse_component__["a" /* CollapseComponent */]),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* QueryList */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* QueryList */]) === "function" && _a || Object)
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* QueryList */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* QueryList */]) === "function" && _a || Object)
 ], CollapseGroupComponent.prototype, "collapses", void 0);
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
     __metadata("design:type", Boolean)
 ], CollapseGroupComponent.prototype, "multiple", void 0);
 CollapseGroupComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* Component */])({
         selector: 'tp-collapse-group',
-        template: __webpack_require__(561),
-        styles: [__webpack_require__(482)]
+        template: __webpack_require__(562),
+        styles: [__webpack_require__(483)]
     }),
     __metadata("design:paramtypes", [])
 ], CollapseGroupComponent);
@@ -901,12 +1470,12 @@ var _a;
 
 /***/ }),
 
-/***/ 302:
+/***/ 303:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_service__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_service__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__account__ = __webpack_require__(91);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContactComponent; });
@@ -960,10 +1529,10 @@ var ContactComponent = (function () {
     return ContactComponent;
 }());
 ContactComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Component */])({
         selector: 'app-contact',
-        template: __webpack_require__(563),
-        styles: [__webpack_require__(484)],
+        template: __webpack_require__(564),
+        styles: [__webpack_require__(485)],
         animations: [
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_17" /* trigger */])('visibilityChanged', [
                 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_18" /* state */])('shown', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_19" /* style */])({ opacity: 1 })),
@@ -980,12 +1549,12 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 303:
+/***/ 304:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_service__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_service__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(3);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DetailComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1057,10 +1626,10 @@ var DetailComponent = (function () {
     return DetailComponent;
 }());
 DetailComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Component */])({
         selector: 'app-detail',
-        template: __webpack_require__(564),
-        styles: [__webpack_require__(485)]
+        template: __webpack_require__(565),
+        styles: [__webpack_require__(486)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _b || Object])
 ], DetailComponent);
@@ -1070,7 +1639,7 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 304:
+/***/ 305:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1113,10 +1682,10 @@ __decorate([
     __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */]) === "function" && _a || Object)
 ], DialogComponent.prototype, "visibleChange", void 0);
 DialogComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* Component */])({
         selector: 'app-dialog',
-        template: __webpack_require__(565),
-        styles: [__webpack_require__(486)],
+        template: __webpack_require__(566),
+        styles: [__webpack_require__(487)],
         animations: [
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_animations__["i" /* trigger */])('dialog', [
                 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_animations__["j" /* transition */])('void => *', [
@@ -1137,12 +1706,84 @@ var _a;
 
 /***/ }),
 
-/***/ 305:
+/***/ 306:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_service__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__info_info_component__ = __webpack_require__(161);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EmailAvailableValidatorDirective; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var EmailAvailableValidatorDirective = EmailAvailableValidatorDirective_1 = (function () {
+    function EmailAvailableValidatorDirective(usersService) {
+        this.usersService = usersService;
+        this.id = '0' || this.infoComponent.id;
+    }
+    EmailAvailableValidatorDirective.prototype.validate = function (c) {
+        return this.validateEmailAvailableFactory(c.value);
+    };
+    EmailAvailableValidatorDirective.prototype.validateEmailAvailableFactory = function (email) {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this.usersService.validate_email_user(email, _this.id)
+                .subscribe(function (data) {
+                if (data.success === 'yes') {
+                    resolve({
+                        emailAvailable: true
+                    });
+                }
+                else {
+                    resolve(null);
+                }
+            }, function (error) {
+                resolve(null);
+            });
+        });
+    };
+    return EmailAvailableValidatorDirective;
+}());
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__info_info_component__["a" /* InfoComponent */]),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__info_info_component__["a" /* InfoComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__info_info_component__["a" /* InfoComponent */]) === "function" && _a || Object)
+], EmailAvailableValidatorDirective.prototype, "infoComponent", void 0);
+EmailAvailableValidatorDirective = EmailAvailableValidatorDirective_1 = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */])({
+        selector: '[emailAvailable][formControlName],[emailAvailable][formControl],[emailAvailable][ngModel]',
+        providers: [
+            {
+                provide: __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* NG_ASYNC_VALIDATORS */],
+                useExisting: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* forwardRef */])(function () { return EmailAvailableValidatorDirective_1; }), multi: true
+            }
+        ]
+    }),
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__home_service__["a" /* XyzUserListService */]) === "function" && _b || Object])
+], EmailAvailableValidatorDirective);
+
+var EmailAvailableValidatorDirective_1, _a, _b;
+//# sourceMappingURL=email-available-validator.directive.js.map
+
+/***/ }),
+
+/***/ 307:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(120);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EqualValidatorDirective; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1203,7 +1844,7 @@ EqualValidatorDirective = EqualValidatorDirective_1 = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */])({
         selector: '[validateEqual][formControlName],[validateEqual][formControl],[validateEqual][ngModel]',
         providers: [
-            { provide: __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* NG_VALIDATORS */], useExisting: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* forwardRef */])(function () { return EqualValidatorDirective_1; }), multi: true }
+            { provide: __WEBPACK_IMPORTED_MODULE_1__angular_forms__["c" /* NG_VALIDATORS */], useExisting: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* forwardRef */])(function () { return EqualValidatorDirective_1; }), multi: true }
         ]
     }),
     __param(0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["U" /* Attribute */])('validateEqual')),
@@ -1216,12 +1857,12 @@ var EqualValidatorDirective_1;
 
 /***/ }),
 
-/***/ 306:
+/***/ 308:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__faq__ = __webpack_require__(307);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__faq__ = __webpack_require__(309);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FaqComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1244,10 +1885,10 @@ var FaqComponent = (function () {
     return FaqComponent;
 }());
 FaqComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* Component */])({
         selector: 'app-faq',
-        template: __webpack_require__(566),
-        styles: [__webpack_require__(487)]
+        template: __webpack_require__(567),
+        styles: [__webpack_require__(488)]
     })
 ], FaqComponent);
 
@@ -1255,7 +1896,7 @@ FaqComponent = __decorate([
 
 /***/ }),
 
-/***/ 307:
+/***/ 309:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1304,7 +1945,7 @@ var POSTS = [{
 
 /***/ }),
 
-/***/ 308:
+/***/ 310:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1328,10 +1969,10 @@ var FooterComponent = (function () {
     return FooterComponent;
 }());
 FooterComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* Component */])({
         selector: 'app-footer',
-        template: __webpack_require__(567),
-        styles: [__webpack_require__(488)]
+        template: __webpack_require__(568),
+        styles: [__webpack_require__(489)]
     }),
     __metadata("design:paramtypes", [])
 ], FooterComponent);
@@ -1340,12 +1981,12 @@ FooterComponent = __decorate([
 
 /***/ }),
 
-/***/ 309:
+/***/ 311:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(31);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthGuard; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1383,15 +2024,15 @@ var _a;
 
 /***/ }),
 
-/***/ 310:
+/***/ 312:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__replace_pipe__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__replace_pipe__ = __webpack_require__(162);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__format_num_vn_pipe__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_service__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_service__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_core__ = __webpack_require__(3);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HeaderComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1450,6 +2091,8 @@ var HeaderComponent = (function () {
         this.domain = this.xyzUserListService.domain;
         this.xyzUserListService.get_menu().subscribe(function (response) {
             _this.menu = response;
+            _this.isRequesting1 = false;
+            _this.xyzUserListService.emitChange4(_this.isRequesting1);
         });
         if ((localStorage.getItem("login") !== null)) {
             this.flag_login = localStorage.getItem("login");
@@ -1638,14 +2281,14 @@ __decorate([
     __metadata("design:type", Object)
 ], HeaderComponent.prototype, "onVote", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__angular_core__["_16" /* ViewChild */])('search'),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__angular_core__["_14" /* ViewChild */])('search'),
     __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5__angular_core__["M" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_core__["M" /* ElementRef */]) === "function" && _a || Object)
 ], HeaderComponent.prototype, "search11", void 0);
 HeaderComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__angular_core__["_14" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__angular_core__["_15" /* Component */])({
         selector: 'app-header',
-        template: __webpack_require__(568),
-        styles: [__webpack_require__(489)],
+        template: __webpack_require__(569),
+        styles: [__webpack_require__(490)],
         providers: [__WEBPACK_IMPORTED_MODULE_0__replace_pipe__["a" /* ReplacePipe */]],
         encapsulation: __WEBPACK_IMPORTED_MODULE_5__angular_core__["q" /* ViewEncapsulation */].None
     }),
@@ -1657,11 +2300,11 @@ var _a, _b, _c, _d, _e, _f, _g;
 
 /***/ }),
 
-/***/ 311:
+/***/ 313:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_service__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_service__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(3);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomeComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1695,6 +2338,7 @@ var HomeComponent = (function () {
         this.isRequesting = true;
         this.xyzUserListService.get().subscribe(function (response) {
             _this.isRequesting = false;
+            _this.xyzUserListService.emitChange5(_this.isRequesting);
             //console.log(response.products_buy);
             _this.products = response.products;
             _this.products_order = response.products_buy;
@@ -1709,10 +2353,10 @@ var HomeComponent = (function () {
     return HomeComponent;
 }());
 HomeComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Component */])({
         selector: 'app-home',
-        template: __webpack_require__(569),
-        styles: [__webpack_require__(490)],
+        template: __webpack_require__(570),
+        styles: [__webpack_require__(491)],
         encapsulation: __WEBPACK_IMPORTED_MODULE_1__angular_core__["q" /* ViewEncapsulation */].None
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["M" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["M" /* ElementRef */]) === "function" && _b || Object])
@@ -1723,191 +2367,7 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 312:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_service__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jquery__ = __webpack_require__(540);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__account__ = __webpack_require__(91);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InfoComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-var InfoComponent = (function () {
-    function InfoComponent(xyzUserListService, router) {
-        var _this = this;
-        this.xyzUserListService = xyzUserListService;
-        this.router = router;
-        this.visibility = 'shown';
-        this.isVisible = true;
-        this.editPassword = '';
-        this.account = new __WEBPACK_IMPORTED_MODULE_4__account__["a" /* Account */]('', '', '');
-        this.isDirty = false;
-        this.showDialog = false;
-        this.active = false;
-        xyzUserListService.changeEmitted2.subscribe(function (text) {
-            _this.flag_search1 = text;
-            console.log(_this.flag_search1);
-        });
-    }
-    // @ViewChild('name') nameChange: ElementRef;
-    InfoComponent.prototype.canDeactivate = function () {
-        //isDirty check su thay doi cua form
-        if (this.isDirty) {
-            return window.confirm('WARNING: You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.');
-        }
-        return true;
-    };
-    InfoComponent.prototype.loading = function () {
-        var _this = this;
-        this.isRequesting = true;
-        this.sub = this.xyzUserListService.getOrderUser(this.id).subscribe(function (response) {
-            _this.products_order = response;
-            _this.isRequesting = false;
-            console.log(_this.products_order);
-            if (_this.products_order.length <= 0 || _this.products_order == []) {
-                _this.no_product = true;
-            }
-            else {
-                _this.no_product = false;
-            }
-        });
-    };
-    InfoComponent.prototype.ngOnInit = function () {
-        if ((localStorage.getItem("id") == null)) {
-            this.check_token = true;
-        }
-        else {
-            this.check_token = false;
-            this.account.name = localStorage.getItem("name");
-            this.account.email = localStorage.getItem("email");
-            this.id = localStorage.getItem("id");
-        }
-        if ((sessionStorage.id == null)) {
-            this.check_token = true;
-        }
-        else {
-            this.check_token = false;
-            this.account.name = sessionStorage.name;
-            this.account.email = sessionStorage.email;
-            this.id = sessionStorage.id;
-            this.flag_info = sessionStorage.login;
-        }
-        this.link_img = this.xyzUserListService.link_img;
-        this.domain = this.xyzUserListService.domain;
-    };
-    InfoComponent.prototype.detail_order = function (id) {
-        var _this = this;
-        this.xyzUserListService.getOrderUserDetail(id).subscribe(function (response) {
-            _this.detail_order_product = response;
-            var total = 0;
-            for (var _i = 0; _i < response.length; _i++) {
-                var product = response[_i];
-                console.log(product.price);
-                total += (product.price * product.qty);
-            }
-            _this.sTotal = total;
-        });
-    };
-    InfoComponent.prototype.updateInfo = function (form) {
-        var _this = this;
-        this.account.email = form.value.email;
-        this.account.name = form.value.name;
-        this.account.password = form.value.password;
-        var result = this.xyzUserListService.updateInfo(this.account, this.id);
-        result.subscribe(function (data) {
-            console.log(data);
-            if (data.status == 'yes') {
-                _this.flag_success = true;
-                _this.isVisible = !_this.isVisible;
-                console.log(_this.isVisible);
-                _this.visibility = _this.isVisible ? 'shown' : 'hidden';
-                form.controls.password.reset();
-                form.controls.confirmPassword.reset();
-                _this.router.navigate(['/thong-tin']);
-            }
-        }, function (errorData) {
-            console.log(errorData);
-        });
-    };
-    InfoComponent.prototype.checkemail_same = function (em, id) {
-        var _this = this;
-        this.flag_validate_email = false;
-        var result = this.xyzUserListService.validate_email_user(em, this.id);
-        result.subscribe(function (data) {
-            if (data.success === 'yes') {
-                _this.flag_validate_email = true;
-            }
-            else if (data.success === 'old') {
-                _this.flag_validate_email_old = true;
-            }
-        }, function (errorData) {
-        });
-    };
-    InfoComponent.prototype.ngAfterViewInit = function () {
-        __WEBPACK_IMPORTED_MODULE_3_jquery__(document).ready(function () {
-            __WEBPACK_IMPORTED_MODULE_3_jquery__('ul.tabs li').click(function () {
-                var tab = __WEBPACK_IMPORTED_MODULE_3_jquery__(this).data('tab');
-                __WEBPACK_IMPORTED_MODULE_3_jquery__('ul.tabs li').removeClass('current');
-                __WEBPACK_IMPORTED_MODULE_3_jquery__('.tab-container').removeClass('current');
-                __WEBPACK_IMPORTED_MODULE_3_jquery__(this).addClass('current');
-                __WEBPACK_IMPORTED_MODULE_3_jquery__("#" + tab).addClass('current');
-            });
-            var appendthis = ("<div class='modal-overlay js-modal-close'></div>");
-            __WEBPACK_IMPORTED_MODULE_3_jquery__(document).on("click", "a[data-modal-id]", function (e) {
-                e.preventDefault();
-                __WEBPACK_IMPORTED_MODULE_3_jquery__("body").append(appendthis);
-                __WEBPACK_IMPORTED_MODULE_3_jquery__(".modal-overlay").fadeTo(500, 0.7);
-                //$(".js-modalbox").fadeIn(500);
-                var modalBox = __WEBPACK_IMPORTED_MODULE_3_jquery__(this).attr('data-modal-id');
-                __WEBPACK_IMPORTED_MODULE_3_jquery__('#' + modalBox).fadeIn(__WEBPACK_IMPORTED_MODULE_3_jquery__(this).data());
-            });
-            __WEBPACK_IMPORTED_MODULE_3_jquery__(document).on("click", ".js-modal-close, .modal-overlay", function () {
-                __WEBPACK_IMPORTED_MODULE_3_jquery__(".modal-box, .modal-overlay").fadeOut(500, function () {
-                    __WEBPACK_IMPORTED_MODULE_3_jquery__(".modal-overlay").remove();
-                });
-            });
-        });
-    };
-    return InfoComponent;
-}());
-InfoComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* Component */])({
-        selector: 'app-info',
-        template: __webpack_require__(570),
-        styles: [__webpack_require__(491)],
-        animations: [
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_17" /* trigger */])('visibilityChanged', [
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_18" /* state */])('shown', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_19" /* style */])({ opacity: 1 })),
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_18" /* state */])('hidden', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_19" /* style */])({ opacity: 0 })),
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_20" /* transition */])('* => *', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_21" /* animate */])('5s'))
-            ])
-        ],
-    }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__home_service__["a" /* XyzUserListService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* Router */]) === "function" && _b || Object])
-], InfoComponent);
-
-var _a, _b;
-//# sourceMappingURL=info.component.js.map
-
-/***/ }),
-
-/***/ 313:
+/***/ 314:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1968,7 +2428,7 @@ TempConverterPipe = __decorate([
 
 /***/ }),
 
-/***/ 314:
+/***/ 315:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1997,16 +2457,16 @@ CanDeactivateGuard = __decorate([
 
 /***/ }),
 
-/***/ 315:
+/***/ 316:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_service__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_service__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__account__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__ = __webpack_require__(164);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__ = __webpack_require__(122);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_firebase_app__ = __webpack_require__(68);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_firebase_app__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SigninComponent; });
@@ -2111,7 +2571,7 @@ var SigninComponent = (function () {
         var _this = this;
         this.flag_validate_email = false;
         if (/(.+)@(.+){2,}\.(.+){2,}/.test(em)) {
-            var result = this.xyzUserListService.validate_email_user(em, 0);
+            var result = this.xyzUserListService.validate_email_user(em, '0');
             result.subscribe(function (data) {
                 console.log(data);
                 if (data.success === 'no') {
@@ -2146,10 +2606,10 @@ var SigninComponent = (function () {
     return SigninComponent;
 }());
 SigninComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Component */])({
         selector: 'app-signin',
-        template: __webpack_require__(571),
-        styles: [__webpack_require__(492)]
+        template: __webpack_require__(572),
+        styles: [__webpack_require__(493)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__["b" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__["b" /* AngularFireAuth */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__["b" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__["b" /* AngularFireDatabase */]) === "function" && _d || Object])
 ], SigninComponent);
@@ -2159,12 +2619,12 @@ var _a, _b, _c, _d;
 
 /***/ }),
 
-/***/ 316:
+/***/ 317:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_service__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_service__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__account__ = __webpack_require__(91);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SignupComponent; });
@@ -2219,23 +2679,23 @@ var SignupComponent = (function () {
         }, function (error) { return console.log(error); });
     };
     SignupComponent.prototype.checkemail_same = function (em) {
-        var _this = this;
-        this.flag_validate_email = false;
-        var result = this.xyzUserListService.validate_email_user(em, 0);
-        result.subscribe(function (data) {
-            if (data.success === 'yes') {
-                _this.flag_validate_email = true;
-            }
-        }, function (errorData) {
-        });
+        //this.flag_validate_email = false;
+        this.result = this.xyzUserListService.validate_email_user(em, '0');
+        // result.subscribe((data) => {
+        //   if (data.success === 'yes') {
+        //     this.flag_validate_email = true;
+        //   }
+        // },
+        //   (errorData) => {
+        //   });
     };
     return SignupComponent;
 }());
 SignupComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Component */])({
         selector: 'app-signup',
-        template: __webpack_require__(572),
-        styles: [__webpack_require__(493)],
+        template: __webpack_require__(573),
+        styles: [__webpack_require__(494)],
         animations: [
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_17" /* trigger */])('visibilityChanged', [
                 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_18" /* state */])('shown', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_19" /* style */])({ opacity: 1 })),
@@ -2252,7 +2712,7 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 317:
+/***/ 318:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2311,10 +2771,10 @@ __decorate([
     __metadata("design:paramtypes", [Boolean])
 ], SpinnerComponent.prototype, "isRunning", null);
 SpinnerComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* Component */])({
         selector: 'app-spinner',
-        template: __webpack_require__(573),
-        styles: [__webpack_require__(494)],
+        template: __webpack_require__(574),
+        styles: [__webpack_require__(495)],
         encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["q" /* ViewEncapsulation */].None
     })
 ], SpinnerComponent);
@@ -2323,7 +2783,7 @@ SpinnerComponent = __decorate([
 
 /***/ }),
 
-/***/ 318:
+/***/ 319:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2335,316 +2795,6 @@ var environment = {
 
 /***/ }),
 
-/***/ 34:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__token_manager_service__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(237);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__ = __webpack_require__(121);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return XyzUserListService; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-var XyzUserListService = (function () {
-    function XyzUserListService(http, afAuth, tokenManagerService) {
-        this.http = http;
-        this.afAuth = afAuth;
-        this.tokenManagerService = tokenManagerService;
-        this.showDialog = false;
-        this.temp_pro = [];
-        this.giohang = [];
-        this.giohangsum = [];
-        this.link_img = 'http://hunglx-ng-lar.esy.es/resources/upload/';
-        this.domain = 'http://hunglx-ng-lar.esy.es/';
-        this.API = 'https://cors-anywhere.herokuapp.com/http://hunglx-ng-lar.esy.es/';
-        // Observable string sources
-        this.emitChangeSource = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["Subject"]();
-        // Observable string streams
-        this.changeEmitted$ = this.emitChangeSource.asObservable();
-        // Observable string sources
-        this.emitChangeSource_1 = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["Subject"]();
-        // Observable string streams
-        this.changeEmitted_1 = this.emitChangeSource_1.asObservable();
-        // Observable string sources
-        this.emitChangeSource2 = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["Subject"]();
-        // Observable string streams
-        this.changeEmitted2 = this.emitChangeSource2.asObservable();
-        // Observable string sources
-        this.emitChangeSource3 = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["Subject"]();
-        // Observable string streams
-        this.changeEmitted3 = this.emitChangeSource3.asObservable();
-    }
-    // Service message commands
-    XyzUserListService.prototype.emitChange = function (change) {
-        this.emitChangeSource.next(change);
-    };
-    // Service message commands
-    XyzUserListService.prototype.emitChange_1 = function (change) {
-        this.emitChangeSource_1.next(change);
-    };
-    // Service message commands
-    XyzUserListService.prototype.emitChange2 = function (change) {
-        this.emitChangeSource2.next(change);
-    };
-    // Service message commands
-    XyzUserListService.prototype.emitChange3 = function (change) {
-        this.emitChangeSource3.next(change);
-    };
-    XyzUserListService.prototype.logoutSocial = function () {
-        this.afAuth.auth.signOut();
-    };
-    XyzUserListService.prototype.addcart = function (id) {
-        var _this = this;
-        this.http.get(this.API + 'api/mua-hang/' + id).map(function (res) { return res.json(); }).subscribe(function (response) {
-            _this.temp_pro = response.content;
-            if (sessionStorage.cart == null || JSON.parse(sessionStorage.cart).length <= 0) {
-                _this.giohang = [];
-                _this.giohang.push(_this.temp_pro);
-                _this.abc = _this.giohang;
-                // localStorage.setItem("cart", JSON.stringify(this.abc));
-                if (typeof (Storage) !== "undefined") {
-                    // Gán dữ liệu
-                    sessionStorage.cart = JSON.stringify(_this.abc);
-                }
-                else {
-                    document.write('Trình duyệt của bạn không hỗ trợ sessionStorage');
-                }
-                _this.count_cart = 1;
-                _this.showDialog = true;
-                console.log(_this.showDialog);
-            }
-            else {
-                for (var _i = 0; _i < _this.giohang.length; _i++) {
-                    var num = _this.giohang[_i];
-                    if (num[0].id == id) {
-                        _this.flag_cart = false;
-                        _this.giohang[_i][0].qty++;
-                        _this.giohang[_i][0].subtotal = _this.giohang[_i][0].qty * _this.giohang[_i][0].price;
-                        // console.log(this.count_cart);
-                        _this.count_cart++;
-                        _this.abc = _this.giohang;
-                        if (typeof (Storage) !== "undefined") {
-                            // Gán dữ liệu
-                            sessionStorage.cart = JSON.stringify(_this.abc);
-                        }
-                        else {
-                            document.write('Trình duyệt của bạn không hỗ trợ sessionStorage');
-                        }
-                        //localStorage.setItem("cart", JSON.stringify(this.abc));
-                        break;
-                    }
-                    else {
-                        _this.flag_cart = true;
-                    }
-                }
-                if (_this.flag_cart) {
-                    _this.giohang.push(_this.temp_pro);
-                    _this.abc = _this.giohang;
-                    //localStorage.setItem("cart", JSON.stringify(this.abc));
-                    if (typeof (Storage) !== "undefined") {
-                        // Gán dữ liệu
-                        sessionStorage.cart = JSON.stringify(_this.abc);
-                    }
-                    else {
-                        document.write('Trình duyệt của bạn không hỗ trợ sessionStorage');
-                    }
-                    _this.count_cart++;
-                    _this.showDialog = true;
-                    console.log(_this.showDialog);
-                }
-            }
-            //console.log(this.count_cart);
-            _this.emitChange(_this.count_cart);
-            _this.emitChange_1(_this.showDialog);
-            sessionStorage.count_cart = _this.count_cart;
-        });
-    };
-    XyzUserListService.prototype.get = function () {
-        console.log(this.http.get(this.API + 'api/home'));
-        return this.http.get(this.API + 'api/home').map(function (res) { return res.json(); });
-    };
-    XyzUserListService.prototype.get_menu = function () {
-        return this.http.get(this.API + 'api/menu').map(function (res) { return res.json(); });
-    };
-    XyzUserListService.prototype.get_menu_cap2 = function (id) {
-        return this.http.get(this.API + 'api/menu/' + id).map(function (res) { return res.json(); });
-    };
-    XyzUserListService.prototype.search = function (filter, selectedCate, price) {
-        var endpoint = (price) ? '/' + price : '';
-        var cate = (selectedCate) ? '/' + selectedCate : '';
-        return this.http.get(this.API + 'api/home/' + filter + cate + endpoint).map(function (res) { return res.json(); });
-    };
-    XyzUserListService.prototype.catechild = function (selectedCate) {
-        var endpoint = (selectedCate) ? selectedCate : 0;
-        return this.http.get(this.API + 'api/catechild/' + endpoint).map(function (res) { return res.json(); });
-    };
-    XyzUserListService.prototype.getproduct_cate = function (id) {
-        return this.http.get(this.API + 'api/loai-san-pham/' + id).map(function (res) { return res.json(); });
-    };
-    XyzUserListService.prototype.getdetail_product = function (id) {
-        return this.http.get(this.API + 'api/chi-tiet-san-pham/' + id).map(function (res) { return res.json(); });
-    };
-    XyzUserListService.prototype.getMoreTodos = function (id, page) {
-        return this.http.get(this.API + 'api/loai-san-pham/' + id + '?page=' + page).map(function (res) { return res.json(); });
-    };
-    XyzUserListService.prototype.checkout = function (products) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
-        headers.append('Content-type', 'application/json');
-        console.log(JSON.stringify(products));
-        return this.http.post(this.API + 'api/check-out', JSON.stringify(products), { headers: headers }).map(function (res) { return res.json(); }); // Reach here if fails;
-    };
-    XyzUserListService.prototype.signup = function (acc) {
-        console.log(JSON.stringify(acc));
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
-        headers.append('Content-type', 'application/json');
-        return this.http.post(this.API + 'api/user/signup', JSON.stringify(acc), { headers: headers }).map(function (res) { return res.json(); });
-    };
-    XyzUserListService.prototype.signin = function (acc, autologin) {
-        var _this = this;
-        return this.http.post(this.API + 'api/user/signin', acc, { headers: new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]({ 'X-Requested-With': 'XMLHttpRequest' }) })
-            .map(function (response) {
-            var token = response.json().token;
-            var email = response.json().email;
-            var name = response.json().name;
-            var id = response.json().id;
-            var base64Url = token.split('.')[1];
-            var base64 = base64Url.replace('-', '+').replace('_', '/');
-            return { id: id, email: email, name: name, token: token, decoded: JSON.parse(window.atob(base64)) };
-        })
-            .do(function (tokenData) {
-            if (autologin) {
-                _this.tokenManagerService.generateNewToken(tokenData.token);
-                //localStorage.setItem('token', tokenData.token);
-                localStorage.setItem('id', tokenData.id);
-                localStorage.setItem('email', tokenData.email);
-                localStorage.setItem('name', tokenData.name);
-                localStorage.setItem('login', '1');
-                _this.flag_logout = true;
-                _this.emitChange3(_this.flag_logout);
-            }
-            else {
-                if (typeof (Storage) !== "undefined") {
-                    // Gán dữ liệu
-                    sessionStorage.token = tokenData.token;
-                    sessionStorage.id = tokenData.id;
-                    sessionStorage.email = tokenData.email;
-                    sessionStorage.name = tokenData.name;
-                    sessionStorage.login = '1';
-                    _this.flag_logout = true;
-                    _this.emitChange3(_this.flag_logout);
-                }
-                else {
-                    document.write('Trình duyệt của bạn không hỗ trợ local storage');
-                }
-            }
-        });
-    };
-    XyzUserListService.prototype.getToken = function () {
-        if ((sessionStorage.token !== null)) {
-            return sessionStorage.token;
-        }
-        if ((localStorage.getItem("token") !== null)) {
-            return localStorage.getItem('token');
-        }
-    };
-    XyzUserListService.prototype.logOut = function () {
-        localStorage.clear();
-        sessionStorage.clear();
-        delete sessionStorage.cart;
-        delete sessionStorage.count_cart;
-        delete sessionStorage.total;
-        this.emitChange('');
-    };
-    XyzUserListService.prototype.updateInfo = function (user, id) {
-        //const token = this.getToken();
-        var token = this.tokenManagerService.retrieveToken();
-        console.log(token);
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
-        headers.append('Content-type', 'application/json');
-        return this.http.post(this.API + 'api/user/update/' + id + '?token=' + token, user, { headers: headers })
-            .map(function (response) {
-            var email = response.json().email;
-            var name = response.json().name;
-            var status = response.json().success;
-            return { email: email, name: name, status: status };
-        })
-            .do(function (tokenData) {
-            if ((sessionStorage.token !== null)) {
-                sessionStorage.email = tokenData.email;
-                sessionStorage.name = tokenData.name;
-            }
-            if ((localStorage.getItem("token") !== null)) {
-                localStorage.setItem('email', tokenData.email);
-                localStorage.setItem('name', tokenData.name);
-            }
-        });
-    };
-    XyzUserListService.prototype.getOrderUser = function (id) {
-        return this.http.get(this.API + 'api/user/order/' + id).map(function (res) { return res.json(); });
-    };
-    XyzUserListService.prototype.getOrderUserDetail = function (id) {
-        return this.http.get(this.API + 'api/user/order/detail/' + id).map(function (res) { return res.json(); });
-    };
-    XyzUserListService.prototype.validate_email_user = function (em, id) {
-        return this.http.post(this.API + 'api/user/validate_email/' + id, { email: em }, { headers: new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]({ 'X-Requested-With': 'XMLHttpRequest' }) }).map(function (res) { return res.json(); });
-    };
-    XyzUserListService.prototype.contact = function (data) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
-        headers.append('Content-type', 'application/json');
-        return this.http.post(this.API + 'api/user/lien-he', JSON.stringify(data), { headers: headers }).map(function (res) { return res.json(); });
-    };
-    XyzUserListService.prototype.weather = function () {
-        return this.http.get('https://query.yahooapis.com/v1/public/yql?q=select%20item.condition%20from%20weather.forecast%20where%20woeid%20%3D%2028349033&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys').map(function (res) { return res.json(); });
-    };
-    return XyzUserListService;
-}());
-XyzUserListService = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["c" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__["b" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__["b" /* AngularFireAuth */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__token_manager_service__["a" /* TokenManagerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__token_manager_service__["a" /* TokenManagerService */]) === "function" && _c || Object])
-], XyzUserListService);
-
-var _a, _b, _c;
-//# sourceMappingURL=home.service.js.map
-
-/***/ }),
-
-/***/ 478:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(17)();
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
-
-/***/ }),
-
 /***/ 479:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2653,7 +2803,7 @@ exports = module.exports = __webpack_require__(17)();
 
 
 // module
-exports.push([module.i, ":host /deep/ .btn-wrap{\r\n    text-align: right;\r\n}", ""]);
+exports.push([module.i, "/*:host /deep/ .sk-circle{\r\n    margin-top: 50%;\r\n}*/\r\n\r\n\r\n/*:host /deep/ .sk-circle .sk-child:before{\r\nbackground-color: #f25c27;\r\n}*/\r\n\r\n\r\n/*:host /deep/ app-spinner{\r\n    display: block;\r\n    position: fixed;\r\n    width: 100%;\r\n    height: 100vh;\r\n    background-color: rgba(0, 0, 0, 0.7);\r\n    z-index: 99999;\r\n}\r\n:host /deep/ .sk-circle-wrap {\r\n    top: 150px;\r\n}\r\n:host /deep/ .sk-circle .sk-child:before{\r\n    background-color: red;\r\n\r\n}*/\r\n\r\n:host /deep/ app-header app-spinner .sk-circle-wrap {\r\n    margin-top: 250px;\r\n    position: fixed;\r\n    z-index: 9999;\r\n}\r\n\r\n:host /deep/ #categorymenu app-spinner .sk-circle-wrap {\r\n    margin-top: 0;\r\n}", ""]);
 
 // exports
 
@@ -2671,7 +2821,7 @@ exports = module.exports = __webpack_require__(17)();
 
 
 // module
-exports.push([module.i, "ul.bestseller li{\r\n    float: left;\r\n    width: 100%;\r\n}\r\n #categorygrid .thumbnail img{\r\n    height: 300px;\r\n    width: 100% !important;\r\n  }", ""]);
+exports.push([module.i, ":host /deep/ .btn-wrap{\r\n    text-align: right;\r\n}", ""]);
 
 // exports
 
@@ -2689,7 +2839,7 @@ exports = module.exports = __webpack_require__(17)();
 
 
 // module
-exports.push([module.i, ".checkoutstep{\r\n    display: block;\r\n}", ""]);
+exports.push([module.i, "ul.bestseller li{\r\n    float: left;\r\n    width: 100%;\r\n}\r\n #categorygrid .thumbnail img{\r\n    height: 300px;\r\n    width: 100% !important;\r\n  }", ""]);
 
 // exports
 
@@ -2707,7 +2857,7 @@ exports = module.exports = __webpack_require__(17)();
 
 
 // module
-exports.push([module.i, ".collapsible {\r\n  border-top: 1px solid #f25c27;\r\n  border-right: 1px solid #f25c27;\r\n  border-left: 1px solid #f25c27;\r\n  margin: .5rem 0 1rem 0;\r\n  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);\r\n  padding: 0;\r\n}\r\n", ""]);
+exports.push([module.i, ".checkoutstep{\r\n    display: block;\r\n}", ""]);
 
 // exports
 
@@ -2725,7 +2875,7 @@ exports = module.exports = __webpack_require__(17)();
 
 
 // module
-exports.push([module.i, "tp-collapse {\r\n  display: block;\r\n}\r\ntp-collapse:last-child .collapsible-body {\r\n  border-bottom: 2px solid #fff;\r\n}\r\n\r\n.collapsible-header {\r\n  display: block;\r\n  cursor: pointer;\r\n  min-height: 3rem;\r\n  line-height: 3rem;\r\n  padding: 0 1rem;\r\n  background-color: #f25c27;\r\n  color: #fff;\r\n  border-bottom: 1px solid #fff;\r\n  -webkit-user-select: none;\r\n     -moz-user-select: none;\r\n      -ms-user-select: none;\r\n          user-select: none;\r\n}\r\n\r\n.collapsible-body {\r\n  display: none;\r\n  border-bottom: 1px solid #ddd;\r\n  padding: 2rem;\r\n}\r\n.collapsible-body.active {\r\n  display: block;\r\n}\r\n", ""]);
+exports.push([module.i, ".collapsible {\r\n  border-top: 1px solid #f25c27;\r\n  border-right: 1px solid #f25c27;\r\n  border-left: 1px solid #f25c27;\r\n  margin: .5rem 0 1rem 0;\r\n  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);\r\n  padding: 0;\r\n}\r\n", ""]);
 
 // exports
 
@@ -2743,7 +2893,7 @@ exports = module.exports = __webpack_require__(17)();
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "tp-collapse {\r\n  display: block;\r\n}\r\ntp-collapse:last-child .collapsible-body {\r\n  border-bottom: 2px solid #fff;\r\n}\r\n\r\n.collapsible-header {\r\n  display: block;\r\n  cursor: pointer;\r\n  min-height: 3rem;\r\n  line-height: 3rem;\r\n  padding: 0 1rem;\r\n  background-color: #f25c27;\r\n  color: #fff;\r\n  border-bottom: 1px solid #fff;\r\n  -webkit-user-select: none;\r\n     -moz-user-select: none;\r\n      -ms-user-select: none;\r\n          user-select: none;\r\n}\r\n\r\n.collapsible-body {\r\n  display: none;\r\n  border-bottom: 1px solid #ddd;\r\n  padding: 2rem;\r\n}\r\n.collapsible-body.active {\r\n  display: block;\r\n}\r\n", ""]);
 
 // exports
 
@@ -2761,7 +2911,7 @@ exports = module.exports = __webpack_require__(17)();
 
 
 // module
-exports.push([module.i, " #related .thumbnail img{\r\n    height: 300px;\r\n    width: 100% !important;\r\n  }\r\n  .thumbnail .price {\r\n      margin-top: 10px;\r\n  }", ""]);
+exports.push([module.i, "", ""]);
 
 // exports
 
@@ -2779,7 +2929,7 @@ exports = module.exports = __webpack_require__(17)();
 
 
 // module
-exports.push([module.i, ".overlay {\r\n  position: fixed;\r\n  top: 0;\r\n  bottom: 0;\r\n  left: 0;\r\n  right: 0;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  z-index: 999;\r\n}\r\n\r\n.dialog {\r\n  z-index: 1000;\r\n  position: fixed;\r\n  right: 0;\r\n  left: 0;\r\n  top: 20px;\r\n  margin-right: auto;\r\n  margin-left: auto;\r\n  width: 90%;\r\n  max-width: 520px;\r\n  background-color: #fff;\r\n  padding: 12px;\r\n  box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);\r\n}\r\n\r\n@media (min-width: 768px) {\r\n  .dialog {\r\n    top: 40px;\r\n  }\r\n}\r\n\r\n.dialog__close-btn {\r\n  border: 0;\r\n  background: none;\r\n  color: #2d2d2d;\r\n  position: absolute;\r\n  padding: 0;\r\n    top: -3px;\r\n    right: 2px;\r\n  font-size: 1.2em;\r\n}", ""]);
+exports.push([module.i, " #related .thumbnail img{\r\n    height: 300px;\r\n    width: 100% !important;\r\n  }\r\n  .thumbnail .price {\r\n      margin-top: 10px;\r\n  }", ""]);
 
 // exports
 
@@ -2797,7 +2947,7 @@ exports = module.exports = __webpack_require__(17)();
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".overlay {\r\n  position: fixed;\r\n  top: 0;\r\n  bottom: 0;\r\n  left: 0;\r\n  right: 0;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  z-index: 999;\r\n}\r\n\r\n.dialog {\r\n  z-index: 1000;\r\n  position: fixed;\r\n  right: 0;\r\n  left: 0;\r\n  top: 20px;\r\n  margin-right: auto;\r\n  margin-left: auto;\r\n  width: 90%;\r\n  max-width: 520px;\r\n  background-color: #fff;\r\n  padding: 12px;\r\n  box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);\r\n}\r\n\r\n@media (min-width: 768px) {\r\n  .dialog {\r\n    top: 40px;\r\n  }\r\n}\r\n\r\n.dialog__close-btn {\r\n  border: 0;\r\n  background: none;\r\n  color: #2d2d2d;\r\n  position: absolute;\r\n  padding: 0;\r\n    top: -3px;\r\n    right: 2px;\r\n  font-size: 1.2em;\r\n}", ""]);
 
 // exports
 
@@ -2833,7 +2983,7 @@ exports = module.exports = __webpack_require__(17)();
 
 
 // module
-exports.push([module.i, ".pdl15{\r\n    padding-left: 20px;\r\n    box-sizing: border-box;\r\n}\r\n#featured .thumbnail img{\r\n    height: 300px;\r\n    width: 100% !important;\r\n}\r\n .thumbnail .price {\r\n      margin-top: 10px;\r\n  }\r\n#categorymenu .sk-circle {\r\n  margin: 0;\r\n  width: 20px;\r\n  height: 20px;\r\n\r\n}\r\n.hl{\r\n    background-color: #f25c27;\r\n}\r\n\r\n \r\n\r\n", ""]);
+exports.push([module.i, "", ""]);
 
 // exports
 
@@ -2851,7 +3001,7 @@ exports = module.exports = __webpack_require__(17)();
 
 
 // module
-exports.push([module.i, " #featured .thumbnail img,#latest .thumbnail img{\r\n    height: 300px;\r\n    width: 100% !important;\r\n  }\r\n  .thumbnail .price {\r\n      margin-top: 10px;\r\n  }", ""]);
+exports.push([module.i, ".pdl15{\r\n    padding-left: 20px;\r\n    box-sizing: border-box;\r\n}\r\n#featured .thumbnail img{\r\n    height: 300px;\r\n    width: 100% !important;\r\n}\r\n .thumbnail .price {\r\n      margin-top: 10px;\r\n  }\r\n#categorymenu .sk-circle {\r\n  margin: 0;\r\n  width: 20px;\r\n  height: 20px;\r\n\r\n}\r\n.hl{\r\n    background-color: #f25c27;\r\n}\r\n\r\n \r\n\r\n", ""]);
 
 // exports
 
@@ -2869,7 +3019,7 @@ exports = module.exports = __webpack_require__(17)();
 
 
 // module
-exports.push([module.i, "ul.tabs {\r\n  margin: 0;\r\n  padding: 0;\r\n}\r\n.table th, .table td{\r\n  text-align: center;\r\n}\r\nul.tabs > li.tab-link {\r\n  list-style-type: none;\r\n  display: inline-block;\r\n  padding: 10px 15px;\r\n  cursor: pointer;\r\n}\r\n\r\nul.tabs > li.tab-link.current {\r\n  background: #ededed;\r\n}\r\n\r\n.tab-container {\r\n  padding: 20px;\r\n  display: none;\r\n  background: #ededed;\r\n}\r\n\r\n.tab-container.current {\r\n  display: block;\r\n}\r\n\r\n.modal-box {\r\n  display: none;\r\n  position: absolute;\r\n  left: 50%;\r\n  top: 50%;\r\n  -webkit-transform: translate(-50%, -50%);\r\n          transform: translate(-50%, -50%);\r\n  z-index: 1000;\r\n  width: 98%;\r\n  background: white;\r\n  border-bottom: 1px solid #aaa;\r\n  border-radius: 4px;\r\n  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);\r\n  border: 1px solid rgba(0, 0, 0, 0.1);\r\n  background-clip: padding-box;\r\n}\r\n\r\n.modal-box header,\r\n.modal-box .modal-header {\r\n  padding: 1.25em 1.5em;\r\n  border-bottom: 1px solid #ddd;\r\n}\r\n\r\n.modal-box header h3,\r\n.modal-box header h4,\r\n.modal-box .modal-header h3,\r\n.modal-box .modal-header h4 {\r\n  margin: 0;\r\n}\r\n\r\n.modal-box .modal-body {\r\n  padding: 2em 1.5em;\r\n}\r\n\r\n.modal-box footer,\r\n.modal-box .modal-footer {\r\n  padding: 1em;\r\n  border-top: 1px solid #ddd;\r\n  background: rgba(0, 0, 0, 0.02);\r\n  text-align: right;\r\n}\r\n\r\n.modal-overlay {\r\n  opacity: 0;\r\n  filter: alpha(opacity=0);\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  z-index: 900;\r\n  width: 100%;\r\n  height: 100%;\r\n  background: rgba(0, 0, 0, 0.3) !important;\r\n}\r\n\r\na.close {\r\n  line-height: 1;\r\n  font-size: 1.5em;\r\n  position: absolute;\r\n  top: 5%;\r\n  right: 2%;\r\n  text-decoration: none;\r\n  color: #bbb;\r\n}\r\n\r\na.close:hover {\r\n  color: #222;\r\n  transition: color 1s ease;\r\n}\r\n\r\n@media (min-width: 32em) {\r\n  .modal-box {\r\n    width: 70%;\r\n  }\r\n}", ""]);
+exports.push([module.i, " #featured .thumbnail img,#latest .thumbnail img{\r\n    height: 300px;\r\n    width: 100% !important;\r\n  }\r\n  .thumbnail .price {\r\n      margin-top: 10px;\r\n  }", ""]);
 
 // exports
 
@@ -2880,6 +3030,24 @@ module.exports = module.exports.toString();
 /***/ }),
 
 /***/ 492:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(17)();
+// imports
+
+
+// module
+exports.push([module.i, "ul.tabs {\r\n  margin: 0;\r\n  padding: 0;\r\n}\r\n.table th, .table td{\r\n  text-align: center;\r\n}\r\nul.tabs > li.tab-link {\r\n  list-style-type: none;\r\n  display: inline-block;\r\n  padding: 10px 15px;\r\n  cursor: pointer;\r\n}\r\n\r\nul.tabs > li.tab-link.current {\r\n  background: #ededed;\r\n}\r\n\r\n.tab-container {\r\n  padding: 20px;\r\n  display: none;\r\n  background: #ededed;\r\n}\r\n\r\n.tab-container.current {\r\n  display: block;\r\n}\r\n\r\n.modal-box {\r\n  display: none;\r\n  position: absolute;\r\n  left: 50%;\r\n  top: 50%;\r\n  -webkit-transform: translate(-50%, -50%);\r\n          transform: translate(-50%, -50%);\r\n  z-index: 1000;\r\n  width: 98%;\r\n  background: white;\r\n  border-bottom: 1px solid #aaa;\r\n  border-radius: 4px;\r\n  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);\r\n  border: 1px solid rgba(0, 0, 0, 0.1);\r\n  background-clip: padding-box;\r\n}\r\n\r\n.modal-box header,\r\n.modal-box .modal-header {\r\n  padding: 1.25em 1.5em;\r\n  border-bottom: 1px solid #ddd;\r\n}\r\n\r\n.modal-box header h3,\r\n.modal-box header h4,\r\n.modal-box .modal-header h3,\r\n.modal-box .modal-header h4 {\r\n  margin: 0;\r\n}\r\n\r\n.modal-box .modal-body {\r\n  padding: 2em 1.5em;\r\n}\r\n\r\n.modal-box footer,\r\n.modal-box .modal-footer {\r\n  padding: 1em;\r\n  border-top: 1px solid #ddd;\r\n  background: rgba(0, 0, 0, 0.02);\r\n  text-align: right;\r\n}\r\n\r\n.modal-overlay {\r\n  opacity: 0;\r\n  filter: alpha(opacity=0);\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  z-index: 900;\r\n  width: 100%;\r\n  height: 100%;\r\n  background: rgba(0, 0, 0, 0.3) !important;\r\n}\r\n\r\na.close {\r\n  line-height: 1;\r\n  font-size: 1.5em;\r\n  position: absolute;\r\n  top: 5%;\r\n  right: 2%;\r\n  text-decoration: none;\r\n  color: #bbb;\r\n}\r\n\r\na.close:hover {\r\n  color: #222;\r\n  transition: color 1s ease;\r\n}\r\n\r\n@media (min-width: 32em) {\r\n  .modal-box {\r\n    width: 70%;\r\n  }\r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ 493:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -2897,7 +3065,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 493:
+/***/ 494:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -2915,7 +3083,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 494:
+/***/ 495:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -2933,129 +3101,129 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 557:
-/***/ (function(module, exports) {
-
-module.exports = "<app-header></app-header>\r\n<router-outlet></router-outlet>\r\n<app-footer></app-footer>\r\n"
-
-/***/ }),
-
 /***/ 558:
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <!--  breadcrumb -->\r\n      <ul class=\"breadcrumb\">\r\n        <li>\r\n          <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n          <span class=\"divider\">/</span>\r\n        </li>\r\n        <li class=\"active\"> Giỏ hàng</li>\r\n      </ul>\r\n      <h1 class=\"heading1\"><span class=\"maintext\"> Giỏ hàng</span><span class=\"subtext\"> Tất cả sản phẩm trong giỏ hàng</span></h1>\r\n      <!-- Cart-->\r\n      <div class=\"cart-info\" *ngIf=\"!no_product\">\r\n        <table class=\"table table-striped table-bordered\">\r\n          <tr>\r\n            <th class=\"image\">Hình ảnh</th>\r\n            <th class=\"name\">Tên sản phẩm</th>\r\n            <th class=\"quantity\">Số lượng</th>\r\n            <th class=\"total\">Xóa</th>\r\n            <th class=\"price\">Giá</th>\r\n            <th class=\"total\">Tổng tiền</th>\r\n          </tr>\r\n          <tr *ngFor=\"let item of product_giohang\">\r\n            <td class=\"image\">\r\n              <a href=\"#\"><img title=\"product\" alt=\"product\" src=\"{{link_img}}{{item[0].options.img}}\" height=\"50\" width=\"50\"></a>\r\n            </td>\r\n            <td class=\"name\"><a href=\"#\">{{item[0].name}}</a></td>\r\n\r\n            <td class=\"quantity\"><input type=\"number\" size=\"1\" [value]=\"item[0].qty\" name=\"quantity\" class=\"span1\" (change)=\"update(textName.value,textName.id,$event)\"\r\n                #textName [attr.id]=\"item[0].id\" min=\"0\" (keyup)=\"validateNumber(textName.value)\">\r\n            </td>\r\n\r\n            <td class=\"total\">\r\n              <a (click)=\"fcshowDialog(item[0].id)\"><img class=\"tooltip-test\" data-original-title=\"Remove\" src=\"{{domain}}public/user/img/remove.png\" alt=\"\"></a>\r\n            </td>\r\n\r\n\r\n            <td class=\"price\">{{item[0].price | formatNumVN }} D</td>\r\n            <td class=\"total\">{{item[0].subtotal | formatNumVN }} D</td>\r\n\r\n          </tr>\r\n        </table>\r\n      </div>\r\n      <app-dialog [(visible)]=\"showDialog\">\r\n        <p>Bạn có chắc muốn xóa sản phẩm?</p>\r\n        <hr>\r\n        <div class=\"btn-wrap\">\r\n          <button (click)=delete(deleteId) type=\"button\" class=\"btn btn-success\">OK</button>\r\n          <button (click)=cancel() type=\"button\" class=\"btn btn-danger\">Cancel</button>\r\n        </div>\r\n      </app-dialog>\r\n      <div class=\"container\" *ngIf=\"!no_product\">\r\n        <div class=\"pull-right\">\r\n          <div class=\"span4 pull-right\">\r\n            <table class=\"table table-striped table-bordered \">\r\n              <tr>\r\n                <td><span class=\"extra bold totalamout\">Tổng tiền :</span></td>\r\n                <td><span class=\"bold totalamout\" id=\"totalamout\">{{total | formatNumVN }} D</span></td>\r\n              </tr>\r\n            </table>\r\n            <button routerLink=\"/thanh-toan\" class=\"btn btn-orange pull-right\">Thanh toán</button>\r\n            <button routerLink=\"\" class=\"btn btn-orange pull-right mr10 js-home\">Tiếp tục mua sắm</button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"container\" *ngIf=\"no_product\">\r\n        <p>Không có sản phẩm nào trong giỏ hàng. Vui lòng quay lại mua sắm !</p>\r\n        <p>\r\n          <a routerLink=\"\"><button class=\"btn btn-orange pull-left js-home\">Tiếp tục mua sắm</button></a>\r\n        </p>\r\n      </div>\r\n    </div>\r\n  </section>\r\n</div>\r\n<app-dialog [(visible)]=\"showDialogvc\">\r\n  <p class=\"alert alert-danger\" style=\"margin:0\">Vui lòng nhập số</p>\r\n</app-dialog>"
+module.exports = "<app-header>\r\n    <app-spinner [isRunning]=\"(isRequesting1 && isRequesting2) || load\"></app-spinner>\r\n</app-header>\r\n<router-outlet></router-outlet>\r\n<app-footer></app-footer>"
 
 /***/ }),
 
 /***/ 559:
 /***/ (function(module, exports) {
 
-module.exports = "<section id=\"product\" *ngIf=\"!flag_search1\">\r\n  <div class=\"container\">\r\n    <!--  breadcrumb -->\r\n    <ul class=\"breadcrumb\">\r\n      <li>\r\n        <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n        <span class=\"divider\">/</span>\r\n      </li>\r\n      <li class=\"active\">Danh mục sản phẩm</li>\r\n    </ul>\r\n    <div class=\"row\">\r\n      <!-- Sidebar Start-->\r\n      <aside class=\"span3\">\r\n        <!-- Category-->\r\n        <div class=\"sidewidt\">\r\n          <h2 class=\"heading2\"><span>Danh mục</span></h2>\r\n          <ul class=\"nav nav-list categories\">\r\n            <li *ngFor=\"let item of menu_cate\">\r\n              <a routerLink=\"/loai-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <!--  Best Seller -->\r\n        <div class=\"sidewidt\">\r\n          <h2 class=\"heading2\"><span>Bán chạy nhất</span></h2>\r\n          <ul class=\"bestseller\">\r\n            <li *ngFor=\"let item of products_order\">\r\n              <img width=\"50\" height=\"50\" src=\"{{link_img}}{{item.image}}\" alt=\"product\" title=\"product\">\r\n              <a class=\"productname\" routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n              <span class=\"price\">{{item.price | formatNumVN }} D</span>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <!-- Latest Product -->\r\n        <div class=\"sidewidt\">\r\n          <h2 class=\"heading2\"><span>Mới nhất</span></h2>\r\n          <ul class=\"bestseller\">\r\n            <li *ngFor=\"let item of lasted_product | slice:0:4; let i=index\">\r\n              <img width=\"50\" height=\"50\" src=\"{{link_img}}{{item.image}}\" alt=\"product\" title=\"product\">\r\n              <a class=\"productname\" routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n              <span class=\"price\">{{item.price | formatNumVN }} D</span>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n      </aside>\r\n      <!-- Sidebar End-->\r\n      <!-- Category-->\r\n      <div class=\"span9\">\r\n        <!-- Category Products-->\r\n        <section id=\"category\">\r\n          <div class=\"row\">\r\n            <div class=\"span9\">\r\n              <!-- Category-->\r\n              <section id=\"categorygrid\">\r\n                <ul class=\"thumbnails grid\">\r\n                  <li class=\"span3\" *ngFor=\"let item of products_cate\">\r\n                    <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n                    <div class=\"thumbnail\">\r\n                      <span class=\"sale tooltip-test\">Sale</span>\r\n                      <a routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\"><img alt=\"\" src=\"{{link_img}}{{item.image}}\"></a>\r\n                      <div class=\"pricetag\">\r\n                        <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{item.id}}\" #cart>ADD TO CART</a>\r\n                        <div class=\"price\">\r\n                          <div class=\"pricenew\">{{item.price | formatNumVN }} D</div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </li>\r\n                </ul>\r\n                <div class=\"pagination pull-right\" *ngIf=\"total > per_page\">\r\n                  <ul>\r\n                    <li *ngIf=\"disablePrev\"><a (click)=\"pageNumber(current_page - 1)\" href=\"#\">Prev</a>\r\n                    </li>\r\n                    <li *ngFor=\"let number of last_page;let i = index\" [class.active]=\"current_page == i+1\">\r\n                      <a href=\"#\" (click)=\"pageNumber(i+1)\" [style.text-decoration]=\"current_page == i+1 ? 'line-through' : ''\">{{ i+1 }}</a>\r\n                    </li>\r\n                    <li *ngIf=\"disableNext\"><a (click)=\"pageNumber(current_page + 1)\" href=\"#\">Next</a>\r\n                    </li>\r\n                  </ul>\r\n                </div>\r\n              </section>\r\n            </div>\r\n          </div>\r\n        </section>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</section>"
+module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <!--  breadcrumb -->\r\n      <ul class=\"breadcrumb\">\r\n        <li>\r\n          <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n          <span class=\"divider\">/</span>\r\n        </li>\r\n        <li class=\"active\"> Giỏ hàng</li>\r\n      </ul>\r\n      <h1 class=\"heading1\"><span class=\"maintext\"> Giỏ hàng</span><span class=\"subtext\"> Tất cả sản phẩm trong giỏ hàng</span></h1>\r\n      <!-- Cart-->\r\n      <div class=\"cart-info\" *ngIf=\"!no_product\">\r\n        <table class=\"table table-striped table-bordered\">\r\n          <tr>\r\n            <th class=\"image\">Hình ảnh</th>\r\n            <th class=\"name\">Tên sản phẩm</th>\r\n            <th class=\"quantity\">Số lượng</th>\r\n            <th class=\"total\">Xóa</th>\r\n            <th class=\"price\">Giá</th>\r\n            <th class=\"total\">Tổng tiền</th>\r\n          </tr>\r\n          <tr *ngFor=\"let item of product_giohang\">\r\n            <td class=\"image\">\r\n              <a><img title=\"product\" alt=\"product\" src=\"{{link_img}}{{item[0].options.img}}\" height=\"50\" width=\"50\"></a>\r\n            </td>\r\n            <td class=\"name\"><a>{{item[0].name}}</a></td>\r\n\r\n            <td class=\"quantity\"><input type=\"number\" size=\"1\" [value]=\"item[0].qty\" name=\"quantity\" class=\"span1\" (change)=\"update(textName.value,textName.id,$event)\"\r\n                #textName [attr.id]=\"item[0].id\" min=\"0\" (keyup)=\"validateNumber(textName.value)\">\r\n            </td>\r\n\r\n            <td class=\"total\">\r\n              <a (click)=\"fcshowDialog(item[0].id)\"><img class=\"tooltip-test\" data-original-title=\"Remove\" src=\"{{domain}}public/user/img/remove.png\" alt=\"\"></a>\r\n            </td>\r\n\r\n\r\n            <td class=\"price\">{{item[0].price | formatNumVN }} D</td>\r\n            <td class=\"total\">{{item[0].subtotal | formatNumVN }} D</td>\r\n\r\n          </tr>\r\n        </table>\r\n      </div>\r\n      <app-dialog [(visible)]=\"showDialog\">\r\n        <p>Bạn có chắc muốn xóa sản phẩm?</p>\r\n        <hr>\r\n        <div class=\"btn-wrap\">\r\n          <button (click)=delete(deleteId) type=\"button\" class=\"btn btn-success\">OK</button>\r\n          <button (click)=cancel() type=\"button\" class=\"btn btn-danger\">Cancel</button>\r\n        </div>\r\n      </app-dialog>\r\n      <div class=\"container\" *ngIf=\"!no_product\">\r\n        <div class=\"pull-right\">\r\n          <div class=\"span4 pull-right\">\r\n            <table class=\"table table-striped table-bordered \">\r\n              <tr>\r\n                <td><span class=\"extra bold totalamout\">Tổng tiền :</span></td>\r\n                <td><span class=\"bold totalamout\" id=\"totalamout\">{{total | formatNumVN }} D</span></td>\r\n              </tr>\r\n            </table>\r\n            <button routerLink=\"/thanh-toan\" class=\"btn btn-orange pull-right\">Thanh toán</button>\r\n            <button routerLink=\"\" class=\"btn btn-orange pull-right mr10 js-home\">Tiếp tục mua sắm</button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"container\" *ngIf=\"no_product\">\r\n        <p>Không có sản phẩm nào trong giỏ hàng. Vui lòng quay lại mua sắm !</p>\r\n        <p>\r\n          <a routerLink=\"\"><button class=\"btn btn-orange pull-left js-home\">Tiếp tục mua sắm</button></a>\r\n        </p>\r\n      </div>\r\n    </div>\r\n  </section>\r\n</div>\r\n<app-dialog [(visible)]=\"showDialogvc\">\r\n  <p class=\"alert alert-danger\" style=\"margin:0\">Vui lòng nhập số</p>\r\n</app-dialog>"
 
 /***/ }),
 
 /***/ 560:
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <!--  breadcrumb -->\r\n      <ul class=\"breadcrumb\">\r\n        <li>\r\n          <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n          <span class=\"divider\">/</span>\r\n        </li>\r\n        <li class=\"active\">Thanh toán</li>\r\n      </ul>\r\n      <form class=\"form-horizontal\" (ngSubmit)=\"checkout(f)\" #f=\"ngForm\">\r\n        <input type=\"hidden\" name=\"_token\" value=\"\">\r\n        <div class=\"row\">\r\n          <!-- Account Login-->\r\n          <div class=\"span9\">\r\n\r\n            <div class=\"checkoutsteptitle\">Chi tiết giao hàng\r\n              <a class=\"modify\"></a>\r\n            </div>\r\n            <div class=\"checkoutstep\">\r\n              <div class=\"row\">\r\n                <fieldset>\r\n                  <div class=\"span4\">\r\n                    <div class=\"control-group\">\r\n                      <label class=\"control-label\">Họ và tên<span class=\"red\">*</span></label>\r\n                      <div class=\"controls\">\r\n                        <input type=\"text\" id=\"name\" class=\"form-control\" required minlength=\"4\" maxlength=\"24\" name=\"name\" [(ngModel)]=\"name1\" #name=\"ngModel\"\r\n                          value=\"{{name1}}\">\r\n                        <div *ngIf=\"name.errors && (name.dirty || name.touched)\" class=\"alert alert-danger\">\r\n                          <div [hidden]=\"!name.errors.required\">\r\n                            Name is required\r\n                          </div>\r\n                          <div [hidden]=\"!name.errors.minlength\">\r\n                            Name must be at least 4 characters long.\r\n                          </div>\r\n                          <div [hidden]=\"!name.errors.maxlength\">\r\n                            Name cannot be more than 24 characters long.\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"control-group\">\r\n                      <label class=\"control-label\">Địa chỉ<span class=\"red\">*</span></label>\r\n                      <div class=\"controls\">\r\n                        <input type=\"text\" id=\"address\" class=\"form-control\" required name=\"address\" [ngModel]=\"\" #address=\"ngModel\" value=\"{{address}}\">\r\n                        <div *ngIf=\"address.errors && (address.dirty || address.touched)\" class=\"alert alert-danger\">\r\n                          <div [hidden]=\"!address.errors.required\">\r\n                            Address is required\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"control-group\">\r\n                      <label class=\"control-label\">EMail<span class=\"red\">*</span></label>\r\n                      <div class=\"controls\">\r\n\r\n                        <input type=\"text\" id=\"email\" class=\"form-control\" required name=\"email\" [(ngModel)]=\"email1\" #email=\"ngModel\" value=\"{{email1}}\"\r\n                          pattern=\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\">\r\n                        <div *ngIf=\"email.errors && (email.dirty || email.touched)\" class=\"alert alert-danger\">\r\n                          <div [hidden]=\"!email.errors.required\">\r\n                            Email is required\r\n                          </div>\r\n                          <div [hidden]=\"!email.errors.pattern\">\r\n                            Email is invalid\r\n                          </div>\r\n                        </div>\r\n\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"control-group\">\r\n                      <label class=\"control-label\">Di động:<span class=\"red\">*</span></label>\r\n                      <div class=\"controls\">\r\n                        <input type=\"text\" id=\"phone\" class=\"form-control\" required name=\"phone\" [ngModel]=\"\" #phone=\"ngModel\" value=\"{{phone}}\"\r\n                          pattern=\"^(01[2689]|09)[0-9]{8}$\">\r\n                        <div *ngIf=\"phone.errors && (phone.dirty || phone.touched)\" class=\"alert alert-danger\">\r\n                          <div [hidden]=\"!phone.errors.required\">\r\n                            Phone is required\r\n                          </div>\r\n                          <div [hidden]=\"!phone.errors.pattern\">\r\n                            Phone is invalid\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </fieldset>\r\n\r\n              </div>\r\n            </div>\r\n            <div class=\"checkoutsteptitle\">Sản phẩm\r\n              <a class=\"modify\"></a>\r\n            </div>\r\n\r\n            <div class=\"checkoutstep\" *ngIf=\"!no_product\">\r\n              <div class=\"cart-info\">\r\n                <table class=\"table table-striped table-bordered\">\r\n                  <tr>\r\n                    <th class=\"image\">Hình ảnh</th>\r\n                    <th class=\"name\">Tên sản phẩm</th>\r\n\r\n                    <th class=\"quantity\">Số lượng</th>\r\n                    <th class=\"price\">Đơn giá</th>\r\n                    <th class=\"total\">Tổng</th>\r\n                  </tr>\r\n\r\n\r\n\r\n                  <tr *ngFor=\"let item of product_giohang\">\r\n                    <td class=\"image\">\r\n                      <a href=\"#\"><img title=\"product\" alt=\"product\" src=\"{{link_img}}{{item[0].options.img}}\" height=\"50\" width=\"50\"></a>\r\n                    </td>\r\n                    <td class=\"name\"><a href=\"#\">{{item[0].name}}</a></td>\r\n                    <td class=\"quantity\"><input type=\"text\" size=\"1\" value='{{item[0].qty}}' name=\"quantity\" class=\"span1 qty\" disabled=\"disabled\">\r\n                    </td>\r\n\r\n                    <td class=\"price\">{{item[0].price | formatNumVN }} D</td>\r\n                    <td class=\"total\">{{item[0].subtotal | formatNumVN }} D</td>\r\n                  </tr>\r\n\r\n\r\n                </table>\r\n              </div>\r\n              <div class=\"row\">\r\n                <div class=\"pull-right\">\r\n                  <div class=\"span4 pull-right\">\r\n                    <table class=\"table table-striped table-bordered \">\r\n                      <tbody>\r\n                        <tr>\r\n                          <td><span class=\"extra bold totalamout\">Tổng tiền :</span></td>\r\n                          <td><span class=\"bold totalamout\">{{total | formatNumVN }} D</span></td>\r\n                        </tr>\r\n                      </tbody>\r\n                    </table>\r\n                    <a><button [disabled]=\"!f.form.valid\" class=\"btn btn-orange pull-right\">Đặt hàng</button></a>\r\n                    <a routerLink=\"/gio-hang\"><button class=\"btn btn-orange pull-right mr10\">Sửa giỏ hàng</button></a>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n            <div class=\"container\" *ngIf=\"no_product\">\r\n              <p>Không có sản phẩm nào trong giỏ hàng. Vui lòng quay lại mua sắm !</p>\r\n              <p>\r\n                <a routerLink=\"\"><button class=\"btn btn-orange pull-left js-home\">Tiếp tục mua sắm</button></a>\r\n              </p>\r\n            </div>\r\n          </div>\r\n\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </section>\r\n</div>\r\n\r\n<app-dialog [(visible)]=\"showDialog\">\r\n  <p class=\"alert alert-success\" style=\"margin:0\">Xin chúc mừng! Bạn đã mua hàng thành công. Đơn hàng của bạn được gửi đồng thời tới email của bạn</p>\r\n  <p style=\"margin-top:10px\"><a routerLink=\"\"><button (click)=\"hidepop()\" class=\"js-home btn btn-orange pull-right\">Về trang chủ</button></a></p>\r\n</app-dialog>"
+module.exports = "<section id=\"product\" *ngIf=\"!flag_search1\">\r\n  <div class=\"container\">\r\n    <!--  breadcrumb -->\r\n    <ul class=\"breadcrumb\">\r\n      <li>\r\n        <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n        <span class=\"divider\">/</span>\r\n      </li>\r\n      <li class=\"active\">Danh mục sản phẩm</li>\r\n    </ul>\r\n    <div class=\"row\">\r\n      <!-- Sidebar Start-->\r\n      <aside class=\"span3\">\r\n        <!-- Category-->\r\n        <div class=\"sidewidt\">\r\n          <h2 class=\"heading2\"><span>Danh mục</span></h2>\r\n          <ul class=\"nav nav-list categories\">\r\n            <li *ngFor=\"let item of menu_cate\">\r\n              <a routerLink=\"/loai-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <!--  Best Seller -->\r\n        <div class=\"sidewidt\">\r\n          <h2 class=\"heading2\"><span>Bán chạy nhất</span></h2>\r\n          <ul class=\"bestseller\">\r\n            <li *ngFor=\"let item of products_order\">\r\n              <img width=\"50\" height=\"50\" src=\"{{link_img}}{{item.image}}\" alt=\"product\" title=\"product\">\r\n              <a class=\"productname\" routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n              <span class=\"price\">{{item.price | formatNumVN }} D</span>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <!-- Latest Product -->\r\n        <div class=\"sidewidt\">\r\n          <h2 class=\"heading2\"><span>Mới nhất</span></h2>\r\n          <ul class=\"bestseller\">\r\n            <li *ngFor=\"let item of lasted_product | slice:0:4; let i=index\">\r\n              <img width=\"50\" height=\"50\" src=\"{{link_img}}{{item.image}}\" alt=\"product\" title=\"product\">\r\n              <a class=\"productname\" routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n              <span class=\"price\">{{item.price | formatNumVN }} D</span>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n      </aside>\r\n      <!-- Sidebar End-->\r\n      <!-- Category-->\r\n      <div class=\"span9\">\r\n        <!-- Category Products-->\r\n        <section id=\"category\">\r\n          <div class=\"row\">\r\n            <div class=\"span9\">\r\n              <!-- Category-->\r\n              <section id=\"categorygrid\">\r\n                <ul class=\"thumbnails grid\">\r\n                  <li class=\"span3\" *ngFor=\"let item of products_cate\">\r\n                    <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n                    <div class=\"thumbnail\">\r\n                      <span class=\"sale tooltip-test\">Sale</span>\r\n                      <a routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\"><img alt=\"\" src=\"{{link_img}}{{item.image}}\"></a>\r\n                      <div class=\"pricetag\">\r\n                        <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{item.id}}\" #cart>ADD TO CART</a>\r\n                        <div class=\"price\">\r\n                          <div class=\"pricenew\">{{item.price | formatNumVN }} D</div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </li>\r\n                </ul>\r\n                <div class=\"pagination pull-right\" *ngIf=\"total > per_page\">\r\n                  <ul>\r\n                    <li *ngIf=\"disablePrev\"><a (click)=\"pageNumber(current_page - 1)\" href=\"#\">Prev</a>\r\n                    </li>\r\n                    <li *ngFor=\"let number of last_page;let i = index\" [class.active]=\"current_page == i+1\">\r\n                      <a href=\"#\" (click)=\"pageNumber(i+1)\" [style.text-decoration]=\"current_page == i+1 ? 'line-through' : ''\">{{ i+1 }}</a>\r\n                    </li>\r\n                    <li *ngIf=\"disableNext\"><a (click)=\"pageNumber(current_page + 1)\" href=\"#\">Next</a>\r\n                    </li>\r\n                  </ul>\r\n                </div>\r\n              </section>\r\n            </div>\r\n          </div>\r\n        </section>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</section>"
 
 /***/ }),
 
 /***/ 561:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"collapsible\">\r\n  <ng-content select=\"tp-collapse\"></ng-content>\r\n</div>"
+module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <!--  breadcrumb -->\r\n      <ul class=\"breadcrumb\">\r\n        <li>\r\n          <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n          <span class=\"divider\">/</span>\r\n        </li>\r\n        <li class=\"active\">Thanh toán</li>\r\n      </ul>\r\n      <form class=\"form-horizontal\" (ngSubmit)=\"checkout(f)\" #f=\"ngForm\">\r\n        <input type=\"hidden\" name=\"_token\" value=\"\">\r\n        <div class=\"row\">\r\n          <!-- Account Login-->\r\n          <div class=\"span9\">\r\n\r\n            <div class=\"checkoutsteptitle\">Chi tiết giao hàng\r\n              <a class=\"modify\"></a>\r\n            </div>\r\n            <div class=\"checkoutstep\">\r\n              <div class=\"row\">\r\n                <fieldset>\r\n                  <div class=\"span4\">\r\n                    <div class=\"control-group\">\r\n                      <label class=\"control-label\">Họ và tên<span class=\"red\">*</span></label>\r\n                      <div class=\"controls\">\r\n                        <input type=\"text\" id=\"name\" class=\"form-control\" required minlength=\"4\" maxlength=\"24\" name=\"name\" [(ngModel)]=\"name1\" #name=\"ngModel\"\r\n                          value=\"{{name1}}\">\r\n                        <div *ngIf=\"name.errors && (name.dirty || name.touched)\" class=\"alert alert-danger\">\r\n                          <div [hidden]=\"!name.errors.required\">\r\n                            Name is required\r\n                          </div>\r\n                          <div [hidden]=\"!name.errors.minlength\">\r\n                            Name must be at least 4 characters long.\r\n                          </div>\r\n                          <div [hidden]=\"!name.errors.maxlength\">\r\n                            Name cannot be more than 24 characters long.\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"control-group\">\r\n                      <label class=\"control-label\">Địa chỉ<span class=\"red\">*</span></label>\r\n                      <div class=\"controls\">\r\n                        <input type=\"text\" id=\"address\" class=\"form-control\" required name=\"address\" [ngModel]=\"\" #address=\"ngModel\" value=\"{{address}}\">\r\n                        <div *ngIf=\"address.errors && (address.dirty || address.touched)\" class=\"alert alert-danger\">\r\n                          <div [hidden]=\"!address.errors.required\">\r\n                            Address is required\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"control-group\">\r\n                      <label class=\"control-label\">EMail<span class=\"red\">*</span></label>\r\n                      <div class=\"controls\">\r\n\r\n                        <input type=\"text\" id=\"email\" class=\"form-control\" required name=\"email\" [(ngModel)]=\"email1\" #email=\"ngModel\" value=\"{{email1}}\"\r\n                          pattern=\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\">\r\n                        <div *ngIf=\"email.errors && (email.dirty || email.touched)\" class=\"alert alert-danger\">\r\n                          <div [hidden]=\"!email.errors.required\">\r\n                            Email is required\r\n                          </div>\r\n                          <div [hidden]=\"!email.errors.pattern\">\r\n                            Email is invalid\r\n                          </div>\r\n                        </div>\r\n\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"control-group\">\r\n                      <label class=\"control-label\">Di động:<span class=\"red\">*</span></label>\r\n                      <div class=\"controls\">\r\n                        <input type=\"text\" id=\"phone\" class=\"form-control\" required name=\"phone\" [ngModel]=\"\" #phone=\"ngModel\" value=\"{{phone}}\"\r\n                          pattern=\"^(01[2689]|09)[0-9]{8}$\">\r\n                        <div *ngIf=\"phone.errors && (phone.dirty || phone.touched)\" class=\"alert alert-danger\">\r\n                          <div [hidden]=\"!phone.errors.required\">\r\n                            Phone is required\r\n                          </div>\r\n                          <div [hidden]=\"!phone.errors.pattern\">\r\n                            Phone is invalid\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </fieldset>\r\n\r\n              </div>\r\n            </div>\r\n            <div class=\"checkoutsteptitle\">Sản phẩm\r\n              <a class=\"modify\"></a>\r\n            </div>\r\n\r\n            <div class=\"checkoutstep\" *ngIf=\"!no_product\">\r\n              <div class=\"cart-info\">\r\n                <table class=\"table table-striped table-bordered\">\r\n                  <tr>\r\n                    <th class=\"image\">Hình ảnh</th>\r\n                    <th class=\"name\">Tên sản phẩm</th>\r\n\r\n                    <th class=\"quantity\">Số lượng</th>\r\n                    <th class=\"price\">Đơn giá</th>\r\n                    <th class=\"total\">Tổng</th>\r\n                  </tr>\r\n\r\n\r\n\r\n                  <tr *ngFor=\"let item of product_giohang\">\r\n                    <td class=\"image\">\r\n                      <a href=\"#\"><img title=\"product\" alt=\"product\" src=\"{{link_img}}{{item[0].options.img}}\" height=\"50\" width=\"50\"></a>\r\n                    </td>\r\n                    <td class=\"name\"><a href=\"#\">{{item[0].name}}</a></td>\r\n                    <td class=\"quantity\"><input type=\"text\" size=\"1\" value='{{item[0].qty}}' name=\"quantity\" class=\"span1 qty\" disabled=\"disabled\">\r\n                    </td>\r\n\r\n                    <td class=\"price\">{{item[0].price | formatNumVN }} D</td>\r\n                    <td class=\"total\">{{item[0].subtotal | formatNumVN }} D</td>\r\n                  </tr>\r\n\r\n\r\n                </table>\r\n              </div>\r\n              <div class=\"row\">\r\n                <div class=\"pull-right\">\r\n                  <div class=\"span4 pull-right\">\r\n                    <table class=\"table table-striped table-bordered \">\r\n                      <tbody>\r\n                        <tr>\r\n                          <td><span class=\"extra bold totalamout\">Tổng tiền :</span></td>\r\n                          <td><span class=\"bold totalamout\">{{total | formatNumVN }} D</span></td>\r\n                        </tr>\r\n                      </tbody>\r\n                    </table>\r\n                    <a><button [disabled]=\"!f.form.valid\" class=\"btn btn-orange pull-right\">Đặt hàng</button></a>\r\n                    <a routerLink=\"/gio-hang\"><button class=\"btn btn-orange pull-right mr10\">Sửa giỏ hàng</button></a>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n            <div class=\"container\" *ngIf=\"no_product\">\r\n              <p>Không có sản phẩm nào trong giỏ hàng. Vui lòng quay lại mua sắm !</p>\r\n              <p>\r\n                <a routerLink=\"\"><button class=\"btn btn-orange pull-left js-home\">Tiếp tục mua sắm</button></a>\r\n              </p>\r\n            </div>\r\n          </div>\r\n\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </section>\r\n</div>\r\n\r\n<app-dialog [(visible)]=\"showDialog\">\r\n  <p class=\"alert alert-success\" style=\"margin:0\">Xin chúc mừng! Bạn đã mua hàng thành công. Đơn hàng của bạn được gửi đồng thời tới email của bạn</p>\r\n  <p style=\"margin-top:10px\"><a routerLink=\"\"><button (click)=\"hidepop()\" class=\"js-home btn btn-orange pull-right\">Về trang chủ</button></a></p>\r\n</app-dialog>"
 
 /***/ }),
 
 /***/ 562:
 /***/ (function(module, exports) {
 
-module.exports = "<header class=\"collapsible-header\" (click)=\"toggleSelected()\">\r\n  {{ title }}\r\n</header>\r\n<section class=\"collapsible-body\" [class.active]=\"selected\">\r\n  <ng-content></ng-content>\r\n</section>\r\n"
+module.exports = "<div class=\"collapsible\">\r\n  <ng-content select=\"tp-collapse\"></ng-content>\r\n</div>"
 
 /***/ }),
 
 /***/ 563:
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <!--  breadcrumb -->\r\n      <ul class=\"breadcrumb\">\r\n        <li>\r\n          <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n          <span class=\"divider\">/</span>\r\n        </li>\r\n        <li class=\"active\">Liên hệ</li>\r\n      </ul>\r\n      <!-- Contact Us-->\r\n      <h1 class=\"heading1\"><span class=\"maintext\">Liên hệ</span><span class=\"subtext\"></span></h1>\r\n      <div class=\"row\">\r\n        <div class=\"span9\">\r\n\r\n          <form class=\"form-horizontal\" (ngSubmit)=\"contact(f)\" #f=\"ngForm\">\r\n\r\n            <fieldset>\r\n              <div class=\"control-group\">\r\n                <label for=\"name\" class=\"control-label\">Tên <span class=\"required\">*</span></label>\r\n                <div class=\"controls\">\r\n                  <input type=\"text\" id=\"name\" class=\"form-control\" required minlength=\"4\" maxlength=\"24\" name=\"name\" [(ngModel)]=\"account.name\"\r\n                    #name=\"ngModel\" value=\"{{name}}\">\r\n                  <div *ngIf=\"name.errors && (name.dirty || name.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!name.errors.required\">\r\n                      Name is required\r\n                    </div>\r\n                    <div [hidden]=\"!name.errors.minlength\">\r\n                      Name must be at least 4 characters long.\r\n                    </div>\r\n                    <div [hidden]=\"!name.errors.maxlength\">\r\n                      Name cannot be more than 24 characters long.\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <div class=\"control-group\">\r\n                <label for=\"email\" class=\"control-label\">Email <span class=\"required\">*</span></label>\r\n                <div class=\"controls\">\r\n                  <input type=\"text\" id=\"email\" class=\"form-control\" required name=\"email\" [(ngModel)]=\"account.email\" #email=\"ngModel\" pattern=\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\"\r\n                    value=\"{{email}}\">\r\n                  <div *ngIf=\"email.errors && (email.dirty || email.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!email.errors.required\">\r\n                      Email is required\r\n                    </div>\r\n                    <div [hidden]=\"!email.errors.pattern\">\r\n                      Email is invalid\r\n                    </div>\r\n                  </div>\r\n\r\n\r\n\r\n                </div>\r\n              </div>\r\n              <div class=\"control-group\">\r\n                <label for=\"url\" class=\"control-label\">Website </label>\r\n                <div class=\"controls\">\r\n                  <input type=\"url\" class=\"form-control\" name=\"url\" [ngModel]=\"\" required pattern=\"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)\"\r\n                    #url=\"ngModel\">\r\n\r\n                  <div *ngIf=\"url.errors && (url.dirty || url.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!url.errors.required\">\r\n                      Url is required\r\n                    </div>\r\n                    <div [hidden]=\"!url.errors.pattern\">\r\n                      Url is invalid\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <div class=\"control-group\">\r\n                <label for=\"message\" class=\"control-label\">Nội dung </label>\r\n                <div class=\"controls\">\r\n                  <textarea class=\"required\" rows=\"6\" cols=\"40\" id=\"message\" name=\"messagee\" [ngModel]=\"\" required #messagee=\"ngModel\"></textarea>\r\n                  <div *ngIf=\"messagee.errors && (messagee.dirty || messagee.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!messagee.errors.required\">\r\n                      Messagee is required\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <div class=\"form-actions\">\r\n                <button class=\"btn btn-orange\" id=\"submit_id\" [disabled]=\"!f.form.valid\">Gửi</button>\r\n                <button class=\"btn\" type=\"reset\">Xóa</button>\r\n              </div>\r\n              <div class=\"clearfix\"></div>\r\n              <div [@visibilityChanged]=\"visibility\" *ngIf=\"flag_success\" class=\"alert alert-success\" style=\"margin-top: 10px\">\r\n                Congratulations! You sent the message successfully\r\n              </div>\r\n            </fieldset>\r\n          </form>\r\n        </div>\r\n\r\n        <!-- Sidebar Start-->\r\n        <div class=\"span3\">\r\n          <aside>\r\n            <div class=\"sidewidt\">\r\n              <h2 class=\"heading2\"><span>Thông tin liên lạc</span></h2>\r\n              <p> Lorem Ipsum is simply<br> Lorem Ipsum is simply<br> Lorem Ipsum is simply<br>\r\n                <br> Phone: +84 905992386<br> Fax: (84) 905992386<br> Email: hunglaravel@gmail.com<br> Website: hunglaravel.com<br>\r\n              </p>\r\n            </div>\r\n          </aside>\r\n        </div>\r\n        <!-- Sidebar End-->\r\n\r\n      </div>\r\n    </div>\r\n  </section>\r\n</div>"
+module.exports = "<header class=\"collapsible-header\" (click)=\"toggleSelected()\">\r\n  {{ title }}\r\n</header>\r\n<section class=\"collapsible-body\" [class.active]=\"selected\">\r\n  <ng-content></ng-content>\r\n</section>\r\n"
 
 /***/ }),
 
 /***/ 564:
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <!--  breadcrumb -->\r\n      <ul class=\"breadcrumb\">\r\n        <li>\r\n          <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n          <span class=\"divider\">/</span>\r\n        </li>\r\n        <li class=\"active\">Chi tiết sản phẩm</li>\r\n      </ul>\r\n      <!-- Product Details-->\r\n      <div class=\"row\">\r\n        <!-- Left Image-->\r\n        <div class=\"span5\">\r\n          <ul class=\"thumbnails mainimage\">\r\n\r\n            <li class=\"span5\">\r\n              <a rel=\"position: 'inside' , showTitle: false, adjustX:-4, adjustY:-4\" class=\"thumbnail cloud-zoom\" href=\"{{link_img}}{{image_product_detail}}\">\r\n                <img id=\"largeImage\" src=\"{{link_img}}{{image_product_detail}}\" alt=\"\" title=\"\">\r\n              </a>\r\n            </li>\r\n            \r\n          </ul>\r\n          <ul class=\"thumbnails mainimage\" id=\"js-click\">\r\n            <li class=\"producthtumb\">\r\n              <a class=\"thumbnail\">\r\n                <img src=\"{{link_img}}{{image_product_detail}}\" alt=\"\" title=\"\">\r\n              </a>\r\n            </li>\r\n\r\n            <li class=\"producthtumb\" *ngFor=\"let item of images\">\r\n              <a class=\"thumbnail\">\r\n                <img src=\"{{link_img}}/detail/{{item.image}}\" alt=\"\" title=\"\">\r\n              </a>\r\n            </li>\r\n\r\n\r\n          </ul>\r\n        </div>\r\n        <!-- Right Details-->\r\n        <div class=\"span7\">\r\n          <div class=\"row\">\r\n            <div class=\"span7\">\r\n              <h1 class=\"productname\"><span class=\"bgnone\">{{name_product_detail}}</span></h1>\r\n              <div class=\"productprice\">\r\n                <div class=\"productpageprice\">\r\n                  <span class=\"spiral\"></span>{{price_product_detail | formatNumVN }} D</div>\r\n              </div>\r\n              <ul class=\"productpagecart\">\r\n                <li><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{id_product_detail}}\" #cart>ADD TO CART</a>\r\n                </li>\r\n              </ul>\r\n              <!-- Product Description tab & comments-->\r\n              <div class=\"productdesc\">\r\n                <h2>Mô tả</h2>\r\n                {{des_product_detail}}\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </section>\r\n  <!--  Related Products-->\r\n  <section id=\"related\" class=\"row\">\r\n    <div class=\"container\">\r\n      <h1 class=\"heading1\"><span class=\"maintext\">Sản phẩm liên quan</span></h1>\r\n      <ul class=\"thumbnails\">\r\n        <li class=\"span3\" *ngFor=\"let item of related_product\">\r\n          <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n          <div class=\"thumbnail\">\r\n            <span class=\"sale tooltip-test\">Sale</span>\r\n            <a routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\"><img alt=\"\" src=\"{{link_img}}{{item.image}}\"></a>\r\n            <div class=\"pricetag\">\r\n              <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{id_product_detail}}\" #cart>ADD TO CART</a>\r\n              <div class=\"price\">\r\n                <div class=\"pricenew\">{{item.price | formatNumVN }} D</div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </li>\r\n\r\n      </ul>\r\n      <div class=\"container\" *ngIf=\"no_product_related\">\r\n        <p>Không có sản phẩm liên quan đến sản phẩm này</p>\r\n      </div>\r\n    </div>\r\n  </section>\r\n  <!-- Popular Brands-->\r\n</div>"
+module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <!--  breadcrumb -->\r\n      <ul class=\"breadcrumb\">\r\n        <li>\r\n          <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n          <span class=\"divider\">/</span>\r\n        </li>\r\n        <li class=\"active\">Liên hệ</li>\r\n      </ul>\r\n      <!-- Contact Us-->\r\n      <h1 class=\"heading1\"><span class=\"maintext\">Liên hệ</span><span class=\"subtext\"></span></h1>\r\n      <div class=\"row\">\r\n        <div class=\"span9\">\r\n\r\n          <form class=\"form-horizontal\" (ngSubmit)=\"contact(f)\" #f=\"ngForm\">\r\n\r\n            <fieldset>\r\n              <div class=\"control-group\">\r\n                <label for=\"name\" class=\"control-label\">Tên <span class=\"required\">*</span></label>\r\n                <div class=\"controls\">\r\n                  <input type=\"text\" id=\"name\" class=\"form-control\" required minlength=\"4\" maxlength=\"24\" name=\"name\" [(ngModel)]=\"account.name\"\r\n                    #name=\"ngModel\" value=\"{{name}}\">\r\n                  <div *ngIf=\"name.errors && (name.dirty || name.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!name.errors.required\">\r\n                      Name is required\r\n                    </div>\r\n                    <div [hidden]=\"!name.errors.minlength\">\r\n                      Name must be at least 4 characters long.\r\n                    </div>\r\n                    <div [hidden]=\"!name.errors.maxlength\">\r\n                      Name cannot be more than 24 characters long.\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <div class=\"control-group\">\r\n                <label for=\"email\" class=\"control-label\">Email <span class=\"required\">*</span></label>\r\n                <div class=\"controls\">\r\n                  <input type=\"text\" id=\"email\" class=\"form-control\" required name=\"email\" [(ngModel)]=\"account.email\" #email=\"ngModel\" pattern=\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\"\r\n                    value=\"{{email}}\">\r\n                  <div *ngIf=\"email.errors && (email.dirty || email.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!email.errors.required\">\r\n                      Email is required\r\n                    </div>\r\n                    <div [hidden]=\"!email.errors.pattern\">\r\n                      Email is invalid\r\n                    </div>\r\n                  </div>\r\n\r\n\r\n\r\n                </div>\r\n              </div>\r\n              <div class=\"control-group\">\r\n                <label for=\"url\" class=\"control-label\">Website </label>\r\n                <div class=\"controls\">\r\n                  <input type=\"url\" class=\"form-control\" name=\"url\" [ngModel]=\"\" required pattern=\"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)\"\r\n                    #url=\"ngModel\">\r\n\r\n                  <div *ngIf=\"url.errors && (url.dirty || url.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!url.errors.required\">\r\n                      Url is required\r\n                    </div>\r\n                    <div [hidden]=\"!url.errors.pattern\">\r\n                      Url is invalid\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <div class=\"control-group\">\r\n                <label for=\"message\" class=\"control-label\">Nội dung </label>\r\n                <div class=\"controls\">\r\n                  <textarea class=\"required\" rows=\"6\" cols=\"40\" id=\"message\" name=\"messagee\" [ngModel]=\"\" required #messagee=\"ngModel\"></textarea>\r\n                  <div *ngIf=\"messagee.errors && (messagee.dirty || messagee.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!messagee.errors.required\">\r\n                      Messagee is required\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <div class=\"form-actions\">\r\n                <button class=\"btn btn-orange\" id=\"submit_id\" [disabled]=\"!f.form.valid\">Gửi</button>\r\n                <button class=\"btn\" type=\"reset\">Xóa</button>\r\n              </div>\r\n              <div class=\"clearfix\"></div>\r\n              <div [@visibilityChanged]=\"visibility\" *ngIf=\"flag_success\" class=\"alert alert-success\" style=\"margin-top: 10px\">\r\n                Congratulations! You sent the message successfully\r\n              </div>\r\n            </fieldset>\r\n          </form>\r\n        </div>\r\n\r\n        <!-- Sidebar Start-->\r\n        <div class=\"span3\">\r\n          <aside>\r\n            <div class=\"sidewidt\">\r\n              <h2 class=\"heading2\"><span>Thông tin liên lạc</span></h2>\r\n              <p> Lorem Ipsum is simply<br> Lorem Ipsum is simply<br> Lorem Ipsum is simply<br>\r\n                <br> Phone: +84 905992386<br> Fax: (84) 905992386<br> Email: hunglaravel@gmail.com<br> Website: hunglaravel.com<br>\r\n              </p>\r\n            </div>\r\n          </aside>\r\n        </div>\r\n        <!-- Sidebar End-->\r\n\r\n      </div>\r\n    </div>\r\n  </section>\r\n</div>"
 
 /***/ }),
 
 /***/ 565:
 /***/ (function(module, exports) {
 
-module.exports = "<div [@dialog] *ngIf=\"visible\" class=\"dialog\">\r\n  <ng-content></ng-content>\r\n  <button *ngIf=\"closable\" (click)=\"close()\" aria-label=\"Close\" class=\"dialog__close-btn\">x</button>\r\n  \r\n</div>\r\n<div *ngIf=\"visible\" class=\"overlay\" (click)=\"close()\"></div>"
+module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <!--  breadcrumb -->\r\n      <ul class=\"breadcrumb\">\r\n        <li>\r\n          <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n          <span class=\"divider\">/</span>\r\n        </li>\r\n        <li class=\"active\">Chi tiết sản phẩm</li>\r\n      </ul>\r\n      <!-- Product Details-->\r\n      <div class=\"row\">\r\n        <!-- Left Image-->\r\n        <div class=\"span5\">\r\n          <ul class=\"thumbnails mainimage\">\r\n\r\n            <li class=\"span5\">\r\n              <a rel=\"position: 'inside' , showTitle: false, adjustX:-4, adjustY:-4\" class=\"thumbnail cloud-zoom\" href=\"{{link_img}}{{image_product_detail}}\">\r\n                <img id=\"largeImage\" src=\"{{link_img}}{{image_product_detail}}\" alt=\"\" title=\"\">\r\n              </a>\r\n            </li>\r\n            \r\n          </ul>\r\n          <ul class=\"thumbnails mainimage\" id=\"js-click\">\r\n            <li class=\"producthtumb\">\r\n              <a class=\"thumbnail\">\r\n                <img src=\"{{link_img}}{{image_product_detail}}\" alt=\"\" title=\"\">\r\n              </a>\r\n            </li>\r\n\r\n            <li class=\"producthtumb\" *ngFor=\"let item of images\">\r\n              <a class=\"thumbnail\">\r\n                <img src=\"{{link_img}}/detail/{{item.image}}\" alt=\"\" title=\"\">\r\n              </a>\r\n            </li>\r\n\r\n\r\n          </ul>\r\n        </div>\r\n        <!-- Right Details-->\r\n        <div class=\"span7\">\r\n          <div class=\"row\">\r\n            <div class=\"span7\">\r\n              <h1 class=\"productname\"><span class=\"bgnone\">{{name_product_detail}}</span></h1>\r\n              <div class=\"productprice\">\r\n                <div class=\"productpageprice\">\r\n                  <span class=\"spiral\"></span>{{price_product_detail | formatNumVN }} D</div>\r\n              </div>\r\n              <ul class=\"productpagecart\">\r\n                <li><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{id_product_detail}}\" #cart>ADD TO CART</a>\r\n                </li>\r\n              </ul>\r\n              <!-- Product Description tab & comments-->\r\n              <div class=\"productdesc\">\r\n                <h2>Mô tả</h2>\r\n                {{des_product_detail}}\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </section>\r\n  <!--  Related Products-->\r\n  <section id=\"related\" class=\"row\">\r\n    <div class=\"container\">\r\n      <h1 class=\"heading1\"><span class=\"maintext\">Sản phẩm liên quan</span></h1>\r\n      <ul class=\"thumbnails\">\r\n        <li class=\"span3\" *ngFor=\"let item of related_product\">\r\n          <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n          <div class=\"thumbnail\">\r\n            <span class=\"sale tooltip-test\">Sale</span>\r\n            <a routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\"><img alt=\"\" src=\"{{link_img}}{{item.image}}\"></a>\r\n            <div class=\"pricetag\">\r\n              <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{id_product_detail}}\" #cart>ADD TO CART</a>\r\n              <div class=\"price\">\r\n                <div class=\"pricenew\">{{item.price | formatNumVN }} D</div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </li>\r\n\r\n      </ul>\r\n      <div class=\"container\" *ngIf=\"no_product_related\">\r\n        <p>Không có sản phẩm liên quan đến sản phẩm này</p>\r\n      </div>\r\n    </div>\r\n  </section>\r\n  <!-- Popular Brands-->\r\n</div>"
 
 /***/ }),
 
 /***/ 566:
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"maincontainer\">\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <tp-collapse-group [multiple]=\"false\">\r\n        <tp-collapse *ngFor=\"let post of posts\" [title]=\"post.title\" [selected]=\"false\">\r\n          <div>\r\n            {{ post.body }}\r\n          </div>\r\n        </tp-collapse>\r\n      </tp-collapse-group>\r\n    </div>\r\n  </section>\r\n</div>"
+module.exports = "<div [@dialog] *ngIf=\"visible\" class=\"dialog\">\r\n  <ng-content></ng-content>\r\n  <button *ngIf=\"closable\" (click)=\"close()\" aria-label=\"Close\" class=\"dialog__close-btn\">x</button>\r\n  \r\n</div>\r\n<div *ngIf=\"visible\" class=\"overlay\" (click)=\"close()\"></div>"
 
 /***/ }),
 
 /***/ 567:
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Footer -->\r\n<footer id=\"footer\">\r\n  <section class=\"footersocial\">\r\n    <div class=\"container\">\r\n      <div class=\"row\">\r\n        <div class=\"span3 aboutus\">\r\n          <h2>Về chúng tôi</h2>\r\n          <p>\r\n            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt facere incidunt aliquid, officia laborum debitis. Aliquam provident voluptatem, reiciendis unde quis harum maxime doloribus, a corrupti, facere eos dolor voluptate.\r\n          </p>\r\n        </div>\r\n        <div class=\"span3 contact\">\r\n          <h2>Liên hệ</h2>\r\n          <ul>\r\n            <li class=\"phone\"> +84 905992386</li>\r\n            <li class=\"email\"> laravelhung@gmail.com</li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"span3 twitter\">\r\n          <h2>Twitter </h2>\r\n          <p>coming soon</p>\r\n        </div>\r\n        <div class=\"span3 twitter\">\r\n          <h2>Facebook </h2>\r\n          <p>coming soon</p>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </section>\r\n  <section class=\"footerlinks\">\r\n    <div class=\"container\">\r\n      <div class=\"info\">\r\n        <ul>\r\n          <li><a href=\"#\">Chính sách bảo mật</a>\r\n          </li>\r\n          <li><a href=\"#\">Điều khoản và điều kiện</a>\r\n          </li>\r\n          <li><a href=\"#\">Đại lý</a>\r\n          </li>\r\n          <li><a href=\"#\">Tin tức</a>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n      <div id=\"footersocial\">\r\n        <a href=\"#\" title=\"Facebook\" class=\"facebook\">Facebook</a>\r\n        <a href=\"#\" title=\"Twitter\" class=\"twitter\">Twitter</a>\r\n        <a href=\"#\" title=\"Googleplus\" class=\"googleplus\">Googleplus</a>\r\n        <a href=\"#\" title=\"Skype\" class=\"skype\">Skype</a>\r\n      </div>\r\n    </div>\r\n  </section>\r\n  <section class=\"copyrightbottom\">\r\n    <div class=\"container\">\r\n      <div class=\"row\">\r\n        <div class=\"span6 textright pull-right\">Angular Shop @2017</div>\r\n      </div>\r\n    </div>\r\n  </section>\r\n  <a id=\"gotop\">Back to top</a>\r\n</footer>"
+module.exports = "<div id=\"maincontainer\">\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <tp-collapse-group [multiple]=\"false\">\r\n        <tp-collapse *ngFor=\"let post of posts\" [title]=\"post.title\" [selected]=\"false\">\r\n          <div>\r\n            {{ post.body }}\r\n          </div>\r\n        </tp-collapse>\r\n      </tp-collapse-group>\r\n    </div>\r\n  </section>\r\n</div>"
 
 /***/ }),
 
 /***/ 568:
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Header Start -->\r\n<header>\r\n  <div class=\"headerstrip\">\r\n    <div class=\"container\">\r\n      <div class=\"row\">\r\n        <div class=\"span12\">\r\n          <a routerLink=\"\" class=\"logo pull-left js-home\"><img src=\"{{domain}}public/user/img/logo.png\" alt=\"SimpleOne\" title=\"SimpleOne\"></a>\r\n          <!-- Top Nav Start -->\r\n          <div class=\"pull-left\">\r\n            <div class=\"navbar\" id=\"topnav\">\r\n              <div class=\"navbar-inner\">\r\n                <ul class=\"nav\">\r\n                  <li><a class=\"home active js-home\" routerLink=\"\">Trang chủ</a>\r\n                  </li>\r\n                  <li><a class=\"myaccount\" routerLink=\"/thong-tin\">Tài khoản</a>\r\n                  </li>\r\n                  <li><a class=\"shoppingcart\" routerLink=\"/gio-hang\">Giỏ hàng {{count_c}}</a>\r\n                  </li>\r\n                  <li><a class=\"checkout\" routerLink=\"/thanh-toan\">Thanh Toán</a>\r\n                  </li>\r\n                  <li><a class=\"shoppingcart\" routerLink=\"/faq\">FAQ</a>\r\n                  </li>\r\n                  <li *ngIf=\"check_login || (flag_login == 1) || (flag_login == 2)\"><a class=\"myaccount js-home\" (click)=\"thoat()\">Thoát</a>\r\n                  </li>\r\n                </ul>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <!-- Top Nav End -->\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"container\">\r\n    <h6 style=\"text-align: right;\">Thời tiết Đà Nẵng hôm nay {{ date | date:'fullDate' | uppercase }}, Nhiệt độ: {{ nhietdo | tempConverter}} C. {{day}}.</h6>\r\n  </div>\r\n  <div class=\"container\">\r\n\r\n    <div id=\"categorymenu\">\r\n      <nav class=\"subnav\">\r\n        <ul class=\"nav-pills categorymenu\">\r\n          <li><a class=\"active js-home\" routerLink=\"\">Trang chủ</a></li>\r\n          <li *ngFor=\"let item of menu\" #name id=\"{{item.id}}\"><a on-mouseover=\"menu_cap_2(name.id)\">{{item.name}}</a>\r\n            <div *ngIf=\"id_menu_current == item.id\">\r\n              <app-spinner [isRunning]=\"isRequesting\"></app-spinner>\r\n              <ul>\r\n                <li *ngFor=\"let item of menu_2\" #name2 id=\"{{item.id}}\"><a routerLink=\"/loai-san-pham/{{item.id}}/{{item.alias}}\" class=\"js-img\">{{item.name}}</a>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </li>\r\n          <li><a routerLink=\"/lien-he\">Liên hệ</a>\r\n          </li>\r\n        </ul>\r\n      </nav>\r\n    </div>\r\n  </div>\r\n  <section id=\"featured\" class=\"row\">\r\n    <div class=\"container\">\r\n\r\n      <div class=\"input-group\" style=\"width: 20%;float: left\">\r\n        <input #search style=\"width: 100%\" type=\"text\" class=\"form-control\" placeholder=\"Tìm kiểm sản phẩm\" [(ngModel)]=\"filter\"\r\n          (keyup)=\"onFilter(filter,select_cate_search,selectedPrice)\" id=\"search\">\r\n      </div>\r\n      <div style=\"float: left\" *ngIf=\"flag_search\" [style.color]=\"wselect\" class=\"pdl15\">\r\n        <select [(ngModel)]=\"selectedCate\" (change)=\"CateChild(selectedCate)\" (change)=\"onFilter(filter,selectedCate,selectedPrice)\">\r\n          <option value=\"\">Chọn danh mục tìm kiếm</option>\r\n          <option value=\"{{cate.id}}\" *ngFor=\"let cate of cates\">{{cate.name}}</option>\r\n      </select>\r\n        <select [(ngModel)]=\"selectedCateChild\" *ngIf=\"selectedCate!==''\" (change)=\"onFilter(filter,selectedCateChild,selectedPrice)\">\r\n          <option value=\"\">Chọn danh mục tìm kiếm</option>\r\n          <option value=\"{{cate.id}}\" *ngFor=\"let cate of catechild\">{{cate.name}}</option>\r\n      </select>\r\n      </div>\r\n      <div style=\"width: 20%;float: left\" *ngIf=\"flag_price\" class=\"pdl15\">\r\n        <select [(ngModel)]=\"selectedPrice\" (change)=\"onFilter(filter,selectedCateChild,selectedPrice)\">\r\n          <option value=\"\">Chọn giá tìm kiếm</option>\r\n          <option value=\"0\">> 0k</option>\r\n          <option value=\"50000\">> 50k</option>\r\n          <option value=\"100000\">> 100k</option>\r\n          <option value=\"200000\">> 200k</option>\r\n          <option value=\"500000\">> 500k</option>\r\n          <option value=\"800000\">> 800k</option>\r\n          <option value=\"1000000\">> 1000k</option>\r\n      </select>\r\n      </div>\r\n      <div style=\"width: 20%;float: left\" class=\"pdl15\">\r\n        <button style=\"padding: 5px;border: 0;border-radius: 5px\" class=\"btn-orange js-home\" type=\"button\" (click)=\"onClear()\">Xóa</button>\r\n      </div>\r\n\r\n      <h1 style=\"width: 100%;float: left\" class=\"heading1\" *ngIf=\"flag_search\">\r\n        <span class=\"maintext\">Kết quả tìm kiếm</span>\r\n      </h1>\r\n      <div class=\"clearfix\"></div>\r\n      <div>{{noresult}}</div>\r\n      <ul class=\"thumbnails\">\r\n        <li class=\"span3\" *ngFor=\"let product of products_search\">\r\n          <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\">{{product.name}}</a>\r\n          <div class=\"thumbnail\">\r\n            <span class=\"sale tooltip-test\">Sale</span>\r\n            <a routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\"><img alt=\"\" src=\"{{link_img}}{{product.image}}\"></a>\r\n            <div class=\"pricetag\">\r\n              <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{product.id}}\" #cart>ADD TO CART</a>\r\n              <div class=\"price\">\r\n                <div class=\"pricenew\">{{product.price | formatNumVN }} D</div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </li>\r\n\r\n      </ul>\r\n    </div>\r\n  </section>\r\n</header>\r\n<!-- Header End -->\r\n\r\n<app-dialog [(visible)]=\"showDialog\">\r\n  <p class=\"alert alert-success\" style=\"margin:0\">Mua sản phẩm thành công</p>\r\n  <p style=\"margin-top:10px\"><a routerLink=\"/gio-hang\"><button (click)=\"hidepop()\" class=\"btn btn-orange pull-right\">Xem giỏ hàng</button></a></p>\r\n</app-dialog>\r\n\r\n\r\n"
+module.exports = "<!-- Footer -->\r\n<footer id=\"footer\">\r\n  <section class=\"footersocial\">\r\n    <div class=\"container\">\r\n      <div class=\"row\">\r\n        <div class=\"span3 aboutus\">\r\n          <h2>Về chúng tôi</h2>\r\n          <p>\r\n            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt facere incidunt aliquid, officia laborum debitis. Aliquam provident voluptatem, reiciendis unde quis harum maxime doloribus, a corrupti, facere eos dolor voluptate.\r\n          </p>\r\n        </div>\r\n        <div class=\"span3 contact\">\r\n          <h2>Liên hệ</h2>\r\n          <ul>\r\n            <li class=\"phone\"> +84 905992386</li>\r\n            <li class=\"email\"> laravelhung@gmail.com</li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"span3 twitter\">\r\n          <h2>Twitter </h2>\r\n          <p>coming soon</p>\r\n        </div>\r\n        <div class=\"span3 twitter\">\r\n          <h2>Facebook </h2>\r\n          <p>coming soon</p>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </section>\r\n  <section class=\"footerlinks\">\r\n    <div class=\"container\">\r\n      <div class=\"info\">\r\n        <ul>\r\n          <li><a href=\"#\">Chính sách bảo mật</a>\r\n          </li>\r\n          <li><a href=\"#\">Điều khoản và điều kiện</a>\r\n          </li>\r\n          <li><a href=\"#\">Đại lý</a>\r\n          </li>\r\n          <li><a href=\"#\">Tin tức</a>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n      <div id=\"footersocial\">\r\n        <a href=\"#\" title=\"Facebook\" class=\"facebook\">Facebook</a>\r\n        <a href=\"#\" title=\"Twitter\" class=\"twitter\">Twitter</a>\r\n        <a href=\"#\" title=\"Googleplus\" class=\"googleplus\">Googleplus</a>\r\n        <a href=\"#\" title=\"Skype\" class=\"skype\">Skype</a>\r\n      </div>\r\n    </div>\r\n  </section>\r\n  <section class=\"copyrightbottom\">\r\n    <div class=\"container\">\r\n      <div class=\"row\">\r\n        <div class=\"span6 textright pull-right\">Angular Shop @2017</div>\r\n      </div>\r\n    </div>\r\n  </section>\r\n  <a id=\"gotop\">Back to top</a>\r\n</footer>"
 
 /***/ }),
 
 /***/ 569:
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n  <!-- Slider Start-->\r\n  <section class=\"slider\">\r\n    <div class=\"container\">\r\n      <div class=\"flexslider\" id=\"mainslider\">\r\n        <ul class=\"slides\">\r\n          <li>\r\n            <img src=\"{{domain}}public/user/img/banner1.jpg\" alt=\"\" />\r\n          </li>\r\n          <li>\r\n            <img src=\"{{domain}}public/user/img/banner2.jpg\" alt=\"\" />\r\n          </li>\r\n          <li>\r\n            <img src=\"{{domain}}public/user/img/banner1.jpg\" alt=\"\" />\r\n          </li>\r\n          <li>\r\n            <img src=\"{{domain}}public/user/img/banner2.jpg\" alt=\"\" />\r\n          </li>\r\n        </ul>\r\n      </div>\r\n     \r\n    </div>\r\n  </section>\r\n  \r\n  <!-- Slider End-->\r\n  <!-- Search Product-->\r\n\r\n  <!-- Featured Product-->\r\n  <app-spinner [isRunning]=\"isRequesting\"></app-spinner>\r\n  <section id=\"featured\" class=\"row mt40\" >\r\n    <div class=\"container\">\r\n      <h2 class=\"heading1\">\r\n        <span class=\"maintext\">Sản phẩm mới nhất</span>\r\n      </h2>\r\n      <ul class=\"thumbnails\">\r\n        <li class=\"span3\" *ngFor=\"let product of products\">\r\n          <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\">{{product.name}}</a>\r\n          <div class=\"thumbnail\">\r\n            <span class=\"sale tooltip-test\">Sale</span>\r\n            <a routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\"><img alt=\"\" src=\"{{link_img}}{{product.image}}\"></a>\r\n            <div class=\"pricetag\">\r\n              <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{product.id}}\" #cart>ADD TO CART</a>\r\n              <div class=\"price\">\r\n                <div class=\"pricenew\">{{product.price | formatNumVN }} D</div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </li>\r\n\r\n      </ul>\r\n    </div>\r\n  </section>\r\n\r\n  <!-- Latest Product-->\r\n  <section id=\"latest\" class=\"row\" >\r\n    <div class=\"container\">\r\n      <h2 class=\"heading1\"><span class=\"maintext\">Sản phẩm mua nhiều nhất</span></h2>\r\n      <ul class=\"thumbnails\">\r\n        <li class=\"span3\" *ngFor=\"let product of products_order\">\r\n          <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\">{{product.name}}</a>\r\n          <div class=\"thumbnail\">\r\n            <a routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\"><img alt=\"\" src=\"{{link_img}}{{product.image}}\"></a>\r\n            <div class=\"pricetag\">\r\n              <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{product.id}}\" #cart>ADD TO CART</a>\r\n              <div class=\"price\">\r\n                <div class=\"pricenew\">{{product.price | formatNumVN }} D</div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </section>\r\n</div>\r\n\r\n"
+module.exports = "<!-- Header Start -->\r\n<ng-content></ng-content>\r\n<header>\r\n  <div class=\"headerstrip\">\r\n    <div class=\"container\">\r\n      <div class=\"row\">\r\n        <div class=\"span12\">\r\n          <a routerLink=\"\" class=\"logo pull-left js-home\"><img src=\"{{domain}}public/user/img/logo.png\" alt=\"SimpleOne\" title=\"SimpleOne\"></a>\r\n          <!-- Top Nav Start -->\r\n          <div class=\"pull-left\">\r\n            <div class=\"navbar\" id=\"topnav\">\r\n              <div class=\"navbar-inner\">\r\n                <ul class=\"nav\">\r\n                  <li><a class=\"home active js-home\" routerLink=\"\">Trang chủ</a>\r\n                  </li>\r\n                  <li><a class=\"myaccount\" routerLink=\"/thong-tin\">Tài khoản</a>\r\n                  </li>\r\n                  <li><a class=\"shoppingcart\" routerLink=\"/gio-hang\">Giỏ hàng {{count_c}}</a>\r\n                  </li>\r\n                  <li><a class=\"checkout\" routerLink=\"/thanh-toan\">Thanh Toán</a>\r\n                  </li>\r\n                  <li><a class=\"shoppingcart\" routerLink=\"/faq\">FAQ</a>\r\n                  </li>\r\n                  <li *ngIf=\"check_login || (flag_login == 1) || (flag_login == 2)\"><a class=\"myaccount js-home\" (click)=\"thoat()\">Thoát</a>\r\n                  </li>\r\n                </ul>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <!-- Top Nav End -->\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"container\">\r\n    <h6 style=\"text-align: right;\">Thời tiết Đà Nẵng hôm nay {{ date | date:'fullDate' | uppercase }}, Nhiệt độ: {{ nhietdo | tempConverter}} C. {{day}}.</h6>\r\n  </div>\r\n  <div class=\"container\">\r\n\r\n    <div id=\"categorymenu\">\r\n      <nav class=\"subnav\">\r\n        <ul class=\"nav-pills categorymenu\">\r\n          <li><a class=\"active js-home\" routerLink=\"\">Trang chủ</a></li>\r\n          <li *ngFor=\"let item of menu\" #name id=\"{{item.id}}\"><a on-mouseover=\"menu_cap_2(name.id)\">{{item.name}}</a>\r\n            <div *ngIf=\"id_menu_current == item.id\">\r\n                            <app-spinner [isRunning]=\"isRequesting\"></app-spinner>\r\n\r\n              <ul>\r\n                <li *ngFor=\"let item of menu_2\" #name2 id=\"{{item.id}}\"><a routerLink=\"/loai-san-pham/{{item.id}}/{{item.alias}}\" class=\"js-img\">{{item.name}}</a>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </li>\r\n          <li><a routerLink=\"/lien-he\">Liên hệ</a>\r\n          </li>\r\n        </ul>\r\n      </nav>\r\n    </div>\r\n  </div>\r\n  <section id=\"featured\" class=\"row\">\r\n    <div class=\"container\">\r\n\r\n      <div class=\"input-group\" style=\"width: 20%;float: left\">\r\n        <input #search style=\"width: 100%\" type=\"text\" class=\"form-control\" placeholder=\"Tìm kiểm sản phẩm\" [(ngModel)]=\"filter\"\r\n          (keyup)=\"onFilter(filter,select_cate_search,selectedPrice)\" id=\"search\">\r\n      </div>\r\n      <div style=\"float: left\" *ngIf=\"flag_search\" [style.color]=\"wselect\" class=\"pdl15\">\r\n        <select [(ngModel)]=\"selectedCate\" (change)=\"CateChild(selectedCate)\" (change)=\"onFilter(filter,selectedCate,selectedPrice)\">\r\n          <option value=\"\">Chọn danh mục tìm kiếm</option>\r\n          <option value=\"{{cate.id}}\" *ngFor=\"let cate of cates\">{{cate.name}}</option>\r\n      </select>\r\n        <select [(ngModel)]=\"selectedCateChild\" *ngIf=\"selectedCate!==''\" (change)=\"onFilter(filter,selectedCateChild,selectedPrice)\">\r\n          <option value=\"\">Chọn danh mục tìm kiếm</option>\r\n          <option value=\"{{cate.id}}\" *ngFor=\"let cate of catechild\">{{cate.name}}</option>\r\n      </select>\r\n      </div>\r\n      <div style=\"width: 20%;float: left\" *ngIf=\"flag_price\" class=\"pdl15\">\r\n        <select [(ngModel)]=\"selectedPrice\" (change)=\"onFilter(filter,selectedCateChild,selectedPrice)\">\r\n          <option value=\"\">Chọn giá tìm kiếm</option>\r\n          <option value=\"0\">> 0k</option>\r\n          <option value=\"50000\">> 50k</option>\r\n          <option value=\"100000\">> 100k</option>\r\n          <option value=\"200000\">> 200k</option>\r\n          <option value=\"500000\">> 500k</option>\r\n          <option value=\"800000\">> 800k</option>\r\n          <option value=\"1000000\">> 1000k</option>\r\n      </select>\r\n      </div>\r\n      <div style=\"width: 20%;float: left\" class=\"pdl15\">\r\n        <button style=\"padding: 5px;border: 0;border-radius: 5px\" class=\"btn-orange js-home\" type=\"button\" (click)=\"onClear()\">Xóa</button>\r\n      </div>\r\n\r\n      <h1 style=\"width: 100%;float: left\" class=\"heading1\" *ngIf=\"flag_search\">\r\n        <span class=\"maintext\">Kết quả tìm kiếm</span>\r\n      </h1>\r\n      <div class=\"clearfix\"></div>\r\n      <div>{{noresult}}</div>\r\n      <ul class=\"thumbnails\">\r\n        <li class=\"span3\" *ngFor=\"let product of products_search\">\r\n          <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\">{{product.name}}</a>\r\n          <div class=\"thumbnail\">\r\n            <span class=\"sale tooltip-test\">Sale</span>\r\n            <a routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\"><img alt=\"\" src=\"{{link_img}}{{product.image}}\"></a>\r\n            <div class=\"pricetag\">\r\n              <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{product.id}}\" #cart>ADD TO CART</a>\r\n              <div class=\"price\">\r\n                <div class=\"pricenew\">{{product.price | formatNumVN }} D</div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </li>\r\n\r\n      </ul>\r\n    </div>\r\n  </section>\r\n</header>\r\n<!-- Header End -->\r\n\r\n<app-dialog [(visible)]=\"showDialog\">\r\n  <p class=\"alert alert-success\" style=\"margin:0\">Mua sản phẩm thành công</p>\r\n  <p style=\"margin-top:10px\"><a routerLink=\"/gio-hang\"><button (click)=\"hidepop()\" class=\"btn btn-orange pull-right\">Xem giỏ hàng</button></a></p>\r\n</app-dialog>\r\n\r\n\r\n"
 
 /***/ }),
 
 /***/ 570:
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <!--  breadcrumb -->\r\n      <ul class=\"breadcrumb\">\r\n        <li>\r\n          <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n          <span class=\"divider\">/</span>\r\n        </li>\r\n        <li class=\"active\">Thông tin tài khoản</li>\r\n      </ul>\r\n      <!-- Account Login-->\r\n      <ul class=\"tabs\">\r\n        <li class=\"tab-link current\" data-tab=\"tab-1\">Thông tin</li>\r\n        <li class=\"tab-link\" data-tab=\"tab-2\" (click)=\"loading()\">Đơn hàng</li>\r\n      </ul>\r\n      <div id=\"tab-1\" class=\"tab-container current\">\r\n        Xin chào {{account.name}}\r\n        <p>Chúc bạn một ngày tốt lành</p>\r\n\r\n        <form class=\"form-horizontal\" (ngSubmit)=\"updateInfo(f,id)\" #f=\"ngForm\" *ngIf=\"!(flag_info == 2)\">\r\n\r\n          <h3 class=\"heading3\">Your Email</h3>\r\n          <div class=\"registerbox\">\r\n            <fieldset>\r\n              <div class=\"control-group\">\r\n                <label class=\"control-label\"><span class=\"red\">*</span> Name:</label>\r\n                <div class=\"controls\">\r\n                  <input type=\"text\" id=\"name\" class=\"form-control\" required minlength=\"4\" maxlength=\"24\" name=\"name\" [(ngModel)]=\"account.name\"\r\n                    #name=\"ngModel\" value=\"{{name}}\" (change)=\"isDirty = true\">\r\n                  <div *ngIf=\"name.errors && (name.dirty || name.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!name.errors.required\">\r\n                      name is required\r\n                    </div>\r\n                    <div [hidden]=\"!name.errors.minlength\">\r\n                      name must be at least 4 characters long.\r\n                    </div>\r\n                    <div [hidden]=\"!name.errors.maxlength\">\r\n                      name cannot be more than 24 characters long.\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n\r\n              <div class=\"control-group\">\r\n                <label class=\"control-label\"><span class=\"red\">*</span> Email:</label>\r\n                <div class=\"controls\">\r\n                  <input type=\"text\" id=\"email\" class=\"form-control\" required name=\"email\" [(ngModel)]=\"account.email\" #email=\"ngModel\" pattern=\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\"\r\n                    value=\"{{email}}\" (keyup)=\"checkemail_same(email.value)\" (change)=\"isDirty = true\">\r\n                  <div *ngIf=\"email.errors && (email.dirty || email.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!email.errors.required\">\r\n                      Email is required\r\n                    </div>\r\n                    <div [hidden]=\"!email.errors.pattern\">\r\n                      Email is invalid\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div *ngIf=\"flag_validate_email\" class=\"alert alert-danger\">\r\n                    Email has been used\r\n                  </div>\r\n\r\n                </div>\r\n              </div>\r\n            </fieldset>\r\n          </div>\r\n          <h3 class=\"heading3\">Your Password</h3>\r\n          <div class=\"registerbox\">\r\n            <fieldset>\r\n              <div class=\"control-group\">\r\n                <label class=\"control-label\"><span class=\"red\">*</span> Password New:</label>\r\n                <div class=\"controls\">\r\n                  <input type=\"password\" class=\"form-control\" name=\"password\" [ngModel]=\"account.password\" required validateEqual=\"confirmPassword\"\r\n                    reverse=\"true\" #password=\"ngModel\" (change)=\"isDirty = true\">\r\n                  <div *ngIf=\"password.errors && (password.dirty || password.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!password.errors.required\">\r\n                      Password is required\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n\r\n              <div class=\"control-group\">\r\n                <label class=\"control-label\"><span class=\"red\">*</span> Password New Confirm:</label>\r\n                <div class=\"controls\">\r\n                  <input type=\"password\" class=\"form-control\" name=\"confirmPassword\" [ngModel]=\"\" required validateEqual=\"password\" reverse=\"false\"\r\n                    #confirmPassword=\"ngModel\" (change)=\"isDirty = true\">\r\n\r\n                  <div *ngIf=\"confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!confirmPassword.errors.required\">\r\n                      Password is required\r\n                    </div>\r\n                    <div [hidden]=\"confirmPassword.valid || (confirmPassword.pristine )\">\r\n                      Password not same\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n\r\n              <div class=\"control-group\">\r\n                <div class=\"controls\">\r\n                  <input type=\"submit\" [disabled]=\"!f.form.valid || flag_validate_email\" class=\"btn btn-orange\" value=\"Edit\">\r\n                </div>\r\n              </div>\r\n              <div [@visibilityChanged]=\"visibility\" *ngIf=\"flag_success\" class=\"alert alert-success\">\r\n                You have updated the information successfully\r\n              </div>\r\n\r\n            </fieldset>\r\n          </div>\r\n        </form>\r\n      </div>\r\n      <app-spinner [isRunning]=\"isRequesting\"></app-spinner>\r\n      <div id=\"tab-2\" class=\"tab-container\">\r\n\r\n        <div class=\"cart-info\" id=\"cart-info\" *ngIf=\"!no_product\">\r\n\r\n          <table class=\"table table-striped table-bordered\">\r\n            <tr>\r\n              <th>STT</th>\r\n              <th>Date</th>\r\n              <th>Email</th>\r\n              <th>Name</th>\r\n              <th>Phone</th>\r\n              <th>Xem chi tiết</th>\r\n            </tr>\r\n\r\n            <tr *ngFor=\"let item of products_order; let i= index;\">\r\n              <td>{{i + 1}}</td>\r\n              <td>{{item.created_at}}</td>\r\n              <td>{{item.email}}</td>\r\n              <td>{{item.name}}</td>\r\n              <td>{{item.phone}}</td>\r\n\r\n              <td><a #id_order (click)=\"detail_order(id_order.id)\" class=\"js-open-modal\" data-modal-id=\"popup\" id=\"{{item.id}}\"> Click me </a></td>\r\n            </tr>\r\n\r\n          </table>\r\n\r\n        </div>\r\n        <div class=\"container\" *ngIf=\"no_product\">\r\n          <p>Không có sản phẩm nào trong giỏ hàng. Vui lòng quay lại mua sắm !</p>\r\n          <p>\r\n            <a routerLink=\"\"><input value=\"Tiếp tục mua sắm\" class=\"btn btn-orange pull-left\"></a>\r\n          </p>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </section>\r\n</div>\r\n<div id=\"popup\" class=\"modal-box\">\r\n  <header>\r\n    <a class=\"js-modal-close close\">×</a>\r\n    <h3>Chi tiết đơn hàng</h3>\r\n  </header>\r\n\r\n  <div class=\"modal-body\">\r\n    <table class=\"table table-striped table-bordered\" id=\"table_aj\">\r\n      <tr>\r\n        <th>STT</th>\r\n        <th>Hình ảnh</th>\r\n        <th>Tên sản phẩm</th>\r\n        <th>Đơn giá</th>\r\n        <th>Số lượng</th>\r\n        <th>Tổng tiền</th>\r\n      </tr>\r\n      <tr *ngFor=\"let item of detail_order_product; let i= index;\">\r\n        <td>{{i + 1}}</td>\r\n        <td><img src=\"{{link_img}}{{item.image}}\" width=\"80\" height=\"80\"></td>\r\n        <td>{{item.name}}</td>\r\n        <td>{{item.price | formatNumVN }} D</td>\r\n        <td>{{item.qty}}</td>\r\n        <td>{{item.price*item.qty | formatNumVN }} D</td>\r\n      </tr>\r\n    </table>\r\n\r\n    <div class=\"pull-right\">\r\n      <div class=\"span4 pull-right\">\r\n        <table class=\"table table-striped table-bordered \">\r\n          <tbody>\r\n            <tr>\r\n              <td><span class=\"extra bold totalamout\">Tổng tiền :</span></td>\r\n              <td><span class=\"bold totalamout\" id=\"totalamout\">{{sTotal | formatNumVN }} D</span></td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n      <div class=\"span6 pull-right\">\r\n      </div>\r\n    </div>\r\n\r\n\r\n\r\n  </div>\r\n  <footer>\r\n    <a class=\"js-modal-close\">Close</a>\r\n  </footer>\r\n</div>\r\n"
+module.exports = "\r\n<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n  <!-- Slider Start-->\r\n  <section class=\"slider\">\r\n    <div class=\"container\">\r\n      <div class=\"flexslider\" id=\"mainslider\">\r\n        <ul class=\"slides\">\r\n          <li>\r\n            <img src=\"{{domain}}public/user/img/banner1.jpg\" alt=\"\" />\r\n          </li>\r\n          <li>\r\n            <img src=\"{{domain}}public/user/img/banner2.jpg\" alt=\"\" />\r\n          </li>\r\n          <li>\r\n            <img src=\"{{domain}}public/user/img/banner1.jpg\" alt=\"\" />\r\n          </li>\r\n          <li>\r\n            <img src=\"{{domain}}public/user/img/banner2.jpg\" alt=\"\" />\r\n          </li>\r\n        </ul>\r\n      </div>\r\n     \r\n    </div>\r\n  </section>\r\n  \r\n  <!-- Slider End-->\r\n  <!-- Search Product-->\r\n\r\n  <!-- Featured Product-->\r\n\r\n  <section id=\"featured\" class=\"row mt40\" >\r\n    <div class=\"container\">\r\n      <h2 class=\"heading1\">\r\n        <span class=\"maintext\">Sản phẩm mới nhất</span>\r\n      </h2>\r\n      <ul class=\"thumbnails\">\r\n        <li class=\"span3\" *ngFor=\"let product of products\">\r\n          <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\">{{product.name}}</a>\r\n          <div class=\"thumbnail\">\r\n            <span class=\"sale tooltip-test\">Sale</span>\r\n            <a routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\"><img alt=\"\" src=\"{{link_img}}{{product.image}}\"></a>\r\n            <div class=\"pricetag\">\r\n              <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{product.id}}\" #cart>ADD TO CART</a>\r\n              <div class=\"price\">\r\n                <div class=\"pricenew\">{{product.price | formatNumVN }} D</div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </li>\r\n\r\n      </ul>\r\n    </div>\r\n  </section>\r\n\r\n  <!-- Latest Product-->\r\n  <section id=\"latest\" class=\"row\" >\r\n    <div class=\"container\">\r\n      <h2 class=\"heading1\"><span class=\"maintext\">Sản phẩm mua nhiều nhất</span></h2>\r\n      <ul class=\"thumbnails\">\r\n        <li class=\"span3\" *ngFor=\"let product of products_order\">\r\n          <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\">{{product.name}}</a>\r\n          <div class=\"thumbnail\">\r\n            <a routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\"><img alt=\"\" src=\"{{link_img}}{{product.image}}\"></a>\r\n            <div class=\"pricetag\">\r\n              <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{product.id}}\" #cart>ADD TO CART</a>\r\n              <div class=\"price\">\r\n                <div class=\"pricenew\">{{product.price | formatNumVN }} D</div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </section>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
 /***/ 571:
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <!--  breadcrumb -->\r\n      <ul class=\"breadcrumb\">\r\n        <li>\r\n          <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n          <span class=\"divider\">/</span>\r\n        </li>\r\n        <li class=\"active\">Đăng nhập</li>\r\n      </ul>\r\n      <!-- Account Login-->\r\n      <div class=\"row\">\r\n        <div class=\"span9\">\r\n          <h1 class=\"heading1\"><span class=\"maintext\">Đăng nhập</span><span class=\"subtext\">First Login here to View All your account information</span></h1>\r\n          <section class=\"newcustomer\">\r\n            <h2 class=\"heading2\">Khách hàng mới </h2>\r\n            <div class=\"loginbox\">\r\n              <h4 class=\"heading4\"> Đăng ký tài khoản</h4>\r\n              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat, a. Alias optio repudiandae totam temporibus\r\n                autem eius laudantium eum repellat ipsa aliquid deleniti necessitatibus, quia maiores sapiente ipsam, tempore\r\n                enim!</p>\r\n              <br>\r\n              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem voluptates sed alias quam libero, rerum modi\r\n                iusto debitis repellat natus quibusdam optio sequi? Hic pariatur totam, dicta vero ad deleniti.</p>\r\n              <br>\r\n              <br>\r\n              <a routerLink=\"/dang-ky\" class=\"btn btn-orange\">Tiếp tục</a>\r\n            </div>\r\n          </section>\r\n          <section class=\"returncustomer\">\r\n            <h2 class=\"heading2\">Khách hàng </h2>\r\n            <div class=\"loginbox\">\r\n              <h4 class=\"heading4\">Đã có tài khoản</h4>\r\n              <ul class=\"social-nav clearfix\">\r\n                <li><a (click)=\"loginFacebook()\" title=\"Facebook\" rel=\"nofollow\" class=\"facebook\"><i class=\"fa fa-facebook\"></i></a></li>\r\n                <li><a (click)=\"loginGoogle()\" title=\"Google plus\" rel=\"nofollow\" class=\"google\"><i class=\"fa fa-google-plus\"></i></a></li>\r\n                <li><a (click)=\"loginTwitter()\" title=\"Twitter\" rel=\"nofollow\" class=\"twitter\"><i class=\"fa fa-twitter\"></i></a></li>\r\n                <li><a (click)=\"loginGithub()\" title=\"Github\" rel=\"nofollow\" class=\"github\"><i class=\"fa fa-github\"></i></a></li>\r\n              </ul>\r\n\r\n              <div *ngIf=\"flag_social\" class=\"alert alert-danger\">\r\n                {{error_mg}}\r\n              </div>\r\n              <p>Or sign in with email</p>\r\n              <form class=\"form-vertical\" (ngSubmit)=\"onSignin(f)\" #f=\"ngForm\">\r\n\r\n                <fieldset>\r\n                  <div class=\"control-group\">\r\n                    <input type=\"text\" id=\"email\" class=\"form-control\" required name=\"email\" [(ngModel)]=\"account.email\" #email=\"ngModel\" pattern=\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\"\r\n                      (change)=\"checkemail_same(email.value)\">\r\n                    <div *ngIf=\"email.errors && (email.dirty || email.touched)\" class=\"alert alert-danger\">\r\n                      <div [hidden]=\"!email.errors.required\">\r\n                        Email is required\r\n                      </div>\r\n                      <div [hidden]=\"!email.errors.pattern\">\r\n                        Email is invalid\r\n                      </div>\r\n                    </div>\r\n                    <div *ngIf=\"flag_validate_email\" class=\"alert alert-danger\">\r\n                      Email does not exist in the system\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div class=\"control-group\">\r\n                    <input type=\"password\" id=\"password\" class=\"form-control\" required name=\"password\" [(ngModel)]=\"account.password\" #password=\"ngModel\">\r\n                    <div *ngIf=\"password.errors && (password.dirty || password.touched)\" class=\"alert alert-danger\">\r\n                      <div [hidden]=\"!password.errors.required\">\r\n                        Password is required\r\n                      </div>\r\n                    </div>\r\n                    <div *ngIf=\"flag_validate_pass\" class=\"alert alert-danger\">\r\n                      Wrong password\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div class=\"control-group\">\r\n                    <input type=\"checkbox\" name=\"remember\" (click)=\"doCheck($event)\" [checked]=\"isChecked\" style=\"float: left;display: inline-block;\"\r\n                    />\r\n\r\n                    <label class=\"control-label\" style=\"float: left;display: inline-block;\">Remember Me</label>\r\n                  </div>\r\n\r\n                  <div class=\"clearfix\"></div>\r\n                  <button [disabled]=\"!f.form.valid\" type=\"submit\" class=\"btn btn-orange\" style=\"margin-top: 20px\">Login</button>\r\n                </fieldset>\r\n              </form>\r\n            </div>\r\n          </section>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </section>\r\n</div>"
+module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <!--  breadcrumb -->\r\n      <ul class=\"breadcrumb\">\r\n        <li>\r\n          <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n          <span class=\"divider\">/</span>\r\n        </li>\r\n        <li class=\"active\">Thông tin tài khoản</li>\r\n      </ul>\r\n      <!-- Account Login-->\r\n      <ul class=\"tabs\">\r\n        <li class=\"tab-link current\" data-tab=\"tab-1\">Thông tin</li>\r\n        <li class=\"tab-link\" data-tab=\"tab-2\" (click)=\"loading()\">Đơn hàng</li>\r\n      </ul>\r\n      <div id=\"tab-1\" class=\"tab-container current\">\r\n        Xin chào {{account.name}}\r\n        <p>Chúc bạn một ngày tốt lành</p>\r\n\r\n        <form class=\"form-horizontal\" (ngSubmit)=\"updateInfo(f,id)\" #f=\"ngForm\" *ngIf=\"!(flag_info == 2)\">\r\n\r\n          <h3 class=\"heading3\">Your Email</h3>\r\n          <div class=\"registerbox\">\r\n            <fieldset>\r\n              <div class=\"control-group\">\r\n                <label class=\"control-label\"><span class=\"red\">*</span> Name:</label>\r\n                <div class=\"controls\">\r\n                  <input type=\"text\" id=\"name\" class=\"form-control\" required minlength=\"4\" maxlength=\"24\" name=\"name\" [(ngModel)]=\"account.name\"\r\n                    #name=\"ngModel\" value=\"{{name}}\" (change)=\"isDirty = true\">\r\n                  <div *ngIf=\"name.errors && (name.dirty || name.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!name.errors.required\">\r\n                      name is required\r\n                    </div>\r\n                    <div [hidden]=\"!name.errors.minlength\">\r\n                      name must be at least 4 characters long.\r\n                    </div>\r\n                    <div [hidden]=\"!name.errors.maxlength\">\r\n                      name cannot be more than 24 characters long.\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n\r\n              <div class=\"control-group\">\r\n                <label class=\"control-label\"><span class=\"red\">*</span> Email:</label>\r\n                <div class=\"controls\">\r\n                  <input type=\"text\" id=\"email\" class=\"form-control\" required name=\"email\" [(ngModel)]=\"account.email\" #email=\"ngModel\" pattern=\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\"\r\n                    value=\"{{email}}\" (keyup)=\"checkemail_same(email.value)\" (change)=\"isDirty = true\">\r\n                  <div *ngIf=\"email.errors && (email.dirty || email.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!email.errors.required\">\r\n                      Email is required\r\n                    </div>\r\n                    <div [hidden]=\"!email.errors.pattern\">\r\n                      Email is invalid\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div *ngIf=\"flag_validate_email\" class=\"alert alert-danger\">\r\n                    Email has been used\r\n                  </div>\r\n\r\n                </div>\r\n              </div>\r\n            </fieldset>\r\n          </div>\r\n          <h3 class=\"heading3\">Your Password</h3>\r\n          <div class=\"registerbox\">\r\n            <fieldset>\r\n              <div class=\"control-group\">\r\n                <label class=\"control-label\"><span class=\"red\">*</span> Password New:</label>\r\n                <div class=\"controls\">\r\n                  <input type=\"password\" class=\"form-control\" name=\"password\" [ngModel]=\"account.password\" required validateEqual=\"confirmPassword\"\r\n                    reverse=\"true\" #password=\"ngModel\" (change)=\"isDirty = true\">\r\n                  <div *ngIf=\"password.errors && (password.dirty || password.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!password.errors.required\">\r\n                      Password is required\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n\r\n              <div class=\"control-group\">\r\n                <label class=\"control-label\"><span class=\"red\">*</span> Password New Confirm:</label>\r\n                <div class=\"controls\">\r\n                  <input type=\"password\" class=\"form-control\" name=\"confirmPassword\" [ngModel]=\"\" required validateEqual=\"password\" reverse=\"false\"\r\n                    #confirmPassword=\"ngModel\" (change)=\"isDirty = true\">\r\n\r\n                  <div *ngIf=\"confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!confirmPassword.errors.required\">\r\n                      Password is required\r\n                    </div>\r\n                    <div [hidden]=\"confirmPassword.valid || (confirmPassword.pristine )\">\r\n                      Password not same\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n\r\n              <div class=\"control-group\">\r\n                <div class=\"controls\">\r\n                  <input type=\"submit\" [disabled]=\"!f.form.valid || flag_validate_email\" class=\"btn btn-orange\" value=\"Edit\">\r\n                </div>\r\n              </div>\r\n              <div [@visibilityChanged]=\"visibility\" *ngIf=\"flag_success\" class=\"alert alert-success\">\r\n                You have updated the information successfully\r\n              </div>\r\n\r\n            </fieldset>\r\n          </div>\r\n        </form>\r\n      </div>\r\n      <app-spinner [isRunning]=\"!(products_order$ | async) && tab\"></app-spinner>\r\n      <div id=\"tab-2\" class=\"tab-container\">\r\n        <div *ngIf=\"products_order$ | async as product_orders \">\r\n          <div class=\"cart-info\" id=\"cart-info\" *ngIf=\"product_orders.length > 0\">\r\n\r\n            <table class=\"table table-striped table-bordered\">\r\n              <tr>\r\n                <th>STT</th>\r\n                <th>Date</th>\r\n                <th>Email</th>\r\n                <th>Name</th>\r\n                <th>Phone</th>\r\n                <th>Xem chi tiết</th>\r\n              </tr>\r\n\r\n              <tr *ngFor=\"let item of product_orders; let i= index;\">\r\n                <td>{{i + 1}}</td>\r\n                <td>{{item.created_at}}</td>\r\n                <td>{{item.email}}</td>\r\n                <td>{{item.name}}</td>\r\n                <td>{{item.phone}}</td>\r\n\r\n                <td><a #id_order (click)=\"detail_order(id_order.id)\" class=\"js-open-modal\" data-modal-id=\"popup\" id=\"{{item.id}}\"> Click me </a></td>\r\n              </tr>\r\n\r\n            </table>\r\n\r\n          </div>\r\n        </div>\r\n        <div class=\"container\" *ngIf=\"(products_order$ | async)?.length==0\">\r\n          <p>Không có sản phẩm nào trong giỏ hàng. Vui lòng quay lại mua sắm !</p>\r\n          <p>\r\n            <a routerLink=\"\"><input value=\"Tiếp tục mua sắm\" class=\"btn btn-orange pull-left\"></a>\r\n          </p>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </section>\r\n</div>\r\n<div id=\"popup\" class=\"modal-box\">\r\n  <header>\r\n    <a class=\"js-modal-close close\">×</a>\r\n    <h3>Chi tiết đơn hàng</h3>\r\n  </header>\r\n\r\n  <div class=\"modal-body\">\r\n    <table class=\"table table-striped table-bordered\" id=\"table_aj\">\r\n      <tr>\r\n        <th>STT</th>\r\n        <th>Hình ảnh</th>\r\n        <th>Tên sản phẩm</th>\r\n        <th>Đơn giá</th>\r\n        <th>Số lượng</th>\r\n        <th>Tổng tiền</th>\r\n      </tr>\r\n      <tr *ngFor=\"let item of detail_order_product; let i= index;\">\r\n        <td>{{i + 1}}</td>\r\n        <td><img src=\"{{link_img}}{{item.image}}\" width=\"80\" height=\"80\"></td>\r\n        <td>{{item.name}}</td>\r\n        <td>{{item.price | formatNumVN }} D</td>\r\n        <td>{{item.qty}}</td>\r\n        <td>{{item.price*item.qty | formatNumVN }} D</td>\r\n      </tr>\r\n    </table>\r\n\r\n    <div class=\"pull-right\">\r\n      <div class=\"span4 pull-right\">\r\n        <table class=\"table table-striped table-bordered \">\r\n          <tbody>\r\n            <tr>\r\n              <td><span class=\"extra bold totalamout\">Tổng tiền :</span></td>\r\n              <td><span class=\"bold totalamout\" id=\"totalamout\">{{sTotal | formatNumVN }} D</span></td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n      <div class=\"span6 pull-right\">\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <footer>\r\n    <a class=\"js-modal-close\">Close</a>\r\n  </footer>\r\n</div>\r\n<app-dialog [(visible)]=\"showDialog\">\r\n  <p>Thông tin chưa được lưu lại. Bạn có muốn chuyển hướng?</p>\r\n  <hr>\r\n  <div class=\"btn-wrap\">\r\n    <button (click)=\"obs.next($event)\" type=\"button\" class=\"btn btn-success\">OK</button>\r\n    <button (click)=\"obs1.next($event)\" type=\"button\" class=\"btn btn-danger\">Cancel</button>\r\n  </div>\r\n</app-dialog>"
 
 /***/ }),
 
 /***/ 572:
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n     <!--  breadcrumb --> \r\n      <ul class=\"breadcrumb\">\r\n        <li>\r\n          <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n          <span class=\"divider\">/</span>\r\n        </li>\r\n        <li class=\"active\">Đăng ký tài khoản</li>\r\n      </ul>\r\n      <div class=\"row\">        \r\n        <!-- Register Account-->\r\n        <div class=\"span9\">\r\n         \r\n          <h1 class=\"heading1\"><span class=\"maintext\">Đăng ký tài khoản</span><span class=\"subtext\">Register Your details with us</span></h1>\r\n          <form class=\"form-horizontal\"  (ngSubmit)=\"onSignup(f)\" #f=\"ngForm\">\r\n           \r\n            <h3 class=\"heading3\">Your Personal Details</h3>\r\n            <div class=\"registerbox\">\r\n              <fieldset>\r\n                <div class=\"control-group\">\r\n                <label class=\"control-label\"><span class=\"red\">*</span> Name:</label>\r\n                <div class=\"controls\">\r\n                  <input type=\"text\" id=\"name\" class=\"form-control\" required minlength=\"4\" maxlength=\"24\" name=\"name\" [(ngModel)]=\"account.name\"\r\n                    #name=\"ngModel\" value=\"{{name}}\">\r\n                  <div *ngIf=\"name.errors && (name.dirty || name.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!name.errors.required\">\r\n                      Name is required\r\n                    </div>\r\n                    <div [hidden]=\"!name.errors.minlength\">\r\n                      Name must be at least 4 characters long.\r\n                    </div>\r\n                    <div [hidden]=\"!name.errors.maxlength\">\r\n                      Name cannot be more than 24 characters long.\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n                 <div class=\"control-group\">\r\n                <label class=\"control-label\"><span class=\"red\">*</span> Email:</label>\r\n                <div class=\"controls\">\r\n                  <input type=\"text\" id=\"email\" class=\"form-control\" required name=\"email\" [(ngModel)]=\"account.email\" #email=\"ngModel\" pattern=\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\"\r\n                    value=\"{{email}}\" (keyup)=\"checkemail_same(email.value)\">\r\n                  <div *ngIf=\"email.errors && (email.dirty || email.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!email.errors.required\">\r\n                      Email is required\r\n                    </div>\r\n                    <div [hidden]=\"!email.errors.pattern\">\r\n                      Email is invalid\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div *ngIf=\"flag_validate_email\" class=\"alert alert-danger\">\r\n                    Email has been used\r\n                  </div>\r\n                  \r\n                </div>\r\n              </div>\r\n              </fieldset>\r\n            </div>\r\n            <h3 class=\"heading3\">Your Password</h3>\r\n            <div class=\"registerbox\">\r\n              <fieldset>\r\n                <div class=\"control-group\">\r\n                <label class=\"control-label\"><span class=\"red\">*</span> Password New:</label>\r\n                <div class=\"controls\">\r\n                  <input type=\"password\" class=\"form-control\" name=\"password\" [ngModel]=\"account.password\" required validateEqual=\"confirmPassword\"\r\n                    reverse=\"true\" #password=\"ngModel\">\r\n                  <div *ngIf=\"password.errors && (password.dirty || password.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!password.errors.required\">\r\n                      Password is required\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n                <div class=\"control-group\">\r\n                <label class=\"control-label\"><span class=\"red\">*</span> Password New Confirm:</label>\r\n                <div class=\"controls\">\r\n                  <input type=\"password\" class=\"form-control\" name=\"confirmPassword\" [ngModel]=\"\" required validateEqual=\"password\" reverse=\"false\"\r\n                    #confirmPassword=\"ngModel\">\r\n\r\n                  <div *ngIf=\"confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!confirmPassword.errors.required\">\r\n                      Password is required\r\n                    </div>\r\n                    <div [hidden]=\"confirmPassword.valid || (confirmPassword.pristine )\">\r\n                      Password not same\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              </fieldset>\r\n            </div>\r\n            <div class=\"pull-right\">\r\n              <input type=\"submit\" [disabled]=\"!f.form.valid || flag_validate_email\" class=\"btn btn-orange\" value=\"Đăng ký\">\r\n            </div>\r\n          </form>\r\n          <div class=\"clearfix\"></div>\r\n          <div [@visibilityChanged]=\"visibility\" *ngIf=\"flag_success\" class=\"alert alert-success\" style=\"margin-top: 10px\">\r\n            Congratulations! You have successfully registered your account\r\n          </div>\r\n          <br>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </section>\r\n</div>"
+module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <!--  breadcrumb -->\r\n      <ul class=\"breadcrumb\">\r\n        <li>\r\n          <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n          <span class=\"divider\">/</span>\r\n        </li>\r\n        <li class=\"active\">Đăng nhập</li>\r\n      </ul>\r\n      <!-- Account Login-->\r\n      <div class=\"row\">\r\n        <div class=\"span9\">\r\n          <h1 class=\"heading1\"><span class=\"maintext\">Đăng nhập</span><span class=\"subtext\">First Login here to View All your account information</span></h1>\r\n          <section class=\"newcustomer\">\r\n            <h2 class=\"heading2\">Khách hàng mới </h2>\r\n            <div class=\"loginbox\">\r\n              <h4 class=\"heading4\"> Đăng ký tài khoản</h4>\r\n              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat, a. Alias optio repudiandae totam temporibus\r\n                autem eius laudantium eum repellat ipsa aliquid deleniti necessitatibus, quia maiores sapiente ipsam, tempore\r\n                enim!</p>\r\n              <br>\r\n              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem voluptates sed alias quam libero, rerum modi\r\n                iusto debitis repellat natus quibusdam optio sequi? Hic pariatur totam, dicta vero ad deleniti.</p>\r\n              <br>\r\n              <br>\r\n              <a routerLink=\"/dang-ky\" class=\"btn btn-orange\">Tiếp tục</a>\r\n            </div>\r\n          </section>\r\n          <section class=\"returncustomer\">\r\n            <h2 class=\"heading2\">Khách hàng </h2>\r\n            <div class=\"loginbox\">\r\n              <h4 class=\"heading4\">Đã có tài khoản</h4>\r\n              <ul class=\"social-nav clearfix\">\r\n                <li><a (click)=\"loginFacebook()\" title=\"Facebook\" rel=\"nofollow\" class=\"facebook\"><i class=\"fa fa-facebook\"></i></a></li>\r\n                <li><a (click)=\"loginGoogle()\" title=\"Google plus\" rel=\"nofollow\" class=\"google\"><i class=\"fa fa-google-plus\"></i></a></li>\r\n                <li><a (click)=\"loginTwitter()\" title=\"Twitter\" rel=\"nofollow\" class=\"twitter\"><i class=\"fa fa-twitter\"></i></a></li>\r\n                <li><a (click)=\"loginGithub()\" title=\"Github\" rel=\"nofollow\" class=\"github\"><i class=\"fa fa-github\"></i></a></li>\r\n              </ul>\r\n\r\n              <div *ngIf=\"flag_social\" class=\"alert alert-danger\">\r\n                {{error_mg}}\r\n              </div>\r\n              <p>Or sign in with email</p>\r\n              <form class=\"form-vertical\" (ngSubmit)=\"onSignin(f)\" #f=\"ngForm\">\r\n\r\n                <fieldset>\r\n                  <div class=\"control-group\">\r\n                    <input type=\"text\" id=\"email\" class=\"form-control\" required name=\"email\" [(ngModel)]=\"account.email\" #email=\"ngModel\" pattern=\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\"\r\n                      (change)=\"checkemail_same(email.value)\">\r\n                    <div *ngIf=\"email.errors && (email.dirty || email.touched)\" class=\"alert alert-danger\">\r\n                      <div [hidden]=\"!email.errors.required\">\r\n                        Email is required\r\n                      </div>\r\n                      <div [hidden]=\"!email.errors.pattern\">\r\n                        Email is invalid\r\n                      </div>\r\n                    </div>\r\n                    <div *ngIf=\"flag_validate_email\" class=\"alert alert-danger\">\r\n                      Email does not exist in the system\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div class=\"control-group\">\r\n                    <input type=\"password\" id=\"password\" class=\"form-control\" required name=\"password\" [(ngModel)]=\"account.password\" #password=\"ngModel\">\r\n                    <div *ngIf=\"password.errors && (password.dirty || password.touched)\" class=\"alert alert-danger\">\r\n                      <div [hidden]=\"!password.errors.required\">\r\n                        Password is required\r\n                      </div>\r\n                    </div>\r\n                    <div *ngIf=\"flag_validate_pass\" class=\"alert alert-danger\">\r\n                      Wrong password\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div class=\"control-group\">\r\n                    <input type=\"checkbox\" name=\"remember\" (click)=\"doCheck($event)\" [checked]=\"isChecked\" style=\"float: left;display: inline-block;\"\r\n                    />\r\n\r\n                    <label class=\"control-label\" style=\"float: left;display: inline-block;\">Remember Me</label>\r\n                  </div>\r\n\r\n                  <div class=\"clearfix\"></div>\r\n                  <button [disabled]=\"!f.form.valid\" type=\"submit\" class=\"btn btn-orange\" style=\"margin-top: 20px\">Login</button>\r\n                </fieldset>\r\n              </form>\r\n            </div>\r\n          </section>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </section>\r\n</div>"
 
 /***/ }),
 
 /***/ 573:
 /***/ (function(module, exports) {
 
+module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <!--  breadcrumb -->\r\n      <ul class=\"breadcrumb\">\r\n        <li>\r\n          <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n          <span class=\"divider\">/</span>\r\n        </li>\r\n        <li class=\"active\">Đăng ký tài khoản</li>\r\n      </ul>\r\n      <div class=\"row\">\r\n        <!-- Register Account-->\r\n        <div class=\"span9\">\r\n\r\n          <h1 class=\"heading1\"><span class=\"maintext\">Đăng ký tài khoản</span><span class=\"subtext\">Register Your details with us</span></h1>\r\n          <form class=\"form-horizontal\" (ngSubmit)=\"onSignup(f)\" #f=\"ngForm\">\r\n\r\n            <h3 class=\"heading3\">Your Personal Details</h3>\r\n            <div class=\"registerbox\">\r\n              <fieldset>\r\n                <div class=\"control-group\">\r\n                  <label class=\"control-label\"><span class=\"red\">*</span> Name:</label>\r\n                  <div class=\"controls\">\r\n                    <input type=\"text\" id=\"name\" class=\"form-control\" required minlength=\"4\" maxlength=\"24\" name=\"name\" [(ngModel)]=\"account.name\"\r\n                      #name=\"ngModel\" value=\"{{name}}\">\r\n                    <div *ngIf=\"name.errors && (name.dirty || name.touched)\" class=\"alert alert-danger\">\r\n                      <div [hidden]=\"!name.errors.required\">\r\n                        Name is required\r\n                      </div>\r\n                      <div [hidden]=\"!name.errors.minlength\">\r\n                        Name must be at least 4 characters long.\r\n                      </div>\r\n                      <div [hidden]=\"!name.errors.maxlength\">\r\n                        Name cannot be more than 24 characters long.\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"control-group\">\r\n                  <label class=\"control-label\"><span class=\"red\">*</span> Email:</label>\r\n                  <div class=\"controls\">\r\n                    <input type=\"text\" id=\"email\" class=\"form-control\" required name=\"email\" [(ngModel)]=\"account.email\" #email=\"ngModel\" pattern=\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\"\r\n                      value=\"{{email}}\" emailAvailable>\r\n                    <div *ngIf=\"email.errors && (email.dirty || email.touched)\" class=\"alert alert-danger\">\r\n                      <div [hidden]=\"!email.errors.required\">\r\n                        Email is required\r\n                      </div>\r\n                      <div [hidden]=\"!email.errors.pattern\">\r\n                        Email is invalid\r\n                      </div>\r\n                      <div [hidden]=\"email.valid || (email.pristine)\">\r\n                        Email has been used\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </fieldset>\r\n            </div>\r\n            <h3 class=\"heading3\">Your Password</h3>\r\n            <div class=\"registerbox\">\r\n              <fieldset>\r\n                <div class=\"control-group\">\r\n                  <label class=\"control-label\"><span class=\"red\">*</span> Password New:</label>\r\n                  <div class=\"controls\">\r\n                    <input type=\"password\" class=\"form-control\" name=\"password\" [ngModel]=\"account.password\" required validateEqual=\"confirmPassword\"\r\n                      reverse=\"true\" #password=\"ngModel\">\r\n                    <div *ngIf=\"password.errors && (password.dirty || password.touched)\" class=\"alert alert-danger\">\r\n                      <div [hidden]=\"!password.errors.required\">\r\n                        Password is required\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"control-group\">\r\n                  <label class=\"control-label\"><span class=\"red\">*</span> Password New Confirm:</label>\r\n                  <div class=\"controls\">\r\n                    <input type=\"password\" class=\"form-control\" name=\"confirmPassword\" [ngModel]=\"\" required validateEqual=\"password\" reverse=\"false\"\r\n                      #confirmPassword=\"ngModel\">\r\n\r\n                    <div *ngIf=\"confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)\" class=\"alert alert-danger\">\r\n                      <div [hidden]=\"!confirmPassword.errors.required\">\r\n                        Password is required\r\n                      </div>\r\n                      <div [hidden]=\"confirmPassword.valid || (confirmPassword.pristine )\">\r\n                        Password not same\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </fieldset>\r\n            </div>\r\n            <div class=\"pull-right\">\r\n              <input type=\"submit\" [disabled]=\"!f.form.valid\" class=\"btn btn-orange\" value=\"Đăng ký\">\r\n            </div>\r\n          </form>\r\n          <div class=\"clearfix\"></div>\r\n          <div [@visibilityChanged]=\"visibility\" *ngIf=\"flag_success\" class=\"alert alert-success\" style=\"margin-top: 10px\">\r\n            Congratulations! You have successfully registered your account\r\n          </div>\r\n          <br>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </section>\r\n</div>"
+
+/***/ }),
+
+/***/ 574:
+/***/ (function(module, exports) {
+
 module.exports = "<div class=\"sk-circle-wrap\">\r\n<div [hidden]=\"!isDelayedRunning\" class=\"sk-circle\">\r\n  <div class=\"sk-circle1 sk-child\"></div>\r\n  <div class=\"sk-circle2 sk-child\"></div>\r\n  <div class=\"sk-circle3 sk-child\"></div>\r\n  <div class=\"sk-circle4 sk-child\"></div>\r\n  <div class=\"sk-circle5 sk-child\"></div>\r\n  <div class=\"sk-circle6 sk-child\"></div>\r\n  <div class=\"sk-circle7 sk-child\"></div>\r\n  <div class=\"sk-circle8 sk-child\"></div>\r\n  <div class=\"sk-circle9 sk-child\"></div>\r\n  <div class=\"sk-circle10 sk-child\"></div>\r\n  <div class=\"sk-circle11 sk-child\"></div>\r\n  <div class=\"sk-circle12 sk-child\"></div>\r\n</div>\r\n</div>\r\n"
 
 /***/ }),
 
-/***/ 841:
+/***/ 842:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(275);
+module.exports = __webpack_require__(276);
 
 
 /***/ }),
@@ -3078,5 +3246,5 @@ var Account = (function () {
 
 /***/ })
 
-},[841]);
+},[842]);
 //# sourceMappingURL=main.bundle.js.map
