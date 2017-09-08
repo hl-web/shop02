@@ -37,6 +37,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { ReplacePipe } from './replace.pipe';
 import { FormatNumVNPipe } from './format-num-vn.pipe';
 import { TokenManagerService } from './token-manager.service';
+import { EmailAvailableValidatorDirective } from './email-available-validator.directive';
 // Must export the config
 export const firebaseConfig = {
   apiKey: "AIzaSyCEPpvtiiK5D4r7HqD74yXA9OIyZf_lzmE",
@@ -81,7 +82,8 @@ const routes: Routes = [
     DialogComponent,
     SpinnerComponent,
     ReplacePipe,
-    FormatNumVNPipe
+    FormatNumVNPipe,
+    EmailAvailableValidatorDirective
   ],
   imports: [
     BrowserModule,

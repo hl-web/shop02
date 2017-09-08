@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit {
   date: any;
   day: any;
   night: any;
-  isRequesting: boolean;
+  isRequesting: boolean; isRequesting1: boolean;
   @Output() onVote = new EventEmitter<any>();
   constructor(private xyzUserListService: XyzUserListService, private activatedRoute: ActivatedRoute, private router: Router, private replacePipe: ReplacePipe, private formatNumVNPipe: FormatNumVNPipe, private sanitizer: DomSanitizer) {
     xyzUserListService.changeEmitted$.subscribe(
@@ -97,7 +97,8 @@ export class HeaderComponent implements OnInit {
     this.domain = this.xyzUserListService.domain;
     this.xyzUserListService.get_menu().subscribe((response) => {
       this.menu = response;
-
+      this.isRequesting1 = false;
+      this.xyzUserListService.emitChange4(this.isRequesting1);
     });
     if ((localStorage.getItem("login") !== null)) {
       this.flag_login = localStorage.getItem("login");
@@ -295,6 +296,7 @@ export class HeaderComponent implements OnInit {
     this.isRequesting = true;
     this.xyzUserListService.get_menu_cap2(id).subscribe((response) => {
       this.isRequesting = false;
+
       this.menu_2 = response;
     });
   }

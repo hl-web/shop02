@@ -41,7 +41,7 @@
                   <label class="control-label"><span class="red">*</span> Email:</label>
                   <div class="controls">
                     <input type="text" id="email" class="form-control" required name="email" [(ngModel)]="account.email" #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
-                      value="{{email}}" (change)="checkemail_same(email.value)">
+                      value="{{email}}" emailAvailable>
                     <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
                       <div [hidden]="!email.errors.required">
                         Email is required
@@ -49,12 +49,10 @@
                       <div [hidden]="!email.errors.pattern">
                         Email is invalid
                       </div>
+                      <div [hidden]="email.valid || (email.pristine)">
+                        Email has been used
+                      </div>
                     </div>
-
-                    <div *ngIf="result | async as rs">
-                      <p *ngIf="rs.success =='yes'" class="alert alert-danger">Email has been used</p>
-                    </div>
-
                   </div>
                 </div>
               </fieldset>
@@ -93,7 +91,7 @@
               </fieldset>
             </div>
             <div class="pull-right">
-              <input type="submit" [disabled]="!f.form.valid || flag_validate_email" class="btn btn-orange" value="Đăng ký">
+              <input type="submit" [disabled]="!f.form.valid" class="btn btn-orange" value="Đăng ký">
             </div>
           </form>
           <div class="clearfix"></div>

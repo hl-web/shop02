@@ -59,6 +59,23 @@ export class XyzUserListService {
   emitChange3(change: any) {
     this.emitChangeSource3.next(change);
   }
+
+  // Observable string sources
+  private emitChangeSource4 = new Subject<boolean>();
+  // Observable string streams
+  changeEmitted4 = this.emitChangeSource4.asObservable();
+  // Service message commands
+  emitChange4(change: boolean) {
+    this.emitChangeSource4.next(change);
+  }
+  // Observable string sources
+  private emitChangeSource5 = new Subject<boolean>();
+  // Observable string streams
+  changeEmitted5 = this.emitChangeSource5.asObservable();
+  // Service message commands
+  emitChange5(change: boolean) {
+    this.emitChangeSource5.next(change);
+  }
   logoutSocial() {
     this.afAuth.auth.signOut();
   }
@@ -234,8 +251,8 @@ export class XyzUserListService {
         else {
           if (typeof (Storage) !== "undefined") {
             // Gán dữ liệu
-            
-           sessionStorage.token = tokenData.token;
+
+            sessionStorage.token = tokenData.token;
             sessionStorage.id = tokenData.id;
             sessionStorage.email = tokenData.email;
             sessionStorage.name = tokenData.name;
@@ -277,9 +294,15 @@ export class XyzUserListService {
 
   updateInfo(user, id) {
     //const token = this.getToken();
-      let token =  this.tokenManagerService.retrieveToken();
-      console.log(token);
-      
+    if ((sessionStorage.token !== null)) {
+      var token = this.getToken();
+    }
+    else {
+      var token = this.tokenManagerService.retrieveToken();
+    }
+
+    // console.log(token);
+
     var headers = new Headers();
     headers.append('Content-type', 'application/json');
     return this.http.post(this.API + 'api/user/update/' + id + '?token=' + token, user, { headers: headers })
@@ -314,7 +337,7 @@ export class XyzUserListService {
   getOrderUserDetail(id) {
     return this.http.get(this.API + 'api/user/order/detail/' + id).map(res => res.json());
   }
-  validate_email_user(em: string, id) {
+  validate_email_user(em: string, id: string = '0') {
     return this.http.post(this.API + 'api/user/validate_email/' + id,
       { email: em },
       { headers: new Headers({ 'X-Requested-With': 'XMLHttpRequest' }) }).map(res => res.json());

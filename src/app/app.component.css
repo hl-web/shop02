@@ -1,0 +1,35 @@
+/*:host /deep/ .sk-circle{
+    margin-top: 50%;
+}*/
+
+
+/*:host /deep/ .sk-circle .sk-child:before{
+background-color: #f25c27;
+}*/
+
+
+/*:host /deep/ app-spinner{
+    display: block;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 99999;
+}
+:host /deep/ .sk-circle-wrap {
+    top: 150px;
+}
+:host /deep/ .sk-circle .sk-child:before{
+    background-color: red;
+
+}*/
+
+:host /deep/ app-header app-spinner .sk-circle-wrap {
+    margin-top: 250px;
+    position: fixed;
+    z-index: 9999;
+}
+
+:host /deep/ #categorymenu app-spinner .sk-circle-wrap {
+    margin-top: 0;
+}

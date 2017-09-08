@@ -70,7 +70,7 @@ export class SignupComponent implements OnInit {
 
     //this.flag_validate_email = false;
 
-    this.result = this.xyzUserListService.validate_email_user(em, 0);
+    this.result = this.xyzUserListService.validate_email_user(em, '0');
 
 
     // result.subscribe((data) => {

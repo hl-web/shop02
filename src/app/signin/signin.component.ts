@@ -141,7 +141,7 @@ export class SigninComponent implements OnInit {
 
     this.flag_validate_email = false;
     if (/(.+)@(.+){2,}\.(.+){2,}/.test(em)) {
-      var result = this.xyzUserListService.validate_email_user(em, 0);
+      var result = this.xyzUserListService.validate_email_user(em, '0');
 
 
       result.subscribe((data) => {

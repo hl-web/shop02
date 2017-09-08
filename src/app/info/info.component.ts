@@ -2,7 +2,7 @@ import { Subject } from 'rxjs/Subject';
 import { Router, RouterStateSnapshot, NavigationEnd, NavigationStart } from '@angular/router';
 import { element } from 'protractor';
 import { XyzUserListService } from './../home.service';
-import { Component, OnInit, AfterViewInit, ElementRef, trigger, state, animate, transition, style, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, trigger, state, animate, transition, style, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { NgForm } from "@angular/forms/src/forms";
 import * as $ from 'jquery';
 import { Account } from './../account';
@@ -54,7 +54,7 @@ export class InfoComponent implements OnInit {
   active: boolean = false;
   urlNext: string;
   flagshow: boolean = false;
-
+  tab: boolean = false;
   private obs = new Subject();
   public obs$ = this.obs.asObservable();
   private obs1 = new Subject();
@@ -67,6 +67,7 @@ export class InfoComponent implements OnInit {
         console.log(this.flag_search1);
 
       });
+
   }
   handleDialogButton(): Promise<boolean> {
     var prom = new Promise<boolean>((resolve, reject) => {
@@ -121,9 +122,10 @@ export class InfoComponent implements OnInit {
 
   loading() {
     this.products_order$ = this.xyzUserListService.getOrderUser(this.id);
-   
- 
-   
+    this.tab = true;
+
+
+
     // this.isRequesting = true;
 
     // this.sub = this.xyzUserListService.getOrderUser(this.id).subscribe((response) => {
@@ -215,7 +217,7 @@ export class InfoComponent implements OnInit {
       });
   }
 
-  checkemail_same(em: string, id) {
+  checkemail_same(em: string, id:string) {
     this.flag_validate_email = false;
 
     var result = this.xyzUserListService.validate_email_user(em, this.id);

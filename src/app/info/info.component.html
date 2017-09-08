@@ -110,7 +110,7 @@
           </div>
         </form>
       </div>
-      <app-spinner [isRunning]="!(products_order$ | async)"></app-spinner>
+      <app-spinner [isRunning]="!(products_order$ | async) && tab"></app-spinner>
       <div id="tab-2" class="tab-container">
         <div *ngIf="products_order$ | async as product_orders ">
           <div class="cart-info" id="cart-info" *ngIf="product_orders.length > 0">
@@ -195,7 +195,7 @@
   </footer>
 </div>
 <app-dialog [(visible)]="showDialog">
-  <p>Bạn có chắc muốn xóa sản phẩm?</p>
+  <p>Thông tin chưa được lưu lại. Bạn có muốn chuyển hướng?</p>
   <hr>
   <div class="btn-wrap">
     <button (click)="obs.next($event)" type="button" class="btn btn-success">OK</button>

@@ -48,6 +48,7 @@ export class HomeComponent implements OnInit {
     this.isRequesting = true;
     this.xyzUserListService.get().subscribe((response) => {
       this.isRequesting = false;
+      this.xyzUserListService.emitChange5(this.isRequesting);
       //console.log(response.products_buy);
       this.products = response.products;
       this.products_order = response.products_buy;

@@ -1,4 +1,5 @@
 <!-- Header Start -->
+<ng-content></ng-content>
 <header>
   <div class="headerstrip">
     <div class="container">
@@ -42,7 +43,8 @@
           <li><a class="active js-home" routerLink="">Trang chủ</a></li>
           <li *ngFor="let item of menu" #name id="{{item.id}}"><a on-mouseover="menu_cap_2(name.id)">{{item.name}}</a>
             <div *ngIf="id_menu_current == item.id">
-              <app-spinner [isRunning]="isRequesting"></app-spinner>
+                            <app-spinner [isRunning]="isRequesting"></app-spinner>
+
               <ul>
                 <li *ngFor="let item of menu_2" #name2 id="{{item.id}}"><a routerLink="/loai-san-pham/{{item.id}}/{{item.alias}}" class="js-img">{{item.name}}</a>
                 </li>
