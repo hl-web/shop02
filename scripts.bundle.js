@@ -17,98 +17,98 @@ module.exports = function(src) {
 
 /***/ }),
 
-/***/ 279:
+/***/ 280:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(26)(__webpack_require__(544))
 
 /***/ }),
 
-/***/ 280:
+/***/ 281:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(26)(__webpack_require__(545))
 
 /***/ }),
 
-/***/ 281:
+/***/ 282:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(26)(__webpack_require__(546))
 
 /***/ }),
 
-/***/ 282:
+/***/ 283:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(26)(__webpack_require__(547))
 
 /***/ }),
 
-/***/ 283:
+/***/ 284:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(26)(__webpack_require__(548))
 
 /***/ }),
 
-/***/ 284:
+/***/ 285:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(26)(__webpack_require__(549))
 
 /***/ }),
 
-/***/ 285:
+/***/ 286:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(26)(__webpack_require__(550))
 
 /***/ }),
 
-/***/ 286:
+/***/ 287:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(26)(__webpack_require__(551))
 
 /***/ }),
 
-/***/ 287:
+/***/ 288:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(26)(__webpack_require__(552))
 
 /***/ }),
 
-/***/ 288:
+/***/ 289:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(26)(__webpack_require__(553))
 
 /***/ }),
 
-/***/ 289:
+/***/ 290:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(26)(__webpack_require__(554))
 
 /***/ }),
 
-/***/ 290:
+/***/ 291:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(26)(__webpack_require__(555))
 
 /***/ }),
 
-/***/ 291:
+/***/ 292:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(26)(__webpack_require__(556))
 
 /***/ }),
 
-/***/ 292:
+/***/ 293:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(26)(__webpack_require__(557))
@@ -139,7 +139,7 @@ module.exports = "/* ===================================================\r\n * b
 /***/ 547:
 /***/ (function(module, exports) {
 
-module.exports = "// JavaScript Document\r\n\r\n// Dropdown on Mouseover\r\n$('document').ready(function(){\r\n\"use strict\";\r\n  <!-- Accrodian -->\r\n  var $acdata = $('.accrodian-data'),\r\n    $acclick = $('.accrodian-trigger');\r\n\r\n  $acdata.hide();\r\n  $acclick.first().addClass('active').next().show();\r\n\r\n  $acclick.on('click', function(e) {\r\n    if( $(this).next().is(':hidden') ) {\r\n      $acclick.removeClass('active').next().slideUp(300);\r\n      $(this).toggleClass('active').next().slideDown(300);\r\n    }\r\n    e.preventDefault();\r\n  });\r\n\r\n\r\n  <!-- Toggle -->\r\n  $('.togglehandle').click(function()\r\n  {\r\n    $(this).toggleClass('active')\r\n    $(this).next('.toggledata').slideToggle()\r\n  });\r\n\r\n\r\n  // Dropdowns\r\n  $('.dropdown').hover(\r\n    function(){$(this).addClass('open')\r\n    },\r\n    function(){\r\n      $(this).removeClass('open')\r\n    }\r\n    );\r\n\r\n  // Product thumbnails\r\n  // $('.thumbnail').each(function()\r\n  // {\r\n\r\n  //   $(this).hover(\r\n  //   function(){\r\n  //     //$(this).children('a').children('img').fadeOut()\r\n  //     $(this).children('.shortlinks').fadeIn()\r\n  //   },\r\n  //   function(){\r\n  //     //$(this).children('a').children('img').fadeIn()\r\n  //     $(this).children('.shortlinks').fadeOut()\r\n  //   }\r\n  //   );\r\n\r\n  // });\r\n\r\n  // Checkout steps\r\n  $('.checkoutsteptitle').addClass('down').next('.checkoutstep').fadeIn()\r\n  $('.checkoutsteptitle').live('click', function()\r\n  {\r\n  $(\"select, input:checkbox, input:radio, input:file\").css('display', 'blcok');\r\n    $(this).toggleClass('down').next('.checkoutstep').slideToggle()\r\n  });\r\n\r\n  // Category Menu mobile\r\n   $(\"<select />\").appendTo(\"nav.subnav\");\r\n\r\n      // Create default option \"Go to...\"\r\n      $(\"<option />\", {\r\n         \"selected\": \"selected\",\r\n         \"value\"   : \"\",\r\n         \"text\"    : \"Go to...\"\r\n      }).appendTo(\"nav.subnav select\");\r\n\r\n      // Populate dropdown with menu items\r\n      $(\"nav.subnav a\").each(function() {\r\n       var el = $(this);\r\n       $(\"<option />\", {\r\n           \"value\"   : el.attr(\"href\"),\r\n           \"text\"    : el.text()\r\n       }).appendTo(\"nav.subnav select\");\r\n      });\r\n\r\n     // To make dropdown actually work\r\n     // To make more unobtrusive: http://css-tricks.com/4064-unobtrusive-page-changer/\r\n      $(\"nav.subnav select\").change(function() {\r\n        window.location = $(this).find(\"option:selected\").val();\r\n      });\r\n\r\n  // Product Thumb\r\n  // $('.mainimage li #wrap').hide()\r\n  // $('.mainimage li #wrap').eq(0).fadeIn()\r\n  // $('ul.mainimage li.producthtumb').click(function(){\r\n  //   var thumbindex = $(this).index()\r\n  //   $('.mainimage li #wrap').fadeOut(0)\r\n  //   $('.mainimage li #wrap').eq(thumbindex).fadeIn()\r\n  //    $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom();\r\n  // })\r\n\r\n  // List & Grid View\r\n  $('#list').click(function()\r\n  { $(this).addClass ('btn-orange').children('i').addClass('icon-white')\r\n    $('.grid').fadeOut()\r\n    $('.list').fadeIn()\r\n    $('#grid').removeClass ('btn-orange').children('i').removeClass('icon-white')\r\n  });\r\n  $('#grid').click(function()\r\n  { $(this).addClass ('btn-orange').children('i').addClass('icon-white')\r\n    $('.list').fadeOut()\r\n    $('.grid').fadeIn()\r\n    $('#list').removeClass ('btn-orange').children('i').removeClass('icon-white')\r\n  });\r\n\r\n  // Prdouctpagetab\r\n  $('#myTab a:first').tab('show')\r\n    $('#myTab a').click(function (e) {\r\n    e.preventDefault();\r\n    $(this).tab('show');\r\n  });\r\n\r\n  // alert close\r\n  $('.clostalert').click(function()\r\n  {\r\n  $(this).parent('.alert').fadeOut ()\r\n  });\r\n\r\n  <!-- index2 main Carousal-->\r\n  // $(\"#mainslider2\").carouFredSel({\r\n  //   responsive: true,\r\n  // items   : 1,\r\n  // scroll    : {\r\n  //   fx      : \"crossfade\"\r\n  // },\r\n  // auto: false,\r\n  // mousewheel: true,\r\n  // swipe: {\r\n  //   onMouse: true,\r\n  //   onTouch: true\r\n  // },\r\n\r\n  // pagination  : {\r\n  //   container   : \"#mainslider2_pag\",\r\n  //   anchorBuilder : function( nr ) {\r\n  //     var src = $(\"img\", this).attr( \"src\" );\r\n  //       //src = src.replace( \"/large/\", \"/small/\");\r\n  //     return '<img src=\"' + src + '\" style=\"width:100px\" />';\r\n  //     }\r\n  //   }\r\n  // });\r\n\r\n\r\n  <!-- index3 main Carousal-->\r\n  // $(function() {\r\n  //       $('#mainslider3').carouFredSel({\r\n  //         responsive: true,\r\n  //         auto: true,\r\n  //       //  width: 1170,\r\n  //         height: '100%',\r\n  //         direction: 'left',\r\n  //         items: 1,\r\n  //         swipe: {\r\n  //             onMouse: true,\r\n  //             onTouch: true\r\n  //           },\r\n  //         scroll: {\r\n  //           duration: 1000,\r\n  //           onBefore: function( data ) {\r\n  //             data.items.visible.children().css( 'opacity', 0 ).delay( 200 ).fadeTo( 400, 1 );\r\n  //             data.items.old.children().fadeTo( 400, 0 );\r\n  //           }\r\n  //         }\r\n  //       });\r\n  //     });\r\n\r\n\r\n  <!-- index4 main Carousal-->\r\n  // $(window).load(function() {\r\n  //             // The slider being synced must be initialized first\r\n  //             $('#carouseindex4').flexslider({\r\n  //               animation: \"slide\",\r\n  //               controlNav: false,\r\n  //               animationLoop: false,\r\n  //               slideshow: false,\r\n  //               itemWidth: 226,\r\n  //               //itemMargin: 15,\r\n  //               asNavFor: '#sliderindex4'\r\n  //             });\r\n\r\n  //             $('#sliderindex4').flexslider({\r\n  //               animation: \"slide\",\r\n  //               controlNav: false,\r\n  //               animationLoop: false,\r\n  //               slideshow: false,\r\n  //               sync: \"#carouseindex4\"\r\n  //             });\r\n  //           });\r\n\r\n  <!-- index5 main Carousal-->\r\n      // function prevTimers() {\r\n      //   return allTimers().slice( 0, $('.sliderindex5pager a.selected').index() );\r\n      // }\r\n      // function allTimers() {\r\n      //   return $('.sliderindex5pager a span');\r\n      // }\r\n\r\n      // $(function() {\r\n      //   $('#sliderindex5').carouFredSel({\r\n      //     items: 1,\r\n      //     responsive : true,\r\n      //     auto: {\r\n      //       pauseOnHover: 'resume',\r\n      //       progress: {\r\n      //         bar: '.sliderindex5pager a:first span'\r\n      //       }\r\n      //     },\r\n      //     scroll: {\r\n      //       fx: 'crossfade',\r\n      //       duration: 300,\r\n      //       timeoutDuration: 2000,\r\n      //       onAfter: function() {\r\n      //         allTimers().stop().width( 0 );\r\n      //       //  prevTimers().width(  );\r\n      //         $(this).trigger('configuration', [ 'auto.progress.bar', '.sliderindex5pager a.selected span' ]);\r\n      //       }\r\n      //     },\r\n      //     pagination: {\r\n      //       container: '.sliderindex5pager',\r\n      //       anchorBuilder: false\r\n      //     }\r\n      //   });\r\n      // });\r\n\r\n      <!-- index6 main Carousal-->\r\n  // $(function() {\r\n  //       $('#mainslider6').carouFredSel({\r\n  //         //width: 900,\r\n  //         //height: '100%',\r\n  //         direction: 'up',\r\n  //         items: 1,\r\n  //         prev: '#prevmainslider6',\r\n  //         next: '#nextmainslider6',\r\n  //         pagination: \"#pagermainslider6\",\r\n  //         mousewheel: true,\r\n  //         swipe: {\r\n  //           onMouse: true,\r\n  //           onTouch: true\r\n  //         }\r\n\r\n\r\n  //       });\r\n\r\n  //     });\r\n\r\n\r\n        // Brand Carousal\r\n  // $(window).load(function() {\r\n  // $('#brandcarousal').carouFredSel({\r\n  //             width: '100%',\r\n  //           scroll: 1,\r\n  //             auto: false,\r\n  //           prev: '#prev',\r\n  //           next: '#next',\r\n  //           //pagination: \"#pager2\",\r\n  //           mousewheel: true,\r\n  //           swipe: {\r\n  //             onMouse: true,\r\n  //             onTouch: true\r\n  //           }\r\n  //         });\r\n  //         });\r\n\r\n  // Twitter\r\n     // $(\"#twitter\").tweet({\r\n     //      join_text: \"auto\",\r\n     //      username: \"themeforest\", //replace this with your username\r\n     //      avatar_size: 32,\r\n     //      count: 3,\r\n     //      auto_join_text_default: \"we said,\",\r\n     //      auto_join_text_ed: \"we\",\r\n     //      auto_join_text_ing: \"we were\",\r\n     //      auto_join_text_reply: \"we replied\",\r\n     //      auto_join_text_url: \"we were checking out\",\r\n     //      loading_text: \"loading tweets...\"\r\n     //    });\r\n\r\n})\r\n\r\n  // Contact Form\r\n\r\n  // $(document).ready(function() {\r\n  //   \"use strict\";\r\n  //   $(\".contactform\").validate({\r\n  //    submitHandler: function(form) {\r\n  //      var name = $(\"input#name\").val();\r\n  //      var email = $(\"input#email\").val();\r\n  //      var url = $(\"input#url\").val();\r\n  //      var message = $(\"textarea#message\").val();\r\n\r\n  //      var dataString = 'name='+ name + '&email=' + email + '&url=' + url+'&message='+message;\r\n  //     $.ajax({\r\n  //     type: \"POST\",\r\n  //     url: \"email.php\",\r\n  //     data: dataString,\r\n  //     success: function() {\r\n  //       $('#contactmsg').remove();\r\n  //       $('.contactform').prepend(\"<div id='contactmsg' class='successmsg'>Form submitted successfully!</div>\");\r\n  //        $('#contactmsg').delay(1500).fadeOut(500);\r\n  //       $('#submit_id').attr('disabled','disabled');\r\n  //       }\r\n  //     });\r\n  //    return false;\r\n  //     }\r\n  //   });\r\n  // });\r\n\r\n\r\n// Flexsliders\r\n$(window).load(function(){\r\n  \"use strict\";\r\n  // Fancyboxpopup\r\n  $(\"a.fancyboxpopup\").fancybox().each(function() {\r\n    $(this).append('<span class=\"viewfancypopup\">&nbsp;</span>');\r\n  });\r\n\r\n  // Flexslider index banner\r\n  $('#mainslider').flexslider({\r\n        animation: \"slide\",\r\n        start: function(slider){\r\n          $('body').removeClass('loading');\r\n        }\r\n   });\r\n   // Flexslider side banner\r\n  // $('#mainsliderside').flexslider({\r\n  //       animation: \"slide\",\r\n  //       start: function(slider){\r\n  //         $('body').removeClass('loading');\r\n  //       }\r\n  //  });\r\n  // Flexslider Category banner\r\n  // $('#catergoryslider').flexslider({\r\n  //       animation: \"slide\",\r\n  //       start: function(slider){\r\n  //         $('body').removeClass('loading');\r\n  //       }\r\n  //   });\r\n\r\n   // Flexslider Brand\r\n  // $('#advertise').flexslider({\r\n  //       animation: \"fade\",\r\n  //       start: function(slider){\r\n  //         $('body').removeClass('loading');\r\n  //       }\r\n  //     });\r\n\r\n  // Flexslider Blog\r\n  // $('#blogslider').flexslider({\r\n  //       animation: \"fade\",\r\n  //       start: function(slider){\r\n  //         $('body').removeClass('loading');\r\n  //   }\r\n  //     });\r\n\r\n    // Flexslider  Musthave\r\n  // $('#musthave').flexslider({\r\n  //       animation: \"fade\",\r\n  //       start: function(slider){\r\n  //         $('body').removeClass('loading');\r\n  //   }\r\n  //     });\r\n\r\n    // $('#testimonialsidebar').flexslider({\r\n    //     animation: \"slide\",\r\n    //     start: function(slider){\r\n    //       $('body').removeClass('loading');\r\n    // }\r\n    //   });\r\n\r\n\r\n\r\n\r\n});\r\n\r\n<!-- Scroll top -->\r\n$(window).scroll(function () {\r\n    if ($(this).scrollTop() > 50) {\r\n      $('#gotop').fadeIn(500);\r\n    } else {\r\n      $('#gotop').fadeOut(500);\r\n    }\r\n  });\r\n"
+module.exports = "// JavaScript Document\r\n\r\n// Dropdown on Mouseover\r\n$('document').ready(function() {\r\n    \"use strict\";\r\n    <!-- Accrodian -->\r\n    var $acdata = $('.accrodian-data'),\r\n        $acclick = $('.accrodian-trigger');\r\n\r\n    $acdata.hide();\r\n    $acclick.first().addClass('active').next().show();\r\n\r\n    $acclick.on('click', function(e) {\r\n        if ($(this).next().is(':hidden')) {\r\n            $acclick.removeClass('active').next().slideUp(300);\r\n            $(this).toggleClass('active').next().slideDown(300);\r\n        }\r\n        e.preventDefault();\r\n    });\r\n\r\n\r\n    <!-- Toggle -->\r\n    $('.togglehandle').click(function() {\r\n        $(this).toggleClass('active')\r\n        $(this).next('.toggledata').slideToggle()\r\n    });\r\n\r\n\r\n    // Dropdowns\r\n    $('.dropdown').hover(\r\n        function() {\r\n            $(this).addClass('open')\r\n        },\r\n        function() {\r\n            $(this).removeClass('open')\r\n        }\r\n    );\r\n\r\n    // Product thumbnails\r\n    // $('.thumbnail').each(function()\r\n    // {\r\n\r\n    //   $(this).hover(\r\n    //   function(){\r\n    //     //$(this).children('a').children('img').fadeOut()\r\n    //     $(this).children('.shortlinks').fadeIn()\r\n    //   },\r\n    //   function(){\r\n    //     //$(this).children('a').children('img').fadeIn()\r\n    //     $(this).children('.shortlinks').fadeOut()\r\n    //   }\r\n    //   );\r\n\r\n    // });\r\n\r\n    // Checkout steps\r\n    $('.checkoutsteptitle').addClass('down').next('.checkoutstep').fadeIn()\r\n    $('.checkoutsteptitle').live('click', function() {\r\n        $(\"select, input:checkbox, input:radio, input:file\").css('display', 'blcok');\r\n        $(this).toggleClass('down').next('.checkoutstep').slideToggle()\r\n    });\r\n\r\n    // Category Menu mobile\r\n    $(\"<select />\").appendTo(\"nav.subnav\");\r\n\r\n    // Create default option \"Go to...\"\r\n    $(\"<option />\", {\r\n        \"selected\": \"selected\",\r\n        \"value\": \"\",\r\n        \"text\": \"Go to...\"\r\n    }).appendTo(\"nav.subnav select\");\r\n\r\n    // Populate dropdown with menu items\r\n    $(\"nav.subnav a\").each(function() {\r\n        var el = $(this);\r\n        $(\"<option />\", {\r\n            \"value\": el.attr(\"href\"),\r\n            \"text\": el.text()\r\n        }).appendTo(\"nav.subnav select\");\r\n    });\r\n\r\n    // To make dropdown actually work\r\n    // To make more unobtrusive: http://css-tricks.com/4064-unobtrusive-page-changer/\r\n    $(\"nav.subnav select\").change(function() {\r\n        window.location = $(this).find(\"option:selected\").val();\r\n    });\r\n\r\n    // Product Thumb\r\n    // $('.mainimage li #wrap').hide()\r\n    // $('.mainimage li #wrap').eq(0).fadeIn()\r\n    // $('ul.mainimage li.producthtumb').click(function(){\r\n    //   var thumbindex = $(this).index()\r\n    //   $('.mainimage li #wrap').fadeOut(0)\r\n    //   $('.mainimage li #wrap').eq(thumbindex).fadeIn()\r\n    //    $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom();\r\n    // })\r\n\r\n    // List & Grid View\r\n    $('#list').click(function() {\r\n        $(this).addClass('btn-orange').children('i').addClass('icon-white')\r\n        $('.grid').fadeOut()\r\n        $('.list').fadeIn()\r\n        $('#grid').removeClass('btn-orange').children('i').removeClass('icon-white')\r\n    });\r\n    $('#grid').click(function() {\r\n        $(this).addClass('btn-orange').children('i').addClass('icon-white')\r\n        $('.list').fadeOut()\r\n        $('.grid').fadeIn()\r\n        $('#list').removeClass('btn-orange').children('i').removeClass('icon-white')\r\n    });\r\n\r\n    // Prdouctpagetab\r\n    $('#myTab a:first').tab('show')\r\n    $('#myTab a').click(function(e) {\r\n        e.preventDefault();\r\n        $(this).tab('show');\r\n    });\r\n\r\n    // alert close\r\n    $('.clostalert').click(function() {\r\n        $(this).parent('.alert').fadeOut()\r\n    });\r\n\r\n    <!-- index2 main Carousal-->\r\n    // $(\"#mainslider2\").carouFredSel({\r\n    //   responsive: true,\r\n    // items   : 1,\r\n    // scroll    : {\r\n    //   fx      : \"crossfade\"\r\n    // },\r\n    // auto: false,\r\n    // mousewheel: true,\r\n    // swipe: {\r\n    //   onMouse: true,\r\n    //   onTouch: true\r\n    // },\r\n\r\n    // pagination  : {\r\n    //   container   : \"#mainslider2_pag\",\r\n    //   anchorBuilder : function( nr ) {\r\n    //     var src = $(\"img\", this).attr( \"src\" );\r\n    //       //src = src.replace( \"/large/\", \"/small/\");\r\n    //     return '<img src=\"' + src + '\" style=\"width:100px\" />';\r\n    //     }\r\n    //   }\r\n    // });\r\n\r\n\r\n    <!-- index3 main Carousal-->\r\n    // $(function() {\r\n    //       $('#mainslider3').carouFredSel({\r\n    //         responsive: true,\r\n    //         auto: true,\r\n    //       //  width: 1170,\r\n    //         height: '100%',\r\n    //         direction: 'left',\r\n    //         items: 1,\r\n    //         swipe: {\r\n    //             onMouse: true,\r\n    //             onTouch: true\r\n    //           },\r\n    //         scroll: {\r\n    //           duration: 1000,\r\n    //           onBefore: function( data ) {\r\n    //             data.items.visible.children().css( 'opacity', 0 ).delay( 200 ).fadeTo( 400, 1 );\r\n    //             data.items.old.children().fadeTo( 400, 0 );\r\n    //           }\r\n    //         }\r\n    //       });\r\n    //     });\r\n\r\n\r\n    <!-- index4 main Carousal-->\r\n    // $(window).load(function() {\r\n    //             // The slider being synced must be initialized first\r\n    //             $('#carouseindex4').flexslider({\r\n    //               animation: \"slide\",\r\n    //               controlNav: false,\r\n    //               animationLoop: false,\r\n    //               slideshow: false,\r\n    //               itemWidth: 226,\r\n    //               //itemMargin: 15,\r\n    //               asNavFor: '#sliderindex4'\r\n    //             });\r\n\r\n    //             $('#sliderindex4').flexslider({\r\n    //               animation: \"slide\",\r\n    //               controlNav: false,\r\n    //               animationLoop: false,\r\n    //               slideshow: false,\r\n    //               sync: \"#carouseindex4\"\r\n    //             });\r\n    //           });\r\n\r\n    <!-- index5 main Carousal-->\r\n    // function prevTimers() {\r\n    //   return allTimers().slice( 0, $('.sliderindex5pager a.selected').index() );\r\n    // }\r\n    // function allTimers() {\r\n    //   return $('.sliderindex5pager a span');\r\n    // }\r\n\r\n    // $(function() {\r\n    //   $('#sliderindex5').carouFredSel({\r\n    //     items: 1,\r\n    //     responsive : true,\r\n    //     auto: {\r\n    //       pauseOnHover: 'resume',\r\n    //       progress: {\r\n    //         bar: '.sliderindex5pager a:first span'\r\n    //       }\r\n    //     },\r\n    //     scroll: {\r\n    //       fx: 'crossfade',\r\n    //       duration: 300,\r\n    //       timeoutDuration: 2000,\r\n    //       onAfter: function() {\r\n    //         allTimers().stop().width( 0 );\r\n    //       //  prevTimers().width(  );\r\n    //         $(this).trigger('configuration', [ 'auto.progress.bar', '.sliderindex5pager a.selected span' ]);\r\n    //       }\r\n    //     },\r\n    //     pagination: {\r\n    //       container: '.sliderindex5pager',\r\n    //       anchorBuilder: false\r\n    //     }\r\n    //   });\r\n    // });\r\n\r\n    <!-- index6 main Carousal-->\r\n    // $(function() {\r\n    //       $('#mainslider6').carouFredSel({\r\n    //         //width: 900,\r\n    //         //height: '100%',\r\n    //         direction: 'up',\r\n    //         items: 1,\r\n    //         prev: '#prevmainslider6',\r\n    //         next: '#nextmainslider6',\r\n    //         pagination: \"#pagermainslider6\",\r\n    //         mousewheel: true,\r\n    //         swipe: {\r\n    //           onMouse: true,\r\n    //           onTouch: true\r\n    //         }\r\n\r\n\r\n    //       });\r\n\r\n    //     });\r\n\r\n\r\n    // Brand Carousal\r\n    // $(window).load(function() {\r\n    // $('#brandcarousal').carouFredSel({\r\n    //             width: '100%',\r\n    //           scroll: 1,\r\n    //             auto: false,\r\n    //           prev: '#prev',\r\n    //           next: '#next',\r\n    //           //pagination: \"#pager2\",\r\n    //           mousewheel: true,\r\n    //           swipe: {\r\n    //             onMouse: true,\r\n    //             onTouch: true\r\n    //           }\r\n    //         });\r\n    //         });\r\n\r\n    // Twitter\r\n    // $(\"#twitter\").tweet({\r\n    //      join_text: \"auto\",\r\n    //      username: \"themeforest\", //replace this with your username\r\n    //      avatar_size: 32,\r\n    //      count: 3,\r\n    //      auto_join_text_default: \"we said,\",\r\n    //      auto_join_text_ed: \"we\",\r\n    //      auto_join_text_ing: \"we were\",\r\n    //      auto_join_text_reply: \"we replied\",\r\n    //      auto_join_text_url: \"we were checking out\",\r\n    //      loading_text: \"loading tweets...\"\r\n    //    });\r\n\r\n})\r\n\r\n// Contact Form\r\n\r\n// $(document).ready(function() {\r\n//   \"use strict\";\r\n//   $(\".contactform\").validate({\r\n//    submitHandler: function(form) {\r\n//      var name = $(\"input#name\").val();\r\n//      var email = $(\"input#email\").val();\r\n//      var url = $(\"input#url\").val();\r\n//      var message = $(\"textarea#message\").val();\r\n\r\n//      var dataString = 'name='+ name + '&email=' + email + '&url=' + url+'&message='+message;\r\n//     $.ajax({\r\n//     type: \"POST\",\r\n//     url: \"email.php\",\r\n//     data: dataString,\r\n//     success: function() {\r\n//       $('#contactmsg').remove();\r\n//       $('.contactform').prepend(\"<div id='contactmsg' class='successmsg'>Form submitted successfully!</div>\");\r\n//        $('#contactmsg').delay(1500).fadeOut(500);\r\n//       $('#submit_id').attr('disabled','disabled');\r\n//       }\r\n//     });\r\n//    return false;\r\n//     }\r\n//   });\r\n// });\r\n\r\n\r\n// Flexsliders\r\n$(window).load(function() {\r\n    \"use strict\";\r\n    // Fancyboxpopup\r\n    $(\"a.fancyboxpopup\").fancybox().each(function() {\r\n        $(this).append('<span class=\"viewfancypopup\">&nbsp;</span>');\r\n    });\r\n\r\n    // Flexslider index banner\r\n    // $('#mainslider').flexslider({\r\n    //       animation: \"slide\",\r\n    //       start: function(slider){\r\n    //         $('body').removeClass('loading');\r\n    //       }\r\n    //  });\r\n    // Flexslider side banner\r\n    // $('#mainsliderside').flexslider({\r\n    //       animation: \"slide\",\r\n    //       start: function(slider){\r\n    //         $('body').removeClass('loading');\r\n    //       }\r\n    //  });\r\n    // Flexslider Category banner\r\n    // $('#catergoryslider').flexslider({\r\n    //       animation: \"slide\",\r\n    //       start: function(slider){\r\n    //         $('body').removeClass('loading');\r\n    //       }\r\n    //   });\r\n\r\n    // Flexslider Brand\r\n    // $('#advertise').flexslider({\r\n    //       animation: \"fade\",\r\n    //       start: function(slider){\r\n    //         $('body').removeClass('loading');\r\n    //       }\r\n    //     });\r\n\r\n    // Flexslider Blog\r\n    // $('#blogslider').flexslider({\r\n    //       animation: \"fade\",\r\n    //       start: function(slider){\r\n    //         $('body').removeClass('loading');\r\n    //   }\r\n    //     });\r\n\r\n    // Flexslider  Musthave\r\n    // $('#musthave').flexslider({\r\n    //       animation: \"fade\",\r\n    //       start: function(slider){\r\n    //         $('body').removeClass('loading');\r\n    //   }\r\n    //     });\r\n\r\n    // $('#testimonialsidebar').flexslider({\r\n    //     animation: \"slide\",\r\n    //     start: function(slider){\r\n    //       $('body').removeClass('loading');\r\n    // }\r\n    //   });\r\n\r\n\r\n\r\n\r\n});\r\n\r\n<!-- Scroll top -->\r\n$(window).scroll(function() {\r\n    if ($(this).scrollTop() > 50) {\r\n        $('#gotop').fadeIn(500);\r\n    } else {\r\n        $('#gotop').fadeOut(500);\r\n    }\r\n});"
 
 /***/ }),
 
@@ -216,20 +216,20 @@ module.exports = "/*! matchMedia() polyfill - Test a CSS media type/query in JS.
 /***/ 845:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(287);
-__webpack_require__(281);
-__webpack_require__(292);
-__webpack_require__(279);
+__webpack_require__(288);
+__webpack_require__(282);
+__webpack_require__(293);
 __webpack_require__(280);
-__webpack_require__(285);
+__webpack_require__(281);
 __webpack_require__(286);
+__webpack_require__(287);
+__webpack_require__(291);
+__webpack_require__(285);
+__webpack_require__(289);
 __webpack_require__(290);
 __webpack_require__(284);
-__webpack_require__(288);
-__webpack_require__(289);
 __webpack_require__(283);
-__webpack_require__(282);
-module.exports = __webpack_require__(291);
+module.exports = __webpack_require__(292);
 
 
 /***/ })
