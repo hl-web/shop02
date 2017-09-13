@@ -6,6 +6,7 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 import { AngularFireAuth } from 'angularfire2/auth';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 @Injectable()
 export class XyzUserListService {
   constructor(private http: Http, private afAuth: AngularFireAuth, private tokenManagerService: TokenManagerService) { }
@@ -61,7 +62,7 @@ export class XyzUserListService {
   }
 
   // Observable string sources
-  private emitChangeSource4 = new Subject<boolean>();
+  private emitChangeSource4 = new BehaviorSubject<boolean>(true);
   // Observable string streams
   changeEmitted4 = this.emitChangeSource4.asObservable();
   // Service message commands

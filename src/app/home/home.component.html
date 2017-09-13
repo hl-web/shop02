@@ -1,4 +1,4 @@
-<app-spinner [isRunning]="(!(!isRequesting1  && load)) || isRequesting1" id="home"></app-spinner>
+<app-spinner [isRunning]="(!(!isRequesting1 && !isRequesting2 && load))" id="home"></app-spinner>
 <div id="maincontainer" *ngIf="!flag_search1">
     <!-- Slider Start-->
     <section class="slider">
