@@ -76,6 +76,9 @@ export class XyzUserListService {
   emitChange5(change: boolean) {
     this.emitChangeSource5.next(change);
   }
+
+
+
   logoutSocial() {
     this.afAuth.auth.signOut();
   }

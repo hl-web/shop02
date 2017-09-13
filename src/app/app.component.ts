@@ -2,7 +2,7 @@ import { element } from 'protractor';
 import { XyzUserListService } from './home.service';
 
 import { Component, OnInit, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { Subscription } from 'rxjs/Rx';
 import * as $ from 'jquery';
@@ -15,29 +15,28 @@ export class AppComponent implements OnInit, OnDestroy {
   routerSubscription: Subscription;
   isRequesting1: boolean = true;
   isRequesting2: boolean = true;
-  load: boolean = true;
-  constructor(private router: Router, private xyzUserListService: XyzUserListService) {
-
-    xyzUserListService.changeEmitted4.subscribe(
-      text => {
-
-        this.isRequesting1 = text;
-        console.log(this.isRequesting1);
 
 
-      });
 
-    xyzUserListService.changeEmitted5.subscribe(
-      text => {
+  constructor(private router: Router, private xyzUserListService: XyzUserListService, private currentActivatedRoute: ActivatedRoute) {
 
-        this.isRequesting2 = text;
-        console.log(this.isRequesting2);
 
-      });
+
+
 
   }
 
   ngOnInit() {
+
+    // if (window.location.pathname !== '/') {
+      
+    //   this.home = false;
+      
+
+    // }
+    
+
+
     if (isPlatformBrowser) {
       this.routerSubscription = this.router.events
         .filter(event => event instanceof NavigationEnd)
@@ -45,16 +44,13 @@ export class AppComponent implements OnInit, OnDestroy {
           window.scrollTo(0, 0);
         });
     }
+
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.load = false;
-      console.log(this.load);
-    }, 3000);
-  }
+ 
 
   ngOnDestroy() {
     this.routerSubscription.unsubscribe();
+
   }
 }

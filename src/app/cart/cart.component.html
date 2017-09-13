@@ -1,78 +1,77 @@
 <div id="maincontainer" *ngIf="!flag_search1">
-  <section id="product">
-    <div class="container">
-      <!--  breadcrumb -->
-      <ul class="breadcrumb">
-        <li>
-          <a routerLink="" class="js-home">Trang chủ</a>
-          <span class="divider">/</span>
-        </li>
-        <li class="active"> Giỏ hàng</li>
-      </ul>
-      <h1 class="heading1"><span class="maintext"> Giỏ hàng</span><span class="subtext"> Tất cả sản phẩm trong giỏ hàng</span></h1>
-      <!-- Cart-->
-      <div class="cart-info" *ngIf="!no_product">
-        <table class="table table-striped table-bordered">
-          <tr>
-            <th class="image">Hình ảnh</th>
-            <th class="name">Tên sản phẩm</th>
-            <th class="quantity">Số lượng</th>
-            <th class="total">Xóa</th>
-            <th class="price">Giá</th>
-            <th class="total">Tổng tiền</th>
-          </tr>
-          <tr *ngFor="let item of product_giohang">
-            <td class="image">
-              <a><img title="product" alt="product" src="{{link_img}}{{item[0].options.img}}" height="50" width="50"></a>
-            </td>
-            <td class="name"><a>{{item[0].name}}</a></td>
+    <section id="product">
+        <div class="container">
+            <!--  breadcrumb -->
+            <ul class="breadcrumb">
+                <li>
+                    <a routerLink="" class="js-home">Trang chủ</a>
+                    <span class="divider">/</span>
+                </li>
+                <li class="active"> Giỏ hàng</li>
+            </ul>
+            <h1 class="heading1"><span class="maintext"> Giỏ hàng</span><span class="subtext"> Tất cả sản phẩm trong giỏ hàng</span></h1>
+            <!-- Cart-->
+            <div class="cart-info" *ngIf="!no_product">
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th class="image">Hình ảnh</th>
+                        <th class="name">Tên sản phẩm</th>
+                        <th class="quantity">Số lượng</th>
+                        <th class="total">Xóa</th>
+                        <th class="price">Giá</th>
+                        <th class="total">Tổng tiền</th>
+                    </tr>
+                    <tr *ngFor="let item of product_giohang">
+                        <td class="image">
+                            <a><img title="product" alt="product" src="{{link_img}}{{item[0].options.img}}" height="50" width="50"></a>
+                        </td>
+                        <td class="name"><a>{{item[0].name}}</a></td>
 
-            <td class="quantity"><input type="number" size="1" [value]="item[0].qty" name="quantity" class="span1" (change)="update(textName.value,textName.id,$event)"
-                #textName [attr.id]="item[0].id" min="0" (keyup)="validateNumber(textName.value)">
-            </td>
+                        <td class="quantity"><input type="number" size="1" [value]="item[0].qty" name="quantity" class="span1" (change)="update(textName.value,textName.id,$event)" #textName [attr.id]="item[0].id" min="0" (keyup)="validateNumber(textName.value)">
+                        </td>
 
-            <td class="total">
-              <a (click)="fcshowDialog(item[0].id)"><img class="tooltip-test" data-original-title="Remove" src="{{domain}}public/user/img/remove.png" alt=""></a>
-            </td>
+                        <td class="total">
+                            <a (click)="fcshowDialog(item[0].id)"><img class="tooltip-test" data-original-title="Remove" src="{{domain}}public/user/img/remove.png" alt=""></a>
+                        </td>
 
 
-            <td class="price">{{item[0].price | formatNumVN }} D</td>
-            <td class="total">{{item[0].subtotal | formatNumVN }} D</td>
+                        <td class="price">{{item[0].price | formatNumVN }} D</td>
+                        <td class="total">{{item[0].subtotal | formatNumVN }} D</td>
 
-          </tr>
-        </table>
-      </div>
-      <app-dialog [(visible)]="showDialog">
-        <p>Bạn có chắc muốn xóa sản phẩm?</p>
-        <hr>
-        <div class="btn-wrap">
-          <button (click)=delete(deleteId) type="button" class="btn btn-success">OK</button>
-          <button (click)=cancel() type="button" class="btn btn-danger">Cancel</button>
+                    </tr>
+                </table>
+            </div>
+            <app-dialog [(visible)]="showDialog">
+                <p>Bạn có chắc muốn xóa sản phẩm?</p>
+                <hr>
+                <div class="btn-wrap">
+                    <button (click)=delete(deleteId) type="button" class="btn btn-success">OK</button>
+                    <button (click)=cancel() type="button" class="btn btn-danger">Cancel</button>
+                </div>
+            </app-dialog>
+            <div class="container" *ngIf="!no_product">
+                <div class="pull-right">
+                    <div class="span4 pull-right">
+                        <table class="table table-striped table-bordered ">
+                            <tr>
+                                <td><span class="extra bold totalamout">Tổng tiền :</span></td>
+                                <td><span class="bold totalamout" id="totalamout">{{total | formatNumVN }} D</span></td>
+                            </tr>
+                        </table>
+                        <button routerLink="/thanh-toan" class="btn btn-orange pull-right">Thanh toán</button>
+                        <button routerLink="" class="btn btn-orange pull-right mr10">Tiếp tục mua sắm</button>
+                    </div>
+                </div>
+            </div>
+            <div class="container" *ngIf="no_product">
+                <p>Không có sản phẩm nào trong giỏ hàng. Vui lòng quay lại mua sắm !</p>
+                <p>
+                    <a routerLink=""><button class="btn btn-orange pull-left">Tiếp tục mua sắm</button></a>
+                </p>
+            </div>
         </div>
-      </app-dialog>
-      <div class="container" *ngIf="!no_product">
-        <div class="pull-right">
-          <div class="span4 pull-right">
-            <table class="table table-striped table-bordered ">
-              <tr>
-                <td><span class="extra bold totalamout">Tổng tiền :</span></td>
-                <td><span class="bold totalamout" id="totalamout">{{total | formatNumVN }} D</span></td>
-              </tr>
-            </table>
-            <button routerLink="/thanh-toan" class="btn btn-orange pull-right">Thanh toán</button>
-            <button routerLink="" class="btn btn-orange pull-right mr10 js-home">Tiếp tục mua sắm</button>
-          </div>
-        </div>
-      </div>
-      <div class="container" *ngIf="no_product">
-        <p>Không có sản phẩm nào trong giỏ hàng. Vui lòng quay lại mua sắm !</p>
-        <p>
-          <a routerLink=""><button class="btn btn-orange pull-left js-home">Tiếp tục mua sắm</button></a>
-        </p>
-      </div>
-    </div>
-  </section>
+    </section>
 </div>
 <app-dialog [(visible)]="showDialogvc">
-  <p class="alert alert-danger" style="margin:0">Vui lòng nhập số</p>
+    <p class="alert alert-danger" style="margin:0">Vui lòng nhập số</p>
 </app-dialog>

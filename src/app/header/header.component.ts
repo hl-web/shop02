@@ -47,6 +47,9 @@ export class HeaderComponent implements OnInit {
   day: any;
   night: any;
   isRequesting: boolean; isRequesting1: boolean;
+  slider: any;
+  del = false;
+  loadSearch: boolean;
   @Output() onVote = new EventEmitter<any>();
   constructor(private xyzUserListService: XyzUserListService, private activatedRoute: ActivatedRoute, private router: Router, private replacePipe: ReplacePipe, private formatNumVNPipe: FormatNumVNPipe, private sanitizer: DomSanitizer) {
     xyzUserListService.changeEmitted$.subscribe(
@@ -119,10 +122,12 @@ export class HeaderComponent implements OnInit {
     return item.id;
   }
   onFilter(filter, select_cate_search, selectedPrice) {
-
-    if (this.selectedCateChild === '') {
+    this.selectedPrice = '';
+    if (this.selectedCateChild == '') {
       this.select_cate_search = this.selectedCate;
+
       this.flag_price = false;
+
     }
     else {
       this.select_cate_search = this.selectedCateChild;
@@ -140,7 +145,17 @@ export class HeaderComponent implements OnInit {
     //console.log(this.selectedCateChild);
 
     if (this.filter == '') {
+      setTimeout(function () {
+        jQuery('#mainslider').removeData("flexslider");
+        (<any>jQuery('#mainslider')).flexslider({
+          animation: "slide",
+          start: function (slider) {
+            jQuery('body').removeClass('loading');
+          }
+        });
+      }, 10000);
 
+      this.del = false;
       this.xyzUserListService.get().subscribe((response) => {
         //console.log(response.products_buy);
         this.products = response.products;
@@ -161,36 +176,14 @@ export class HeaderComponent implements OnInit {
 
     }
     else {
+      this.del = true;
+
+      this.loadSearch = true;
+      this.products_search = null;
       this.xyzUserListService.search(filter, select_cate_search, selectedPrice).subscribe(response => {
 
-
         this.products_search = response;
-
-        //     const suggestions = document.querySelector('.html-search');
-        //     let html = this.products_search.map(product => {
-        //       const productName = this.replacePipe.transform(product.name, this.filter, `<span class="hl">${this.filter}</span>`);
-        //       const productPrice = this.formatNumVNPipe.transform(product.price);
-        //       return `
-        //   <li class="span3">
-        //       <a class="prdocutname" routerLink="/chi-tiet-san-pham/${product.id}/${product.alias}">${productName}</a>
-        //       <div class="thumbnail">
-        //         <span class="sale tooltip-test">Sale</span>
-        //         <a routerLink="/chi-tiet-san-pham/${product.id}/${product.alias}"><img alt="" src="${this.link_img}${product.image}"></a>
-        //         <div class="pricetag">
-        //           <span class="spiral"></span><a (click)="addcart(${product.id})" class="productcart" id="${product.id}" #cart>ADD TO CART</a>
-        //           <div class="price">
-        //             <div class="pricenew">${productPrice} D</div>
-        //           </div>
-        //         </div>
-        //       </div>
-        //     </li>
-        // `;
-        //     }).join('');
-
-        //     //suggestions.innerHTML = html;
-
-        //       this.html22 = this.sanitizer.bypassSecurityTrustHtml(html);
-
+        console.log(response);
 
         if (response == '') {
           this.noresult = 'Không có sản phẩm nào phù hợp với kết quả tìm kiếm của bạn. Vui lòng chọn lại !'
@@ -201,6 +194,7 @@ export class HeaderComponent implements OnInit {
         this.products = null;
         this.products_order = null;
         this.flag_search = true;
+        this.loadSearch = false;
         this.xyzUserListService.flag_search1 = true;
         this.xyzUserListService.emitChange2(this.xyzUserListService.flag_search1);
       })
@@ -230,6 +224,7 @@ export class HeaderComponent implements OnInit {
     this.xyzUserListService.emitChange('');
   }
   onClear() {
+
     this.xyzUserListService.get().subscribe((response) => {
       console.log(response.products_buy);
       this.products = response.products;
@@ -247,7 +242,9 @@ export class HeaderComponent implements OnInit {
     this.selectedCateChild = '';
     this.noresult = '';
     this.flag_price = false;
+    this.del = false;
   }
+
   @ViewChild('search') search11: ElementRef;
   ngAfterViewInit() {
 
@@ -264,26 +261,26 @@ export class HeaderComponent implements OnInit {
         });
 
       });
-      jQuery(document).on("keyup", "#search", function (e) {
+      // jQuery(document).on("keyup", "#search", function (e) {
 
-        if (e.keyCode == 8 && jQuery(this).val() == '') {
-          //  alert(1);
+      //   if (e.keyCode == 8 && jQuery(this).val() == '') {
+      //     //  alert(1);
 
-          setTimeout(function () {
-            jQuery('#mainslider').removeData("flexslider");
-            (<any>jQuery('#mainslider')).flexslider({
-              animation: "slide",
-              start: function (slider) {
-                jQuery('body').removeClass('loading');
-              }
-            });
-          }, 500);
-
-
-        }
+      //     setTimeout(function () {
+      //       jQuery('#mainslider').removeData("flexslider");
+      //       (<any>jQuery('#mainslider')).flexslider({
+      //         animation: "slide",
+      //         start: function (slider) {
+      //           jQuery('body').removeClass('loading');
+      //         }
+      //       });
+      //     }, 500);
 
 
-      });
+      //   }
+
+
+      // });
     });
 
     this.search11.nativeElement.focus();

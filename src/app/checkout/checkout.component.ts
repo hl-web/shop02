@@ -124,19 +124,19 @@ export class CheckoutComponent implements OnInit {
   }
   ngAfterViewInit() {
 
-    jQuery(window).on('load', function () {
+    // jQuery(window).on('load', function () {
 
-      jQuery(document).on("click", ".js-home", function () {
-        jQuery('#mainslider').removeData("flexslider");
-        (<any>jQuery('#mainslider')).flexslider({
-          animation: "slide",
-          start: function (slider) {
-            jQuery('body').removeClass('loading');
-          }
-        });
+    //   jQuery(document).on("click", ".js-home", function () {
+    //     jQuery('#mainslider').removeData("flexslider");
+    //     (<any>jQuery('#mainslider')).flexslider({
+    //       animation: "slide",
+    //       start: function (slider) {
+    //         jQuery('body').removeClass('loading');
+    //       }
+    //     });
 
-      });
-    });
+    //   });
+    // });
   }
   hidepop() {
     this.showDialog = false;

@@ -23,13 +23,3 @@ background-color: #f25c27;
     background-color: red;
 
 }*/
-
-:host /deep/ app-header app-spinner .sk-circle-wrap {
-    margin-top: 250px;
-    position: fixed;
-    z-index: 9999;
-}
-
-:host /deep/ #categorymenu app-spinner .sk-circle-wrap {
-    margin-top: 0;
-}
