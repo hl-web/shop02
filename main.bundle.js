@@ -418,7 +418,9 @@ var TokenManagerService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__ = __webpack_require__(123);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_BehaviorSubject__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_BehaviorSubject__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return XyzUserListService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -429,6 +431,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -465,7 +468,7 @@ var XyzUserListService = (function () {
         // Observable string streams
         this.changeEmitted3 = this.emitChangeSource3.asObservable();
         // Observable string sources
-        this.emitChangeSource4 = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["Subject"]();
+        this.emitChangeSource4 = new __WEBPACK_IMPORTED_MODULE_6_rxjs_BehaviorSubject__["BehaviorSubject"](true);
         // Observable string streams
         this.changeEmitted4 = this.emitChangeSource4.asObservable();
         // Observable string sources
@@ -823,7 +826,7 @@ var _a, _b, _c;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(121);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(298);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__home_service__ = __webpack_require__(27);
@@ -850,7 +853,7 @@ var _a, _b, _c;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__dialog_dialog_component__ = __webpack_require__(306);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_angularfire2__ = __webpack_require__(324);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_angularfire2_database__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29_angularfire2_auth__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29_angularfire2_auth__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__spinner_spinner_component__ = __webpack_require__(319);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__replace_pipe__ = __webpack_require__(162);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__format_num_vn_pipe__ = __webpack_require__(160);
@@ -1631,7 +1634,7 @@ var _a, _b;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_animations__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_animations__ = __webpack_require__(120);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DialogComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1698,7 +1701,7 @@ var _a;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(121);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_service__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__info_info_component__ = __webpack_require__(161);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EmailAvailableValidatorDirective; });
@@ -1770,7 +1773,7 @@ var EmailAvailableValidatorDirective_1, _a, _b;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(121);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EqualValidatorDirective; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2470,7 +2473,7 @@ CanDeactivateGuard = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__account__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_firebase_app__ = __webpack_require__(68);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_firebase_app__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SigninComponent; });
@@ -3005,7 +3008,7 @@ exports = module.exports = __webpack_require__(17)();
 
 
 // module
-exports.push([module.i, ".pdl15 {\r\n    padding-left: 20px;\r\n    box-sizing: border-box;\r\n}\r\n\r\n#featured .thumbnail img {\r\n    height: 300px;\r\n    width: 100% !important;\r\n}\r\n\r\n.thumbnail .price {\r\n    margin-top: 10px;\r\n}\r\n\r\n#categorymenu .sk-circle {\r\n    margin: 0;\r\n    width: 20px;\r\n    height: 20px;\r\n}\r\n\r\n.hl {\r\n    background-color: #f25c27;\r\n}\r\n\r\n#home .sk-circle-wrap {\r\n    margin-top: 250px;\r\n    position: fixed;\r\n    z-index: 9999;\r\n}\r\n\r\n#searchFlag .sk-circle-wrap {\r\n    margin-top: 240px;\r\n    position: fixed;\r\n    z-index: 9999;\r\n}", ""]);
+exports.push([module.i, ".pdl15 {\r\n    padding-left: 20px;\r\n    box-sizing: border-box;\r\n}\r\n\r\n#featured .thumbnail img {\r\n    height: 300px;\r\n    width: 100% !important;\r\n}\r\n\r\n.thumbnail .price {\r\n    margin-top: 10px;\r\n}\r\n\r\n#categorymenu .sk-circle {\r\n    margin: 0;\r\n    width: 20px;\r\n    height: 20px;\r\n}\r\n\r\n.hl {\r\n    background-color: #f25c27;\r\n}\r\n\r\n\r\n\r\n#searchFlag .sk-circle-wrap {\r\n    margin-top: 240px;\r\n    position: fixed;\r\n    z-index: 9999;\r\n}", ""]);
 
 // exports
 
@@ -3023,7 +3026,7 @@ exports = module.exports = __webpack_require__(17)();
 
 
 // module
-exports.push([module.i, " #featured .thumbnail img,#latest .thumbnail img{\r\n    height: 300px;\r\n    width: 100% !important;\r\n  }\r\n  .thumbnail .price {\r\n      margin-top: 10px;\r\n  }", ""]);
+exports.push([module.i, " #featured .thumbnail img,#latest .thumbnail img{\r\n    height: 300px;\r\n    width: 100% !important;\r\n  }\r\n  .thumbnail .price {\r\n      margin-top: 10px;\r\n  }\r\n  #home .sk-circle-wrap {\r\n    margin-top: 0;\r\n    position: fixed;\r\n    z-index: 9999;\r\n}", ""]);
 
 // exports
 
@@ -3192,7 +3195,7 @@ module.exports = "<!-- Header Start -->\r\n<app-spinner [isRunning]=\"loadSearch
 /***/ 570:
 /***/ (function(module, exports) {
 
-module.exports = "<app-spinner [isRunning]=\"(!(!isRequesting1  && load)) || isRequesting1\" id=\"home\"></app-spinner>\r\n<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n    <!-- Slider Start-->\r\n    <section class=\"slider\">\r\n        <div class=\"container\">\r\n            <div class=\"flexslider\" id=\"mainslider\" #slider>\r\n                <ul class=\"slides\">\r\n                    <li>\r\n                        <img src=\"{{domain}}public/user/img/banner1.jpg\" alt=\"\" />\r\n                    </li>\r\n                    <li>\r\n                        <img src=\"{{domain}}public/user/img/banner2.jpg\" alt=\"\" />\r\n                    </li>\r\n                    <li>\r\n                        <img src=\"{{domain}}public/user/img/banner1.jpg\" alt=\"\" />\r\n                    </li>\r\n                    <li>\r\n                        <img src=\"{{domain}}public/user/img/banner2.jpg\" alt=\"\" />\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n\r\n        </div>\r\n    </section>\r\n\r\n    <!-- Slider End-->\r\n    <!-- Search Product-->\r\n\r\n    <!-- Featured Product-->\r\n\r\n    <section id=\"featured\" class=\"row mt40\">\r\n        <div class=\"container\">\r\n            <h2 class=\"heading1\">\r\n                <span class=\"maintext\">Sản phẩm mới nhất</span>\r\n            </h2>\r\n            <ul class=\"thumbnails\">\r\n                <li class=\"span3\" *ngFor=\"let product of products\">\r\n                    <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\">{{product.name}}</a>\r\n                    <div class=\"thumbnail\">\r\n                        <span class=\"sale tooltip-test\">Sale</span>\r\n                        <a routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\"><img alt=\"\" src=\"{{link_img}}{{product.image}}\"></a>\r\n                        <div class=\"pricetag\">\r\n                            <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{product.id}}\" #cart>ADD TO CART</a>\r\n                            <div class=\"price\">\r\n                                <div class=\"pricenew\">{{product.price | formatNumVN }} D</div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </li>\r\n\r\n            </ul>\r\n        </div>\r\n    </section>\r\n\r\n    <!-- Latest Product-->\r\n    <section id=\"latest\" class=\"row\">\r\n        <div class=\"container\">\r\n            <h2 class=\"heading1\"><span class=\"maintext\">Sản phẩm mua nhiều nhất</span></h2>\r\n            <ul class=\"thumbnails\">\r\n                <li class=\"span3\" *ngFor=\"let product of products_order\">\r\n                    <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\">{{product.name}}</a>\r\n                    <div class=\"thumbnail\">\r\n                        <a routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\"><img alt=\"\" src=\"{{link_img}}{{product.image}}\"></a>\r\n                        <div class=\"pricetag\">\r\n                            <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{product.id}}\" #cart>ADD TO CART</a>\r\n                            <div class=\"price\">\r\n                                <div class=\"pricenew\">{{product.price | formatNumVN }} D</div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </section>\r\n</div>"
+module.exports = "<app-spinner [isRunning]=\"(!(!isRequesting1 && !isRequesting2 && load))\" id=\"home\"></app-spinner>\r\n<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n    <!-- Slider Start-->\r\n    <section class=\"slider\">\r\n        <div class=\"container\">\r\n            <div class=\"flexslider\" id=\"mainslider\" #slider>\r\n                <ul class=\"slides\">\r\n                    <li>\r\n                        <img src=\"{{domain}}public/user/img/banner1.jpg\" alt=\"\" />\r\n                    </li>\r\n                    <li>\r\n                        <img src=\"{{domain}}public/user/img/banner2.jpg\" alt=\"\" />\r\n                    </li>\r\n                    <li>\r\n                        <img src=\"{{domain}}public/user/img/banner1.jpg\" alt=\"\" />\r\n                    </li>\r\n                    <li>\r\n                        <img src=\"{{domain}}public/user/img/banner2.jpg\" alt=\"\" />\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n\r\n        </div>\r\n    </section>\r\n\r\n    <!-- Slider End-->\r\n    <!-- Search Product-->\r\n\r\n    <!-- Featured Product-->\r\n\r\n    <section id=\"featured\" class=\"row mt40\">\r\n        <div class=\"container\">\r\n            <h2 class=\"heading1\">\r\n                <span class=\"maintext\">Sản phẩm mới nhất</span>\r\n            </h2>\r\n            <ul class=\"thumbnails\">\r\n                <li class=\"span3\" *ngFor=\"let product of products\">\r\n                    <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\">{{product.name}}</a>\r\n                    <div class=\"thumbnail\">\r\n                        <span class=\"sale tooltip-test\">Sale</span>\r\n                        <a routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\"><img alt=\"\" src=\"{{link_img}}{{product.image}}\"></a>\r\n                        <div class=\"pricetag\">\r\n                            <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{product.id}}\" #cart>ADD TO CART</a>\r\n                            <div class=\"price\">\r\n                                <div class=\"pricenew\">{{product.price | formatNumVN }} D</div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </li>\r\n\r\n            </ul>\r\n        </div>\r\n    </section>\r\n\r\n    <!-- Latest Product-->\r\n    <section id=\"latest\" class=\"row\">\r\n        <div class=\"container\">\r\n            <h2 class=\"heading1\"><span class=\"maintext\">Sản phẩm mua nhiều nhất</span></h2>\r\n            <ul class=\"thumbnails\">\r\n                <li class=\"span3\" *ngFor=\"let product of products_order\">\r\n                    <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\">{{product.name}}</a>\r\n                    <div class=\"thumbnail\">\r\n                        <a routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\"><img alt=\"\" src=\"{{link_img}}{{product.image}}\"></a>\r\n                        <div class=\"pricetag\">\r\n                            <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{product.id}}\" #cart>ADD TO CART</a>\r\n                            <div class=\"price\">\r\n                                <div class=\"pricenew\">{{product.price | formatNumVN }} D</div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </section>\r\n</div>"
 
 /***/ }),
 
