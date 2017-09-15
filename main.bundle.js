@@ -21,7 +21,7 @@ var CollapseComponent = (function () {
     function CollapseComponent() {
         this.title = '';
         this.selected = false;
-        this.selectedChange = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */]();
+        this.selectedChange = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
     }
     CollapseComponent.prototype.ngOnInit = function () {
         this._id = ++uuid;
@@ -43,23 +43,23 @@ var CollapseComponent = (function () {
     return CollapseComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", String)
 ], CollapseComponent.prototype, "title", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Boolean)
 ], CollapseComponent.prototype, "selected", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Output */])(),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */]) === "function" && _a || Object)
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]) === "function" && _a || Object)
 ], CollapseComponent.prototype, "selectedChange", void 0);
 CollapseComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'tp-collapse',
-        template: __webpack_require__(563),
-        styles: [__webpack_require__(485)],
-        encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["q" /* ViewEncapsulation */].None
+        template: __webpack_require__(582),
+        styles: [__webpack_require__(500)],
+        encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
     }),
     __metadata("design:paramtypes", [])
 ], CollapseComponent);
@@ -93,7 +93,7 @@ var FormatNumVNPipe = (function () {
     return FormatNumVNPipe;
 }());
 FormatNumVNPipe = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Y" /* Pipe */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"])({
         name: 'formatNumVN'
     })
 ], FormatNumVNPipe);
@@ -103,236 +103,6 @@ FormatNumVNPipe = __decorate([
 /***/ }),
 
 /***/ 161:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_service__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_jquery__ = __webpack_require__(237);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__account__ = __webpack_require__(91);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InfoComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-var InfoComponent = (function () {
-    function InfoComponent(xyzUserListService, router) {
-        var _this = this;
-        this.xyzUserListService = xyzUserListService;
-        this.router = router;
-        this.visibility = 'shown';
-        this.isVisible = true;
-        this.editPassword = '';
-        this.account = new __WEBPACK_IMPORTED_MODULE_5__account__["a" /* Account */]('', '', '');
-        this.isDirty = false;
-        this.showDialog = false;
-        this.active = false;
-        this.flagshow = false;
-        this.tab = false;
-        this.obs = new __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__["Subject"]();
-        this.obs$ = this.obs.asObservable();
-        this.obs1 = new __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__["Subject"]();
-        this.obs11 = this.obs1.asObservable();
-        xyzUserListService.changeEmitted2.subscribe(function (text) {
-            _this.flag_search1 = text;
-            console.log(_this.flag_search1);
-        });
-    }
-    InfoComponent.prototype.handleDialogButton = function () {
-        var _this = this;
-        var prom = new Promise(function (resolve, reject) {
-            _this.obs$.subscribe(function (result) {
-                // console.log(result);
-                if (result) {
-                    resolve(true);
-                }
-                else {
-                    _this.showDialog = false;
-                    reject(false);
-                }
-            });
-            _this.obs11.subscribe(function (result) {
-                // console.log(result);
-                if (result) {
-                    _this.showDialog = false;
-                    reject(false);
-                }
-                else {
-                    resolve(true);
-                }
-            });
-        });
-        return prom;
-    };
-    // @ViewChild('name') nameChange: ElementRef;
-    InfoComponent.prototype.canDeactivate = function () {
-        //isDirty check su thay doi cua form
-        if (this.isDirty) {
-            this.showDialog = true;
-            return this.handleDialogButton().catch(function () {
-                return false;
-            });
-        }
-        else {
-            return Promise.resolve(true).catch(function () {
-                return false;
-            });
-        }
-        //return window.confirm('WARNING: You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.');
-        // }
-        // return Promise.resolve(true);
-    };
-    InfoComponent.prototype.loading = function () {
-        this.products_order$ = this.xyzUserListService.getOrderUser(this.id);
-        this.tab = true;
-        // this.isRequesting = true;
-        // this.sub = this.xyzUserListService.getOrderUser(this.id).subscribe((response) => {
-        //   this.products_order = response;
-        //   this.isRequesting = false;
-        //   console.log(this.products_order);
-        //   if (this.products_order.length <= 0 || this.products_order == []) {
-        //     this.no_product = true;
-        //   }
-        //   else {
-        //     this.no_product = false;
-        //   }
-        // });
-    };
-    InfoComponent.prototype.ngOnInit = function () {
-        if ((localStorage.getItem("id") == null)) {
-            this.check_token = true;
-        }
-        else {
-            this.check_token = false;
-            this.account.name = localStorage.getItem("name");
-            this.account.email = localStorage.getItem("email");
-            this.id = localStorage.getItem("id");
-        }
-        if ((sessionStorage.id == null)) {
-            this.check_token = true;
-        }
-        else {
-            this.check_token = false;
-            this.account.name = sessionStorage.name;
-            this.account.email = sessionStorage.email;
-            this.id = sessionStorage.id;
-            this.flag_info = sessionStorage.login;
-        }
-        this.link_img = this.xyzUserListService.link_img;
-        this.domain = this.xyzUserListService.domain;
-    };
-    InfoComponent.prototype.detail_order = function (id) {
-        var _this = this;
-        this.xyzUserListService.getOrderUserDetail(id).subscribe(function (response) {
-            _this.detail_order_product = response;
-            var total = 0;
-            for (var _i = 0; _i < response.length; _i++) {
-                var product = response[_i];
-                console.log(product.price);
-                total += (product.price * product.qty);
-            }
-            _this.sTotal = total;
-        });
-    };
-    InfoComponent.prototype.updateInfo = function (form) {
-        var _this = this;
-        this.account.email = form.value.email;
-        this.account.name = form.value.name;
-        this.account.password = form.value.password;
-        var result = this.xyzUserListService.updateInfo(this.account, this.id);
-        result.subscribe(function (data) {
-            console.log(data);
-            if (data.status == 'yes') {
-                _this.flag_success = true;
-                _this.isVisible = !_this.isVisible;
-                console.log(_this.isVisible);
-                _this.visibility = _this.isVisible ? 'shown' : 'hidden';
-                form.controls.password.reset();
-                form.controls.confirmPassword.reset();
-                _this.router.navigate(['/thong-tin']);
-            }
-        }, function (errorData) {
-            console.log(errorData);
-        });
-    };
-    InfoComponent.prototype.checkemail_same = function (em, id) {
-        var _this = this;
-        this.flag_validate_email = false;
-        var result = this.xyzUserListService.validate_email_user(em, this.id);
-        result.subscribe(function (data) {
-            if (data.success === 'yes') {
-                _this.flag_validate_email = true;
-            }
-            else if (data.success === 'old') {
-                _this.flag_validate_email_old = true;
-            }
-        }, function (errorData) {
-        });
-    };
-    InfoComponent.prototype.ngAfterViewInit = function () {
-        __WEBPACK_IMPORTED_MODULE_4_jquery__(document).ready(function () {
-            __WEBPACK_IMPORTED_MODULE_4_jquery__('ul.tabs li').click(function () {
-                var tab = __WEBPACK_IMPORTED_MODULE_4_jquery__(this).data('tab');
-                __WEBPACK_IMPORTED_MODULE_4_jquery__('ul.tabs li').removeClass('current');
-                __WEBPACK_IMPORTED_MODULE_4_jquery__('.tab-container').removeClass('current');
-                __WEBPACK_IMPORTED_MODULE_4_jquery__(this).addClass('current');
-                __WEBPACK_IMPORTED_MODULE_4_jquery__("#" + tab).addClass('current');
-            });
-            var appendthis = ("<div class='modal-overlay js-modal-close'></div>");
-            __WEBPACK_IMPORTED_MODULE_4_jquery__(document).on("click", "a[data-modal-id]", function (e) {
-                e.preventDefault();
-                __WEBPACK_IMPORTED_MODULE_4_jquery__("body").append(appendthis);
-                __WEBPACK_IMPORTED_MODULE_4_jquery__(".modal-overlay").fadeTo(500, 0.7);
-                //$(".js-modalbox").fadeIn(500);
-                var modalBox = __WEBPACK_IMPORTED_MODULE_4_jquery__(this).attr('data-modal-id');
-                __WEBPACK_IMPORTED_MODULE_4_jquery__('#' + modalBox).fadeIn(__WEBPACK_IMPORTED_MODULE_4_jquery__(this).data());
-            });
-            __WEBPACK_IMPORTED_MODULE_4_jquery__(document).on("click", ".js-modal-close, .modal-overlay", function () {
-                __WEBPACK_IMPORTED_MODULE_4_jquery__(".modal-box, .modal-overlay").fadeOut(500, function () {
-                    __WEBPACK_IMPORTED_MODULE_4_jquery__(".modal-overlay").remove();
-                });
-            });
-        });
-    };
-    return InfoComponent;
-}());
-InfoComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_15" /* Component */])({
-        selector: 'app-info',
-        template: __webpack_require__(571),
-        styles: [__webpack_require__(493)],
-        animations: [
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_17" /* trigger */])('visibilityChanged', [
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_18" /* state */])('shown', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_19" /* style */])({ opacity: 1 })),
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_18" /* state */])('hidden', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_19" /* style */])({ opacity: 0 })),
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_20" /* transition */])('* => *', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_21" /* animate */])('5s'))
-            ])
-        ],
-    }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__home_service__["a" /* XyzUserListService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object])
-], InfoComponent);
-
-var _a, _b;
-//# sourceMappingURL=info.component.js.map
-
-/***/ }),
-
-/***/ 162:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -356,7 +126,7 @@ var ReplacePipe = (function () {
     return ReplacePipe;
 }());
 ReplacePipe = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Y" /* Pipe */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"])({
         name: 'replace'
     })
 ], ReplacePipe);
@@ -365,7 +135,7 @@ ReplacePipe = __decorate([
 
 /***/ }),
 
-/***/ 163:
+/***/ 162:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -411,7 +181,7 @@ var TokenManagerService = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__token_manager_service__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__token_manager_service__ = __webpack_require__(162);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
@@ -419,7 +189,7 @@ var TokenManagerService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__ = __webpack_require__(123);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_BehaviorSubject__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_BehaviorSubject__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_BehaviorSubject__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return XyzUserListService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -715,7 +485,7 @@ var XyzUserListService = (function () {
     return XyzUserListService;
 }());
 XyzUserListService = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["c" /* Injectable */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Injectable"])(),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__["b" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__["b" /* AngularFireAuth */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__token_manager_service__["a" /* TokenManagerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__token_manager_service__["a" /* TokenManagerService */]) === "function" && _c || Object])
 ], XyzUserListService);
 
@@ -724,7 +494,7 @@ var _a, _b, _c;
 
 /***/ }),
 
-/***/ 276:
+/***/ 290:
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -733,40 +503,40 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 276;
+webpackEmptyContext.id = 290;
 
 
 /***/ }),
 
-/***/ 277:
+/***/ 291:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(296);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_module__ = __webpack_require__(299);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(320);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(310);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_module__ = __webpack_require__(313);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(335);
 
 
 
 
 if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].production) {
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["a" /* enableProdMode */])();
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["enableProdMode"])();
 }
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_2__app_app_module__["a" /* AppModule */]);
 //# sourceMappingURL=main.js.map
 
 /***/ }),
 
-/***/ 298:
+/***/ 312:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_service__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common__ = __webpack_require__(91);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -807,10 +577,10 @@ var AppComponent = (function () {
     return AppComponent;
 }());
 AppComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
         selector: 'app-root',
-        template: __webpack_require__(558),
-        styles: [__webpack_require__(480)],
+        template: __webpack_require__(577),
+        styles: [__webpack_require__(495)],
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */]) === "function" && _c || Object])
 ], AppComponent);
@@ -820,7 +590,7 @@ var _a, _b, _c;
 
 /***/ }),
 
-/***/ 299:
+/***/ 313:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -828,37 +598,39 @@ var _a, _b, _c;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(121);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(298);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(312);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__home_service__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__category_category_component__ = __webpack_require__(301);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__category_category_component__ = __webpack_require__(315);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_router__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__home_home_component__ = __webpack_require__(314);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__detail_detail_component__ = __webpack_require__(305);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__contact_contact_component__ = __webpack_require__(304);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__footer_footer_component__ = __webpack_require__(311);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__header_header_component__ = __webpack_require__(313);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__cart_cart_component__ = __webpack_require__(300);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__checkout_checkout_component__ = __webpack_require__(302);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__signin_signin_component__ = __webpack_require__(317);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__signup_signup_component__ = __webpack_require__(318);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__info_info_component__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__equal_validator_directive__ = __webpack_require__(308);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__guard_auth_guard__ = __webpack_require__(312);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__saveinfo_guard__ = __webpack_require__(316);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__angular_platform_browser_animations__ = __webpack_require__(297);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__home_home_component__ = __webpack_require__(328);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__detail_detail_component__ = __webpack_require__(319);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__contact_contact_component__ = __webpack_require__(318);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__footer_footer_component__ = __webpack_require__(325);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__header_header_component__ = __webpack_require__(327);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__cart_cart_component__ = __webpack_require__(314);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__checkout_checkout_component__ = __webpack_require__(316);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__signin_signin_component__ = __webpack_require__(332);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__signup_signup_component__ = __webpack_require__(333);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__info_info_component__ = __webpack_require__(329);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__equal_validator_directive__ = __webpack_require__(322);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__guard_auth_guard__ = __webpack_require__(326);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__saveinfo_guard__ = __webpack_require__(331);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__angular_platform_browser_animations__ = __webpack_require__(311);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__collapse_collapse_component__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__collapse_group_collapse_group_component__ = __webpack_require__(303);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__faq_faq_component__ = __webpack_require__(309);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pipes_temp_converter_pipe__ = __webpack_require__(315);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__dialog_dialog_component__ = __webpack_require__(306);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_angularfire2__ = __webpack_require__(324);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_angularfire2_database__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__collapse_group_collapse_group_component__ = __webpack_require__(317);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__faq_faq_component__ = __webpack_require__(323);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pipes_temp_converter_pipe__ = __webpack_require__(330);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__dialog_dialog_component__ = __webpack_require__(320);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_angularfire2__ = __webpack_require__(339);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_angularfire2_database__ = __webpack_require__(164);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29_angularfire2_auth__ = __webpack_require__(123);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__spinner_spinner_component__ = __webpack_require__(319);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__replace_pipe__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__spinner_spinner_component__ = __webpack_require__(334);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__replace_pipe__ = __webpack_require__(161);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__format_num_vn_pipe__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__token_manager_service__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__email_available_validator_directive__ = __webpack_require__(307);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__token_manager_service__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__email_available_validator_directive__ = __webpack_require__(321);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35_ng_lazyload_image__ = __webpack_require__(557);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35_ng_lazyload_image___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_35_ng_lazyload_image__);
 /* unused harmony export firebaseConfig */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -903,6 +675,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 // Must export the config
 var firebaseConfig = {
     apiKey: "AIzaSyCEPpvtiiK5D4r7HqD74yXA9OIyZf_lzmE",
@@ -930,7 +703,7 @@ var AppModule = (function () {
     return AppModule;
 }());
 AppModule = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["b" /* NgModule */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["NgModule"])({
         declarations: [
             __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */],
             __WEBPACK_IMPORTED_MODULE_6__category_category_component__["a" /* CategoryComponent */],
@@ -963,7 +736,8 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_7__angular_router__["a" /* RouterModule */].forRoot(routes),
             __WEBPACK_IMPORTED_MODULE_27_angularfire2__["a" /* AngularFireModule */].initializeApp(firebaseConfig),
             __WEBPACK_IMPORTED_MODULE_28_angularfire2_database__["a" /* AngularFireDatabaseModule */],
-            __WEBPACK_IMPORTED_MODULE_29_angularfire2_auth__["a" /* AngularFireAuthModule */]
+            __WEBPACK_IMPORTED_MODULE_29_angularfire2_auth__["a" /* AngularFireAuthModule */],
+            __WEBPACK_IMPORTED_MODULE_35_ng_lazyload_image__["LazyLoadImageModule"]
         ],
         providers: [__WEBPACK_IMPORTED_MODULE_5__home_service__["a" /* XyzUserListService */], __WEBPACK_IMPORTED_MODULE_19__guard_auth_guard__["a" /* AuthGuard */], __WEBPACK_IMPORTED_MODULE_20__saveinfo_guard__["a" /* CanDeactivateGuard */], __WEBPACK_IMPORTED_MODULE_31__replace_pipe__["a" /* ReplacePipe */], __WEBPACK_IMPORTED_MODULE_32__format_num_vn_pipe__["a" /* FormatNumVNPipe */], __WEBPACK_IMPORTED_MODULE_33__token_manager_service__["a" /* TokenManagerService */]],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]]
@@ -974,7 +748,7 @@ AppModule = __decorate([
 
 /***/ }),
 
-/***/ 300:
+/***/ 314:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1130,10 +904,10 @@ var CartComponent = (function () {
     return CartComponent;
 }());
 CartComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["Component"])({
         selector: 'app-cart',
-        template: __webpack_require__(559),
-        styles: [__webpack_require__(481)]
+        template: __webpack_require__(578),
+        styles: [__webpack_require__(496)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__home_service__["a" /* XyzUserListService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* Router */]) === "function" && _b || Object])
 ], CartComponent);
@@ -1143,7 +917,7 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 301:
+/***/ 315:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1228,10 +1002,10 @@ var CategoryComponent = (function () {
     return CategoryComponent;
 }());
 CategoryComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["Component"])({
         selector: 'app-category',
-        template: __webpack_require__(560),
-        styles: [__webpack_require__(482)]
+        template: __webpack_require__(579),
+        styles: [__webpack_require__(497)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _b || Object])
 ], CategoryComponent);
@@ -1241,7 +1015,7 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 302:
+/***/ 316:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1360,10 +1134,10 @@ var CheckoutComponent = (function () {
     return CheckoutComponent;
 }());
 CheckoutComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["Component"])({
         selector: 'app-checkout',
-        template: __webpack_require__(561),
-        styles: [__webpack_require__(483)]
+        template: __webpack_require__(580),
+        styles: [__webpack_require__(498)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__home_service__["a" /* XyzUserListService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* Router */]) === "function" && _b || Object])
 ], CheckoutComponent);
@@ -1373,7 +1147,7 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 303:
+/***/ 317:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1439,18 +1213,18 @@ var CollapseGroupComponent = (function () {
     return CollapseGroupComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* ContentChildren */])(__WEBPACK_IMPORTED_MODULE_1__collapse_collapse_component__["a" /* CollapseComponent */]),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* QueryList */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* QueryList */]) === "function" && _a || Object)
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ContentChildren"])(__WEBPACK_IMPORTED_MODULE_1__collapse_collapse_component__["a" /* CollapseComponent */]),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["QueryList"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["QueryList"]) === "function" && _a || Object)
 ], CollapseGroupComponent.prototype, "collapses", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Boolean)
 ], CollapseGroupComponent.prototype, "multiple", void 0);
 CollapseGroupComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'tp-collapse-group',
-        template: __webpack_require__(562),
-        styles: [__webpack_require__(484)]
+        template: __webpack_require__(581),
+        styles: [__webpack_require__(499)]
     }),
     __metadata("design:paramtypes", [])
 ], CollapseGroupComponent);
@@ -1460,14 +1234,14 @@ var _a;
 
 /***/ }),
 
-/***/ 304:
+/***/ 318:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_service__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__account__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__account__ = __webpack_require__(92);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContactComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1519,15 +1293,15 @@ var ContactComponent = (function () {
     return ContactComponent;
 }());
 ContactComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["Component"])({
         selector: 'app-contact',
-        template: __webpack_require__(564),
-        styles: [__webpack_require__(486)],
+        template: __webpack_require__(583),
+        styles: [__webpack_require__(501)],
         animations: [
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_17" /* trigger */])('visibilityChanged', [
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_18" /* state */])('shown', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_19" /* style */])({ opacity: 1 })),
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_18" /* state */])('hidden', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_19" /* style */])({ opacity: 0 })),
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_20" /* transition */])('* => *', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_21" /* animate */])('5s'))
+            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["trigger"])('visibilityChanged', [
+                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["state"])('shown', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["style"])({ opacity: 1 })),
+                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["state"])('hidden', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["style"])({ opacity: 0 })),
+                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["transition"])('* => *', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["animate"])('5s'))
             ])
         ],
     }),
@@ -1539,7 +1313,7 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 305:
+/***/ 319:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1616,10 +1390,10 @@ var DetailComponent = (function () {
     return DetailComponent;
 }());
 DetailComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["Component"])({
         selector: 'app-detail',
-        template: __webpack_require__(565),
-        styles: [__webpack_require__(487)]
+        template: __webpack_require__(584),
+        styles: [__webpack_require__(502)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _b || Object])
 ], DetailComponent);
@@ -1629,7 +1403,7 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 306:
+/***/ 320:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1650,7 +1424,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var DialogComponent = (function () {
     function DialogComponent() {
         this.closable = true;
-        this.visibleChange = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */]();
+        this.visibleChange = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
     }
     DialogComponent.prototype.ngOnInit = function () { };
     DialogComponent.prototype.close = function () {
@@ -1660,22 +1434,22 @@ var DialogComponent = (function () {
     return DialogComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Object)
 ], DialogComponent.prototype, "closable", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Boolean)
 ], DialogComponent.prototype, "visible", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Output */])(),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */]) === "function" && _a || Object)
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]) === "function" && _a || Object)
 ], DialogComponent.prototype, "visibleChange", void 0);
 DialogComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-dialog',
-        template: __webpack_require__(566),
-        styles: [__webpack_require__(488)],
+        template: __webpack_require__(585),
+        styles: [__webpack_require__(503)],
         animations: [
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_animations__["i" /* trigger */])('dialog', [
                 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_animations__["j" /* transition */])('void => *', [
@@ -1696,14 +1470,13 @@ var _a;
 
 /***/ }),
 
-/***/ 307:
+/***/ 321:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(121);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_service__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__info_info_component__ = __webpack_require__(161);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EmailAvailableValidatorDirective; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1717,11 +1490,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 var EmailAvailableValidatorDirective = EmailAvailableValidatorDirective_1 = (function () {
     function EmailAvailableValidatorDirective(usersService) {
         this.usersService = usersService;
-        this.id = '0' || this.infoComponent.id;
+        if ((localStorage.getItem("id") == null)) {
+            this.id = '0';
+        }
+        else {
+            this.id = localStorage.getItem("id");
+        }
+        if ((sessionStorage.id == null)) {
+            this.id = '0';
+        }
+        else {
+            this.id = sessionStorage.id;
+        }
+        console.log(this.id);
     }
     EmailAvailableValidatorDirective.prototype.validate = function (c) {
         return this.validateEmailAvailableFactory(c.value);
@@ -1746,29 +1530,25 @@ var EmailAvailableValidatorDirective = EmailAvailableValidatorDirective_1 = (fun
     };
     return EmailAvailableValidatorDirective;
 }());
-__decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__info_info_component__["a" /* InfoComponent */]),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__info_info_component__["a" /* InfoComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__info_info_component__["a" /* InfoComponent */]) === "function" && _a || Object)
-], EmailAvailableValidatorDirective.prototype, "infoComponent", void 0);
 EmailAvailableValidatorDirective = EmailAvailableValidatorDirective_1 = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
         selector: '[emailAvailable][formControlName],[emailAvailable][formControl],[emailAvailable][ngModel]',
         providers: [
             {
                 provide: __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* NG_ASYNC_VALIDATORS */],
-                useExisting: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* forwardRef */])(function () { return EmailAvailableValidatorDirective_1; }), multi: true
+                useExisting: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["forwardRef"])(function () { return EmailAvailableValidatorDirective_1; }), multi: true
             }
         ]
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__home_service__["a" /* XyzUserListService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__home_service__["a" /* XyzUserListService */]) === "function" && _a || Object])
 ], EmailAvailableValidatorDirective);
 
-var EmailAvailableValidatorDirective_1, _a, _b;
+var EmailAvailableValidatorDirective_1, _a;
 //# sourceMappingURL=email-available-validator.directive.js.map
 
 /***/ }),
 
-/***/ 308:
+/***/ 322:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1831,14 +1611,14 @@ var EqualValidatorDirective = EqualValidatorDirective_1 = (function () {
     return EqualValidatorDirective;
 }());
 EqualValidatorDirective = EqualValidatorDirective_1 = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
         selector: '[validateEqual][formControlName],[validateEqual][formControl],[validateEqual][ngModel]',
         providers: [
-            { provide: __WEBPACK_IMPORTED_MODULE_1__angular_forms__["c" /* NG_VALIDATORS */], useExisting: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* forwardRef */])(function () { return EqualValidatorDirective_1; }), multi: true }
+            { provide: __WEBPACK_IMPORTED_MODULE_1__angular_forms__["c" /* NG_VALIDATORS */], useExisting: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["forwardRef"])(function () { return EqualValidatorDirective_1; }), multi: true }
         ]
     }),
-    __param(0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["U" /* Attribute */])('validateEqual')),
-    __param(1, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["U" /* Attribute */])('reverse')),
+    __param(0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Attribute"])('validateEqual')),
+    __param(1, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Attribute"])('reverse')),
     __metadata("design:paramtypes", [String, String])
 ], EqualValidatorDirective);
 
@@ -1847,12 +1627,12 @@ var EqualValidatorDirective_1;
 
 /***/ }),
 
-/***/ 309:
+/***/ 323:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__faq__ = __webpack_require__(310);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__faq__ = __webpack_require__(324);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FaqComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1875,10 +1655,10 @@ var FaqComponent = (function () {
     return FaqComponent;
 }());
 FaqComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-faq',
-        template: __webpack_require__(567),
-        styles: [__webpack_require__(489)]
+        template: __webpack_require__(586),
+        styles: [__webpack_require__(504)]
     })
 ], FaqComponent);
 
@@ -1886,7 +1666,7 @@ FaqComponent = __decorate([
 
 /***/ }),
 
-/***/ 310:
+/***/ 324:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1935,7 +1715,7 @@ var POSTS = [{
 
 /***/ }),
 
-/***/ 311:
+/***/ 325:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1959,10 +1739,10 @@ var FooterComponent = (function () {
     return FooterComponent;
 }());
 FooterComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-footer',
-        template: __webpack_require__(568),
-        styles: [__webpack_require__(490)]
+        template: __webpack_require__(587),
+        styles: [__webpack_require__(505)]
     }),
     __metadata("design:paramtypes", [])
 ], FooterComponent);
@@ -1971,7 +1751,7 @@ FooterComponent = __decorate([
 
 /***/ }),
 
-/***/ 312:
+/***/ 326:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2005,7 +1785,7 @@ var AuthGuard = (function () {
     return AuthGuard;
 }());
 AuthGuard = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _a || Object])
 ], AuthGuard);
 
@@ -2014,11 +1794,11 @@ var _a;
 
 /***/ }),
 
-/***/ 313:
+/***/ 327:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__replace_pipe__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__replace_pipe__ = __webpack_require__(161);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__format_num_vn_pipe__ = __webpack_require__(160);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__(31);
@@ -2054,7 +1834,7 @@ var HeaderComponent = (function () {
         this.selectedCateChild = '';
         this.selectedPrice = '';
         this.del = false;
-        this.onVote = new __WEBPACK_IMPORTED_MODULE_5__angular_core__["F" /* EventEmitter */]();
+        this.onVote = new __WEBPACK_IMPORTED_MODULE_5__angular_core__["EventEmitter"]();
         xyzUserListService.changeEmitted$.subscribe(function (text) {
             _this.count_c = text;
         });
@@ -2263,20 +2043,20 @@ var HeaderComponent = (function () {
     return HeaderComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__angular_core__["_5" /* Output */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__angular_core__["Output"])(),
     __metadata("design:type", Object)
 ], HeaderComponent.prototype, "onVote", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__angular_core__["_14" /* ViewChild */])('search'),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5__angular_core__["M" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_core__["M" /* ElementRef */]) === "function" && _a || Object)
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__angular_core__["ViewChild"])('search'),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5__angular_core__["ElementRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_core__["ElementRef"]) === "function" && _a || Object)
 ], HeaderComponent.prototype, "search11", void 0);
 HeaderComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__angular_core__["_15" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__angular_core__["Component"])({
         selector: 'app-header',
-        template: __webpack_require__(569),
-        styles: [__webpack_require__(491)],
+        template: __webpack_require__(588),
+        styles: [__webpack_require__(506)],
         providers: [__WEBPACK_IMPORTED_MODULE_0__replace_pipe__["a" /* ReplacePipe */]],
-        encapsulation: __WEBPACK_IMPORTED_MODULE_5__angular_core__["q" /* ViewEncapsulation */].None
+        encapsulation: __WEBPACK_IMPORTED_MODULE_5__angular_core__["ViewEncapsulation"].None
     }),
     __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__home_service__["a" /* XyzUserListService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* ActivatedRoute */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["c" /* Router */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__replace_pipe__["a" /* ReplacePipe */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__replace_pipe__["a" /* ReplacePipe */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_2__format_num_vn_pipe__["a" /* FormatNumVNPipe */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__format_num_vn_pipe__["a" /* FormatNumVNPipe */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["d" /* DomSanitizer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["d" /* DomSanitizer */]) === "function" && _g || Object])
 ], HeaderComponent);
@@ -2286,13 +2066,13 @@ var _a, _b, _c, _d, _e, _f, _g;
 
 /***/ }),
 
-/***/ 314:
+/***/ 328:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_service__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery__ = __webpack_require__(237);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery__ = __webpack_require__(236);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_jquery__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomeComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2356,17 +2136,17 @@ var HomeComponent = (function () {
     return HomeComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewChild */])('slider'),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["M" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["M" /* ElementRef */]) === "function" && _a || Object)
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewChild"])('slider'),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["ElementRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["ElementRef"]) === "function" && _a || Object)
 ], HomeComponent.prototype, "slider", void 0);
 HomeComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
         selector: 'app-home',
-        template: __webpack_require__(570),
-        styles: [__webpack_require__(492)],
-        encapsulation: __WEBPACK_IMPORTED_MODULE_1__angular_core__["q" /* ViewEncapsulation */].None
+        template: __webpack_require__(589),
+        styles: [__webpack_require__(507)],
+        encapsulation: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewEncapsulation"].None
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["M" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["M" /* ElementRef */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["ElementRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["ElementRef"]) === "function" && _c || Object])
 ], HomeComponent);
 
 var _a, _b, _c;
@@ -2374,7 +2154,251 @@ var _a, _b, _c;
 
 /***/ }),
 
-/***/ 315:
+/***/ 329:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_service__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_jquery__ = __webpack_require__(236);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__account__ = __webpack_require__(92);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InfoComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var InfoComponent = (function () {
+    function InfoComponent(xyzUserListService, router) {
+        var _this = this;
+        this.xyzUserListService = xyzUserListService;
+        this.router = router;
+        this.visibility = 'shown';
+        this.isVisible = true;
+        this.editPassword = '';
+        this.account = new __WEBPACK_IMPORTED_MODULE_5__account__["a" /* Account */]('', '', '');
+        this.isDirty = false;
+        this.showDialog = false;
+        this.active = false;
+        this.flagshow = false;
+        this.tab = false;
+        this.flagEmailOld = false;
+        this.obs = new __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__["Subject"]();
+        this.obs$ = this.obs.asObservable();
+        this.obs1 = new __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__["Subject"]();
+        this.obs11 = this.obs1.asObservable();
+        xyzUserListService.changeEmitted2.subscribe(function (text) {
+            _this.flag_search1 = text;
+            console.log(_this.flag_search1);
+        });
+    }
+    InfoComponent.prototype.handleDialogButton = function () {
+        var _this = this;
+        var prom = new Promise(function (resolve, reject) {
+            _this.obs$.subscribe(function (result) {
+                //handle when response susscess
+                if (result) {
+                    resolve(true);
+                }
+                else {
+                    _this.showDialog = false;
+                    reject(false);
+                }
+            });
+            _this.obs11.subscribe(function (result) {
+                // console.log(result);
+                //handle when response susscess
+                if (result) {
+                    _this.showDialog = false;
+                    reject(false);
+                }
+                else {
+                    resolve(true);
+                }
+            });
+        });
+        return prom;
+    };
+    // @ViewChild('name') nameChange: ElementRef;
+    InfoComponent.prototype.canDeactivate = function () {
+        //isDirty check su thay doi cua form
+        if (this.isDirty) {
+            this.showDialog = true;
+            return this.handleDialogButton()
+                .catch(function () {
+                return false;
+            });
+        }
+        else {
+            return Promise.resolve(true)
+                .catch(function () {
+                return false;
+            });
+        }
+        //return window.confirm('WARNING: You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.');
+        // }
+        // return Promise.resolve(true);
+    };
+    InfoComponent.prototype.loading = function () {
+        this.products_order$ = this.xyzUserListService.getOrderUser(this.id);
+        this.tab = true;
+        // this.isRequesting = true;
+        // this.sub = this.xyzUserListService.getOrderUser(this.id).subscribe((response) => {
+        //   this.products_order = response;
+        //   this.isRequesting = false;
+        //   console.log(this.products_order);
+        //   if (this.products_order.length <= 0 || this.products_order == []) {
+        //     this.no_product = true;
+        //   }
+        //   else {
+        //     this.no_product = false;
+        //   }
+        // });
+    };
+    InfoComponent.prototype.ngOnInit = function () {
+        if ((localStorage.getItem("id") == null)) {
+            this.check_token = true;
+        }
+        else {
+            this.check_token = false;
+            this.account.name = localStorage.getItem("name");
+            this.account.email = localStorage.getItem("email");
+            this.emailOld = localStorage.getItem("email");
+            this.id = localStorage.getItem("id");
+        }
+        if ((sessionStorage.id == null)) {
+            this.check_token = true;
+        }
+        else {
+            this.check_token = false;
+            this.account.name = sessionStorage.name;
+            this.account.email = sessionStorage.email;
+            this.id = sessionStorage.id;
+            this.flag_info = sessionStorage.login;
+        }
+        this.link_img = this.xyzUserListService.link_img;
+        this.domain = this.xyzUserListService.domain;
+    };
+    InfoComponent.prototype.detail_order = function (id) {
+        var _this = this;
+        this.xyzUserListService.getOrderUserDetail(id).subscribe(function (response) {
+            _this.detail_order_product = response;
+            var total = 0;
+            for (var _i = 0; _i < response.length; _i++) {
+                var product = response[_i];
+                console.log(product.price);
+                total += (product.price * product.qty);
+            }
+            _this.sTotal = total;
+        });
+    };
+    InfoComponent.prototype.updateInfo = function (form) {
+        var _this = this;
+        this.account.email = form.value.email;
+        this.account.name = form.value.name;
+        this.account.password = form.value.password;
+        var result = this.xyzUserListService.updateInfo(this.account, this.id);
+        result.subscribe(function (data) {
+            console.log(data);
+            if (data.status == 'yes') {
+                _this.flag_success = true;
+                _this.isVisible = !_this.isVisible;
+                console.log(_this.isVisible);
+                _this.visibility = _this.isVisible ? 'shown' : 'hidden';
+                form.controls.password.reset();
+                form.controls.confirmPassword.reset();
+                _this.router.navigate(['/thong-tin']);
+            }
+        }, function (errorData) {
+            console.log(errorData);
+        });
+    };
+    InfoComponent.prototype.checkemail_same = function (em, id) {
+        var _this = this;
+        this.flag_validate_email = false;
+        var result = this.xyzUserListService.validate_email_user(em, this.id);
+        result.subscribe(function (data) {
+            if (data.success === 'yes') {
+                _this.flag_validate_email = true;
+            }
+            else if (data.success === 'old') {
+                _this.flag_validate_email_old = true;
+            }
+        }, function (errorData) {
+        });
+    };
+    InfoComponent.prototype.doSomething = function (newValue) {
+        this.account.email = newValue;
+        console.clear();
+        console.log(newValue);
+        this.emailNew = newValue;
+        if (this.emailNew == this.emailOld) {
+            this.flagEmailOld = true;
+        }
+    };
+    InfoComponent.prototype.ngAfterViewInit = function () {
+        __WEBPACK_IMPORTED_MODULE_4_jquery__(document).ready(function () {
+            __WEBPACK_IMPORTED_MODULE_4_jquery__('ul.tabs li').click(function () {
+                var tab = __WEBPACK_IMPORTED_MODULE_4_jquery__(this).data('tab');
+                __WEBPACK_IMPORTED_MODULE_4_jquery__('ul.tabs li').removeClass('current');
+                __WEBPACK_IMPORTED_MODULE_4_jquery__('.tab-container').removeClass('current');
+                __WEBPACK_IMPORTED_MODULE_4_jquery__(this).addClass('current');
+                __WEBPACK_IMPORTED_MODULE_4_jquery__("#" + tab).addClass('current');
+            });
+            var appendthis = ("<div class='modal-overlay js-modal-close'></div>");
+            __WEBPACK_IMPORTED_MODULE_4_jquery__(document).on("click", "a[data-modal-id]", function (e) {
+                e.preventDefault();
+                __WEBPACK_IMPORTED_MODULE_4_jquery__("body").append(appendthis);
+                __WEBPACK_IMPORTED_MODULE_4_jquery__(".modal-overlay").fadeTo(500, 0.7);
+                //$(".js-modalbox").fadeIn(500);
+                var modalBox = __WEBPACK_IMPORTED_MODULE_4_jquery__(this).attr('data-modal-id');
+                __WEBPACK_IMPORTED_MODULE_4_jquery__('#' + modalBox).fadeIn(__WEBPACK_IMPORTED_MODULE_4_jquery__(this).data());
+            });
+            __WEBPACK_IMPORTED_MODULE_4_jquery__(document).on("click", ".js-modal-close, .modal-overlay", function () {
+                __WEBPACK_IMPORTED_MODULE_4_jquery__(".modal-box, .modal-overlay").fadeOut(500, function () {
+                    __WEBPACK_IMPORTED_MODULE_4_jquery__(".modal-overlay").remove();
+                });
+            });
+        });
+    };
+    return InfoComponent;
+}());
+InfoComponent = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Component"])({
+        selector: 'app-info',
+        template: __webpack_require__(590),
+        styles: [__webpack_require__(508)],
+        animations: [
+            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["trigger"])('visibilityChanged', [
+                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["state"])('shown', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["style"])({ opacity: 1 })),
+                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["state"])('hidden', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["style"])({ opacity: 0 })),
+                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["transition"])('* => *', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["animate"])('5s'))
+            ])
+        ],
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__home_service__["a" /* XyzUserListService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object])
+], InfoComponent);
+
+var _a, _b;
+//# sourceMappingURL=info.component.js.map
+
+/***/ }),
+
+/***/ 330:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2426,7 +2450,7 @@ var TempConverterPipe = (function () {
     return TempConverterPipe;
 }());
 TempConverterPipe = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Y" /* Pipe */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"])({
         name: 'tempConverter'
     })
 ], TempConverterPipe);
@@ -2435,7 +2459,7 @@ TempConverterPipe = __decorate([
 
 /***/ }),
 
-/***/ 316:
+/***/ 331:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2457,22 +2481,22 @@ var CanDeactivateGuard = (function () {
     return CanDeactivateGuard;
 }());
 CanDeactivateGuard = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])()
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])()
 ], CanDeactivateGuard);
 
 //# sourceMappingURL=saveinfo.guard.js.map
 
 /***/ }),
 
-/***/ 317:
+/***/ 332:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_service__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__account__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__account__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__ = __webpack_require__(164);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_firebase_app__ = __webpack_require__(68);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_firebase_app__);
@@ -2613,10 +2637,10 @@ var SigninComponent = (function () {
     return SigninComponent;
 }());
 SigninComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["Component"])({
         selector: 'app-signin',
-        template: __webpack_require__(572),
-        styles: [__webpack_require__(494)]
+        template: __webpack_require__(591),
+        styles: [__webpack_require__(509)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__home_service__["a" /* XyzUserListService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__["b" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__["b" /* AngularFireAuth */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__["b" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__["b" /* AngularFireDatabase */]) === "function" && _d || Object])
 ], SigninComponent);
@@ -2626,14 +2650,14 @@ var _a, _b, _c, _d;
 
 /***/ }),
 
-/***/ 318:
+/***/ 333:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_service__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__account__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__account__ = __webpack_require__(92);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SignupComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2699,15 +2723,15 @@ var SignupComponent = (function () {
     return SignupComponent;
 }());
 SignupComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["Component"])({
         selector: 'app-signup',
-        template: __webpack_require__(573),
-        styles: [__webpack_require__(495)],
+        template: __webpack_require__(592),
+        styles: [__webpack_require__(510)],
         animations: [
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_17" /* trigger */])('visibilityChanged', [
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_18" /* state */])('shown', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_19" /* style */])({ opacity: 1 })),
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_18" /* state */])('hidden', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_19" /* style */])({ opacity: 0 })),
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_20" /* transition */])('* => *', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_21" /* animate */])('5s'))
+            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["trigger"])('visibilityChanged', [
+                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["state"])('shown', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["style"])({ opacity: 1 })),
+                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["state"])('hidden', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["style"])({ opacity: 0 })),
+                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["transition"])('* => *', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["animate"])('5s'))
             ])
         ],
     }),
@@ -2719,7 +2743,7 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 319:
+/***/ 334:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2769,20 +2793,20 @@ var SpinnerComponent = (function () {
     return SpinnerComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Number)
 ], SpinnerComponent.prototype, "delay", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Boolean),
     __metadata("design:paramtypes", [Boolean])
 ], SpinnerComponent.prototype, "isRunning", null);
 SpinnerComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-spinner',
-        template: __webpack_require__(574),
-        styles: [__webpack_require__(496)],
-        encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["q" /* ViewEncapsulation */].None
+        template: __webpack_require__(593),
+        styles: [__webpack_require__(511)],
+        encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
     })
 ], SpinnerComponent);
 
@@ -2790,7 +2814,7 @@ SpinnerComponent = __decorate([
 
 /***/ }),
 
-/***/ 320:
+/***/ 335:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2802,7 +2826,7 @@ var environment = {
 
 /***/ }),
 
-/***/ 480:
+/***/ 495:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -2820,7 +2844,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 481:
+/***/ 496:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -2838,7 +2862,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 482:
+/***/ 497:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -2856,7 +2880,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 483:
+/***/ 498:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -2874,7 +2898,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 484:
+/***/ 499:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -2892,7 +2916,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 485:
+/***/ 500:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -2910,7 +2934,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 486:
+/***/ 501:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -2928,7 +2952,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 487:
+/***/ 502:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -2946,7 +2970,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 488:
+/***/ 503:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -2964,7 +2988,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 489:
+/***/ 504:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -2982,7 +3006,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 490:
+/***/ 505:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -3000,7 +3024,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 491:
+/***/ 506:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -3018,7 +3042,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 492:
+/***/ 507:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -3036,7 +3060,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 493:
+/***/ 508:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -3054,7 +3078,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 494:
+/***/ 509:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -3072,7 +3096,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 495:
+/***/ 510:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -3090,7 +3114,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 496:
+/***/ 511:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)();
@@ -3108,134 +3132,134 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 558:
+/***/ 577:
 /***/ (function(module, exports) {
 
 module.exports = "<app-header></app-header>\r\n<router-outlet></router-outlet>\r\n<app-footer></app-footer>"
 
 /***/ }),
 
-/***/ 559:
+/***/ 578:
 /***/ (function(module, exports) {
 
 module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n    <section id=\"product\">\r\n        <div class=\"container\">\r\n            <!--  breadcrumb -->\r\n            <ul class=\"breadcrumb\">\r\n                <li>\r\n                    <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n                    <span class=\"divider\">/</span>\r\n                </li>\r\n                <li class=\"active\"> Giỏ hàng</li>\r\n            </ul>\r\n            <h1 class=\"heading1\"><span class=\"maintext\"> Giỏ hàng</span><span class=\"subtext\"> Tất cả sản phẩm trong giỏ hàng</span></h1>\r\n            <!-- Cart-->\r\n            <div class=\"cart-info\" *ngIf=\"!no_product\">\r\n                <table class=\"table table-striped table-bordered\">\r\n                    <tr>\r\n                        <th class=\"image\">Hình ảnh</th>\r\n                        <th class=\"name\">Tên sản phẩm</th>\r\n                        <th class=\"quantity\">Số lượng</th>\r\n                        <th class=\"total\">Xóa</th>\r\n                        <th class=\"price\">Giá</th>\r\n                        <th class=\"total\">Tổng tiền</th>\r\n                    </tr>\r\n                    <tr *ngFor=\"let item of product_giohang\">\r\n                        <td class=\"image\">\r\n                            <a><img title=\"product\" alt=\"product\" src=\"{{link_img}}{{item[0].options.img}}\" height=\"50\" width=\"50\"></a>\r\n                        </td>\r\n                        <td class=\"name\"><a>{{item[0].name}}</a></td>\r\n\r\n                        <td class=\"quantity\"><input type=\"number\" size=\"1\" [value]=\"item[0].qty\" name=\"quantity\" class=\"span1\" (change)=\"update(textName.value,textName.id,$event)\" #textName [attr.id]=\"item[0].id\" min=\"0\" (keyup)=\"validateNumber(textName.value)\">\r\n                        </td>\r\n\r\n                        <td class=\"total\">\r\n                            <a (click)=\"fcshowDialog(item[0].id)\"><img class=\"tooltip-test\" data-original-title=\"Remove\" src=\"{{domain}}public/user/img/remove.png\" alt=\"\"></a>\r\n                        </td>\r\n\r\n\r\n                        <td class=\"price\">{{item[0].price | formatNumVN }} D</td>\r\n                        <td class=\"total\">{{item[0].subtotal | formatNumVN }} D</td>\r\n\r\n                    </tr>\r\n                </table>\r\n            </div>\r\n            <app-dialog [(visible)]=\"showDialog\">\r\n                <p>Bạn có chắc muốn xóa sản phẩm?</p>\r\n                <hr>\r\n                <div class=\"btn-wrap\">\r\n                    <button (click)=delete(deleteId) type=\"button\" class=\"btn btn-success\">OK</button>\r\n                    <button (click)=cancel() type=\"button\" class=\"btn btn-danger\">Cancel</button>\r\n                </div>\r\n            </app-dialog>\r\n            <div class=\"container\" *ngIf=\"!no_product\">\r\n                <div class=\"pull-right\">\r\n                    <div class=\"span4 pull-right\">\r\n                        <table class=\"table table-striped table-bordered \">\r\n                            <tr>\r\n                                <td><span class=\"extra bold totalamout\">Tổng tiền :</span></td>\r\n                                <td><span class=\"bold totalamout\" id=\"totalamout\">{{total | formatNumVN }} D</span></td>\r\n                            </tr>\r\n                        </table>\r\n                        <button routerLink=\"/thanh-toan\" class=\"btn btn-orange pull-right\">Thanh toán</button>\r\n                        <button routerLink=\"\" class=\"btn btn-orange pull-right mr10\">Tiếp tục mua sắm</button>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"container\" *ngIf=\"no_product\">\r\n                <p>Không có sản phẩm nào trong giỏ hàng. Vui lòng quay lại mua sắm !</p>\r\n                <p>\r\n                    <a routerLink=\"\"><button class=\"btn btn-orange pull-left\">Tiếp tục mua sắm</button></a>\r\n                </p>\r\n            </div>\r\n        </div>\r\n    </section>\r\n</div>\r\n<app-dialog [(visible)]=\"showDialogvc\">\r\n    <p class=\"alert alert-danger\" style=\"margin:0\">Vui lòng nhập số</p>\r\n</app-dialog>"
 
 /***/ }),
 
-/***/ 560:
+/***/ 579:
 /***/ (function(module, exports) {
 
-module.exports = "<section id=\"product\" *ngIf=\"!flag_search1\">\r\n  <div class=\"container\">\r\n    <!--  breadcrumb -->\r\n    <ul class=\"breadcrumb\">\r\n      <li>\r\n        <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n        <span class=\"divider\">/</span>\r\n      </li>\r\n      <li class=\"active\">Danh mục sản phẩm</li>\r\n    </ul>\r\n    <div class=\"row\">\r\n      <!-- Sidebar Start-->\r\n      <aside class=\"span3\">\r\n        <!-- Category-->\r\n        <div class=\"sidewidt\">\r\n          <h2 class=\"heading2\"><span>Danh mục</span></h2>\r\n          <ul class=\"nav nav-list categories\">\r\n            <li *ngFor=\"let item of menu_cate\">\r\n              <a routerLink=\"/loai-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <!--  Best Seller -->\r\n        <div class=\"sidewidt\">\r\n          <h2 class=\"heading2\"><span>Bán chạy nhất</span></h2>\r\n          <ul class=\"bestseller\">\r\n            <li *ngFor=\"let item of products_order\">\r\n              <img width=\"50\" height=\"50\" src=\"{{link_img}}{{item.image}}\" alt=\"product\" title=\"product\">\r\n              <a class=\"productname\" routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n              <span class=\"price\">{{item.price | formatNumVN }} D</span>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <!-- Latest Product -->\r\n        <div class=\"sidewidt\">\r\n          <h2 class=\"heading2\"><span>Mới nhất</span></h2>\r\n          <ul class=\"bestseller\">\r\n            <li *ngFor=\"let item of lasted_product | slice:0:4; let i=index\">\r\n              <img width=\"50\" height=\"50\" src=\"{{link_img}}{{item.image}}\" alt=\"product\" title=\"product\">\r\n              <a class=\"productname\" routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n              <span class=\"price\">{{item.price | formatNumVN }} D</span>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n      </aside>\r\n      <!-- Sidebar End-->\r\n      <!-- Category-->\r\n      <div class=\"span9\">\r\n        <!-- Category Products-->\r\n        <section id=\"category\">\r\n          <div class=\"row\">\r\n            <div class=\"span9\">\r\n              <!-- Category-->\r\n              <section id=\"categorygrid\">\r\n                <ul class=\"thumbnails grid\">\r\n                  <li class=\"span3\" *ngFor=\"let item of products_cate\">\r\n                    <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n                    <div class=\"thumbnail\">\r\n                      <span class=\"sale tooltip-test\">Sale</span>\r\n                      <a routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\"><img alt=\"\" src=\"{{link_img}}{{item.image}}\"></a>\r\n                      <div class=\"pricetag\">\r\n                        <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{item.id}}\" #cart>ADD TO CART</a>\r\n                        <div class=\"price\">\r\n                          <div class=\"pricenew\">{{item.price | formatNumVN }} D</div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </li>\r\n                </ul>\r\n                <div class=\"pagination pull-right\" *ngIf=\"total > per_page\">\r\n                  <ul>\r\n                    <li *ngIf=\"disablePrev\"><a (click)=\"pageNumber(current_page - 1)\" href=\"#\">Prev</a>\r\n                    </li>\r\n                    <li *ngFor=\"let number of last_page;let i = index\" [class.active]=\"current_page == i+1\">\r\n                      <a href=\"#\" (click)=\"pageNumber(i+1)\" [style.text-decoration]=\"current_page == i+1 ? 'line-through' : ''\">{{ i+1 }}</a>\r\n                    </li>\r\n                    <li *ngIf=\"disableNext\"><a (click)=\"pageNumber(current_page + 1)\" href=\"#\">Next</a>\r\n                    </li>\r\n                  </ul>\r\n                </div>\r\n              </section>\r\n            </div>\r\n          </div>\r\n        </section>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</section>"
+module.exports = "<section id=\"product\" *ngIf=\"!flag_search1\" #container>\r\n    <div class=\"container\">\r\n        <!--  breadcrumb -->\r\n        <ul class=\"breadcrumb\">\r\n            <li>\r\n                <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n                <span class=\"divider\">/</span>\r\n            </li>\r\n            <li class=\"active\">Danh mục sản phẩm</li>\r\n        </ul>\r\n        <div class=\"row\">\r\n            <!-- Sidebar Start-->\r\n            <aside class=\"span3\">\r\n                <!-- Category-->\r\n                <div class=\"sidewidt\">\r\n                    <h2 class=\"heading2\"><span>Danh mục</span></h2>\r\n                    <ul class=\"nav nav-list categories\">\r\n                        <li *ngFor=\"let item of menu_cate\">\r\n                            <a routerLink=\"/loai-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n                <!--  Best Seller -->\r\n                <div class=\"sidewidt\">\r\n                    <h2 class=\"heading2\"><span>Bán chạy nhất</span></h2>\r\n                    <ul class=\"bestseller\">\r\n                        <li *ngFor=\"let item of products_order\">\r\n                            <img width=\"50\" height=\"50\" [lazyLoad]=\"link_img + item.image\" [offset]=\"'25'\" [defaultImage]=\"'https://i.giphy.com/3oEjI6SIIHBdRxXI40.gif'\" [scrollObservable]=\"container.ionScroll\">\r\n                            <a class=\"productname\" routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n                            <span class=\"price\">{{item.price | formatNumVN }} D</span>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n                <!-- Latest Product -->\r\n                <div class=\"sidewidt\">\r\n                    <h2 class=\"heading2\"><span>Mới nhất</span></h2>\r\n                    <ul class=\"bestseller\">\r\n                        <li *ngFor=\"let item of lasted_product | slice:0:4; let i=index\">\r\n                            <img width=\"50\" height=\"50\" [lazyLoad]=\"link_img + item.image\" [offset]=\"'25'\" [defaultImage]=\"'https://i.giphy.com/3oEjI6SIIHBdRxXI40.gif'\" [scrollObservable]=\"container.ionScroll\">\r\n                            <a class=\"productname\" routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n                            <span class=\"price\">{{item.price | formatNumVN }} D</span>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n            </aside>\r\n            <!-- Sidebar End-->\r\n            <!-- Category-->\r\n            <div class=\"span9\">\r\n                <!-- Category Products-->\r\n                <section id=\"category\">\r\n                    <div class=\"row\">\r\n                        <div class=\"span9\">\r\n                            <!-- Category-->\r\n                            <section id=\"categorygrid\">\r\n                                <ul class=\"thumbnails grid\">\r\n                                    <li class=\"span3\" *ngFor=\"let item of products_cate\">\r\n                                        <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n                                        <div class=\"thumbnail\">\r\n                                            <span class=\"sale tooltip-test\">Sale</span>\r\n                                            <a routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\"><img [lazyLoad]=\"link_img + item.image\" [offset]=\"'10'\" [defaultImage]=\"'https://i.giphy.com/3oEjI6SIIHBdRxXI40.gif'\" [scrollObservable]=\"container.ionScroll\"></a>\r\n                                            <div class=\"pricetag\">\r\n                                                <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{item.id}}\" #cart>ADD TO CART</a>\r\n                                                <div class=\"price\">\r\n                                                    <div class=\"pricenew\">{{item.price | formatNumVN }} D</div>\r\n                                                </div>\r\n                                            </div>\r\n                                        </div>\r\n                                    </li>\r\n                                </ul>\r\n                                <div class=\"pagination pull-right\" *ngIf=\"total > per_page\">\r\n                                    <ul>\r\n                                        <li *ngIf=\"disablePrev\"><a (click)=\"pageNumber(current_page - 1)\" href=\"#\">Prev</a>\r\n                                        </li>\r\n                                        <li *ngFor=\"let number of last_page;let i = index\" [class.active]=\"current_page == i+1\">\r\n                                            <a href=\"#\" (click)=\"pageNumber(i+1)\" [style.text-decoration]=\"current_page == i+1 ? 'line-through' : ''\">{{ i+1 }}</a>\r\n                                        </li>\r\n                                        <li *ngIf=\"disableNext\"><a (click)=\"pageNumber(current_page + 1)\" href=\"#\">Next</a>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </section>\r\n                        </div>\r\n                    </div>\r\n                </section>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</section>"
 
 /***/ }),
 
-/***/ 561:
+/***/ 580:
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n    <section id=\"product\">\r\n        <div class=\"container\">\r\n            <!--  breadcrumb -->\r\n            <ul class=\"breadcrumb\">\r\n                <li>\r\n                    <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n                    <span class=\"divider\">/</span>\r\n                </li>\r\n                <li class=\"active\">Thanh toán</li>\r\n            </ul>\r\n            <form class=\"form-horizontal\" (ngSubmit)=\"checkout(f)\" #f=\"ngForm\">\r\n                <input type=\"hidden\" name=\"_token\" value=\"\">\r\n                <div class=\"row\">\r\n                    <!-- Account Login-->\r\n                    <div class=\"span9\">\r\n\r\n                        <div class=\"checkoutsteptitle\">Chi tiết giao hàng\r\n                            <a class=\"modify\"></a>\r\n                        </div>\r\n                        <div class=\"checkoutstep\">\r\n                            <div class=\"row\">\r\n                                <fieldset>\r\n                                    <div class=\"span4\">\r\n                                        <div class=\"control-group\">\r\n                                            <label class=\"control-label\">Họ và tên<span class=\"red\">*</span></label>\r\n                                            <div class=\"controls\">\r\n                                                <input type=\"text\" id=\"name\" class=\"form-control\" required minlength=\"4\" maxlength=\"24\" name=\"name\" [(ngModel)]=\"name1\" #name=\"ngModel\" value=\"{{name1}}\">\r\n                                                <div *ngIf=\"name.errors && (name.dirty || name.touched)\" class=\"alert alert-danger\">\r\n                                                    <div [hidden]=\"!name.errors.required\">\r\n                                                        Name is required\r\n                                                    </div>\r\n                                                    <div [hidden]=\"!name.errors.minlength\">\r\n                                                        Name must be at least 4 characters long.\r\n                                                    </div>\r\n                                                    <div [hidden]=\"!name.errors.maxlength\">\r\n                                                        Name cannot be more than 24 characters long.\r\n                                                    </div>\r\n                                                </div>\r\n                                            </div>\r\n                                        </div>\r\n                                        <div class=\"control-group\">\r\n                                            <label class=\"control-label\">Địa chỉ<span class=\"red\">*</span></label>\r\n                                            <div class=\"controls\">\r\n                                                <input type=\"text\" id=\"address\" class=\"form-control\" required name=\"address\" [ngModel]=\"\" #address=\"ngModel\" value=\"{{address}}\">\r\n                                                <div *ngIf=\"address.errors && (address.dirty || address.touched)\" class=\"alert alert-danger\">\r\n                                                    <div [hidden]=\"!address.errors.required\">\r\n                                                        Address is required\r\n                                                    </div>\r\n                                                </div>\r\n                                            </div>\r\n                                        </div>\r\n                                        <div class=\"control-group\">\r\n                                            <label class=\"control-label\">EMail<span class=\"red\">*</span></label>\r\n                                            <div class=\"controls\">\r\n\r\n                                                <input type=\"text\" id=\"email\" class=\"form-control\" required name=\"email\" [(ngModel)]=\"email1\" #email=\"ngModel\" value=\"{{email1}}\" pattern=\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\">\r\n                                                <div *ngIf=\"email.errors && (email.dirty || email.touched)\" class=\"alert alert-danger\">\r\n                                                    <div [hidden]=\"!email.errors.required\">\r\n                                                        Email is required\r\n                                                    </div>\r\n                                                    <div [hidden]=\"!email.errors.pattern\">\r\n                                                        Email is invalid\r\n                                                    </div>\r\n                                                </div>\r\n\r\n                                            </div>\r\n                                        </div>\r\n                                        <div class=\"control-group\">\r\n                                            <label class=\"control-label\">Di động:<span class=\"red\">*</span></label>\r\n                                            <div class=\"controls\">\r\n                                                <input type=\"text\" id=\"phone\" class=\"form-control\" required name=\"phone\" [ngModel]=\"\" #phone=\"ngModel\" value=\"{{phone}}\" pattern=\"^(01[2689]|09)[0-9]{8}$\">\r\n                                                <div *ngIf=\"phone.errors && (phone.dirty || phone.touched)\" class=\"alert alert-danger\">\r\n                                                    <div [hidden]=\"!phone.errors.required\">\r\n                                                        Phone is required\r\n                                                    </div>\r\n                                                    <div [hidden]=\"!phone.errors.pattern\">\r\n                                                        Phone is invalid\r\n                                                    </div>\r\n                                                </div>\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                </fieldset>\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"checkoutsteptitle\">Sản phẩm\r\n                            <a class=\"modify\"></a>\r\n                        </div>\r\n\r\n                        <div class=\"checkoutstep\" *ngIf=\"!no_product\">\r\n                            <div class=\"cart-info\">\r\n                                <table class=\"table table-striped table-bordered\">\r\n                                    <tr>\r\n                                        <th class=\"image\">Hình ảnh</th>\r\n                                        <th class=\"name\">Tên sản phẩm</th>\r\n\r\n                                        <th class=\"quantity\">Số lượng</th>\r\n                                        <th class=\"price\">Đơn giá</th>\r\n                                        <th class=\"total\">Tổng</th>\r\n                                    </tr>\r\n\r\n\r\n\r\n                                    <tr *ngFor=\"let item of product_giohang\">\r\n                                        <td class=\"image\">\r\n                                            <a href=\"#\"><img title=\"product\" alt=\"product\" src=\"{{link_img}}{{item[0].options.img}}\" height=\"50\" width=\"50\"></a>\r\n                                        </td>\r\n                                        <td class=\"name\"><a href=\"#\">{{item[0].name}}</a></td>\r\n                                        <td class=\"quantity\"><input type=\"text\" size=\"1\" value='{{item[0].qty}}' name=\"quantity\" class=\"span1 qty\" disabled=\"disabled\">\r\n                                        </td>\r\n\r\n                                        <td class=\"price\">{{item[0].price | formatNumVN }} D</td>\r\n                                        <td class=\"total\">{{item[0].subtotal | formatNumVN }} D</td>\r\n                                    </tr>\r\n\r\n\r\n                                </table>\r\n                            </div>\r\n                            <div class=\"row\">\r\n                                <div class=\"pull-right\">\r\n                                    <div class=\"span4 pull-right\">\r\n                                        <table class=\"table table-striped table-bordered \">\r\n                                            <tbody>\r\n                                                <tr>\r\n                                                    <td><span class=\"extra bold totalamout\">Tổng tiền :</span></td>\r\n                                                    <td><span class=\"bold totalamout\">{{total | formatNumVN }} D</span></td>\r\n                                                </tr>\r\n                                            </tbody>\r\n                                        </table>\r\n                                        <a><button [disabled]=\"!f.form.valid\" class=\"btn btn-orange pull-right\">Đặt hàng</button></a>\r\n                                        <a routerLink=\"/gio-hang\"><button class=\"btn btn-orange pull-right mr10\">Sửa giỏ hàng</button></a>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"container\" *ngIf=\"no_product\">\r\n                            <p>Không có sản phẩm nào trong giỏ hàng. Vui lòng quay lại mua sắm !</p>\r\n                            <p>\r\n                                <a routerLink=\"\"><button class=\"btn btn-orange pull-left js-home\">Tiếp tục mua sắm</button></a>\r\n                            </p>\r\n                        </div>\r\n                    </div>\r\n\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </section>\r\n</div>\r\n\r\n<app-dialog [(visible)]=\"showDialog\">\r\n    <p class=\"alert alert-success\" style=\"margin:0\">Xin chúc mừng! Bạn đã mua hàng thành công. Đơn hàng của bạn được gửi đồng thời tới email của bạn</p>\r\n    <p style=\"margin-top:10px\"><a routerLink=\"\"><button (click)=\"hidepop()\" class=\"btn btn-orange pull-right\">Về trang chủ</button></a></p>\r\n</app-dialog>"
+module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n    <section id=\"product\">\r\n        <div class=\"container\">\r\n            <!--  breadcrumb -->\r\n            <ul class=\"breadcrumb\">\r\n                <li>\r\n                    <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n                    <span class=\"divider\">/</span>\r\n                </li>\r\n                <li class=\"active\">Thanh toán</li>\r\n            </ul>\r\n            <form class=\"form-horizontal\" (ngSubmit)=\"checkout(f)\" #f=\"ngForm\">\r\n                <input type=\"hidden\" name=\"_token\" value=\"\">\r\n                <div class=\"row\">\r\n                    <!-- Account Login-->\r\n                    <div class=\"span9\">\r\n\r\n                        <div class=\"checkoutsteptitle\">Chi tiết giao hàng\r\n                            <a class=\"modify\"></a>\r\n                        </div>\r\n                        <div class=\"checkoutstep\">\r\n                            <div class=\"row\">\r\n                                <fieldset>\r\n                                    <div class=\"span4\">\r\n                                        <div class=\"control-group\">\r\n                                            <label class=\"control-label\">Họ và tên<span class=\"red\">*</span></label>\r\n                                            <div class=\"controls\">\r\n                                                <input type=\"text\" id=\"name\" class=\"form-control\" required minlength=\"4\" maxlength=\"24\" name=\"name\" [(ngModel)]=\"name1\" #name=\"ngModel\" value=\"{{name1}}\">\r\n                                                <div *ngIf=\"name.errors && (name.dirty || name.touched)\" class=\"alert alert-danger\">\r\n                                                    <div [hidden]=\"!name.errors.required\">\r\n                                                        Name is required\r\n                                                    </div>\r\n                                                    <div [hidden]=\"!name.errors.minlength\">\r\n                                                        Name must be at least 4 characters long.\r\n                                                    </div>\r\n                                                    <div [hidden]=\"!name.errors.maxlength\">\r\n                                                        Name cannot be more than 24 characters long.\r\n                                                    </div>\r\n                                                </div>\r\n                                            </div>\r\n                                        </div>\r\n                                        <div class=\"control-group\">\r\n                                            <label class=\"control-label\">Địa chỉ<span class=\"red\">*</span></label>\r\n                                            <div class=\"controls\">\r\n                                                <input type=\"text\" id=\"address\" class=\"form-control\" required name=\"address\" [ngModel]=\"\" #address=\"ngModel\" value=\"{{address}}\">\r\n                                                <div *ngIf=\"address.errors && (address.dirty || address.touched)\" class=\"alert alert-danger\">\r\n                                                    <div [hidden]=\"!address.errors.required\">\r\n                                                        Address is required\r\n                                                    </div>\r\n                                                </div>\r\n                                            </div>\r\n                                        </div>\r\n                                        <div class=\"control-group\">\r\n                                            <label class=\"control-label\">EMail<span class=\"red\">*</span></label>\r\n                                            <div class=\"controls\">\r\n\r\n                                                <input type=\"text\" id=\"email\" class=\"form-control\" required name=\"email\" [(ngModel)]=\"email1\" #email=\"ngModel\" value=\"{{email1}}\" pattern=\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\">\r\n                                                <div *ngIf=\"email.errors && (email.dirty || email.touched)\" class=\"alert alert-danger\">\r\n                                                    <div [hidden]=\"!email.errors.required\">\r\n                                                        Email is required\r\n                                                    </div>\r\n                                                    <div [hidden]=\"!email.errors.pattern\">\r\n                                                        Email is invalid\r\n                                                    </div>\r\n                                                </div>\r\n\r\n                                            </div>\r\n                                        </div>\r\n                                        <div class=\"control-group\">\r\n                                            <label class=\"control-label\">Di động:<span class=\"red\">*</span></label>\r\n                                            <div class=\"controls\">\r\n                                                <input type=\"text\" id=\"phone\" class=\"form-control\" required name=\"phone\" [ngModel]=\"\" #phone=\"ngModel\" value=\"{{phone}}\" pattern=\"^(01[2689]|09)[0-9]{8}$\">\r\n                                                <div *ngIf=\"phone.errors && (phone.dirty || phone.touched)\" class=\"alert alert-danger\">\r\n                                                    <div [hidden]=\"!phone.errors.required\">\r\n                                                        Phone is required\r\n                                                    </div>\r\n                                                    <div [hidden]=\"!phone.errors.pattern\">\r\n                                                        Phone is invalid\r\n                                                    </div>\r\n                                                </div>\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                </fieldset>\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"checkoutsteptitle\">Sản phẩm\r\n                            <a class=\"modify\"></a>\r\n                        </div>\r\n\r\n                        <div class=\"checkoutstep\" *ngIf=\"!no_product\">\r\n                            <div class=\"cart-info\">\r\n                                <table class=\"table table-striped table-bordered\">\r\n                                    <tr>\r\n                                        <th class=\"image\">Hình ảnh</th>\r\n                                        <th class=\"name\">Tên sản phẩm</th>\r\n\r\n                                        <th class=\"quantity\">Số lượng</th>\r\n                                        <th class=\"price\">Đơn giá</th>\r\n                                        <th class=\"total\">Tổng</th>\r\n                                    </tr>\r\n\r\n\r\n\r\n                                    <tr *ngFor=\"let item of product_giohang\">\r\n                                        <td class=\"image\">\r\n                                            <a href=\"#\"><img title=\"product\" alt=\"product\" src=\"{{link_img}}{{item[0].options.img}}\" height=\"50\" width=\"50\"></a>\r\n                                        </td>\r\n                                        <td class=\"name\"><a href=\"#\">{{item[0].name}}</a></td>\r\n                                        <td class=\"quantity\"><input type=\"text\" size=\"1\" value='{{item[0].qty}}' name=\"quantity\" class=\"span1 qty\" disabled=\"disabled\">\r\n                                        </td>\r\n\r\n                                        <td class=\"price\">{{item[0].price | formatNumVN }} D</td>\r\n                                        <td class=\"total\">{{item[0].subtotal | formatNumVN }} D</td>\r\n                                    </tr>\r\n\r\n\r\n                                </table>\r\n                            </div>\r\n                            <div class=\"row\">\r\n                                <div class=\"pull-right\">\r\n                                    <div class=\"span4 pull-right\">\r\n                                        <table class=\"table table-striped table-bordered \">\r\n                                            <tbody>\r\n                                                <tr>\r\n                                                    <td><span class=\"extra bold totalamout\">Tổng tiền :</span></td>\r\n                                                    <td><span class=\"bold totalamout\">{{total | formatNumVN }} D</span></td>\r\n                                                </tr>\r\n                                            </tbody>\r\n                                        </table>\r\n                                        <a><button [disabled]=\"!f.form.valid\" class=\"btn btn-orange pull-right\">Đặt hàng</button></a>\r\n                                        <a routerLink=\"/gio-hang\"><button class=\"btn btn-orange pull-right mr10\">Sửa giỏ hàng</button></a>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"container\" *ngIf=\"no_product\">\r\n                            <p>Không có sản phẩm nào trong giỏ hàng. Vui lòng quay lại mua sắm !</p>\r\n                            <p>\r\n                                <a routerLink=\"\"><button class=\"btn btn-orange pull-left\">Tiếp tục mua sắm</button></a>\r\n                            </p>\r\n                        </div>\r\n                    </div>\r\n\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </section>\r\n</div>\r\n\r\n<app-dialog [(visible)]=\"showDialog\">\r\n    <p class=\"alert alert-success\" style=\"margin:0\">Xin chúc mừng! Bạn đã mua hàng thành công. Đơn hàng của bạn được gửi đồng thời tới email của bạn</p>\r\n    <p style=\"margin-top:10px\"><a routerLink=\"\"><button (click)=\"hidepop()\" class=\"btn btn-orange pull-right\">Về trang chủ</button></a></p>\r\n</app-dialog>"
 
 /***/ }),
 
-/***/ 562:
+/***/ 581:
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"collapsible\">\r\n  <ng-content select=\"tp-collapse\"></ng-content>\r\n</div>"
 
 /***/ }),
 
-/***/ 563:
+/***/ 582:
 /***/ (function(module, exports) {
 
 module.exports = "<header class=\"collapsible-header\" (click)=\"toggleSelected()\">\r\n  {{ title }}\r\n</header>\r\n<section class=\"collapsible-body\" [class.active]=\"selected\">\r\n  <ng-content></ng-content>\r\n</section>\r\n"
 
 /***/ }),
 
-/***/ 564:
+/***/ 583:
 /***/ (function(module, exports) {
 
 module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <!--  breadcrumb -->\r\n      <ul class=\"breadcrumb\">\r\n        <li>\r\n          <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n          <span class=\"divider\">/</span>\r\n        </li>\r\n        <li class=\"active\">Liên hệ</li>\r\n      </ul>\r\n      <!-- Contact Us-->\r\n      <h1 class=\"heading1\"><span class=\"maintext\">Liên hệ</span><span class=\"subtext\"></span></h1>\r\n      <div class=\"row\">\r\n        <div class=\"span9\">\r\n\r\n          <form class=\"form-horizontal\" (ngSubmit)=\"contact(f)\" #f=\"ngForm\">\r\n\r\n            <fieldset>\r\n              <div class=\"control-group\">\r\n                <label for=\"name\" class=\"control-label\">Tên <span class=\"required\">*</span></label>\r\n                <div class=\"controls\">\r\n                  <input type=\"text\" id=\"name\" class=\"form-control\" required minlength=\"4\" maxlength=\"24\" name=\"name\" [(ngModel)]=\"account.name\"\r\n                    #name=\"ngModel\" value=\"{{name}}\">\r\n                  <div *ngIf=\"name.errors && (name.dirty || name.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!name.errors.required\">\r\n                      Name is required\r\n                    </div>\r\n                    <div [hidden]=\"!name.errors.minlength\">\r\n                      Name must be at least 4 characters long.\r\n                    </div>\r\n                    <div [hidden]=\"!name.errors.maxlength\">\r\n                      Name cannot be more than 24 characters long.\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <div class=\"control-group\">\r\n                <label for=\"email\" class=\"control-label\">Email <span class=\"required\">*</span></label>\r\n                <div class=\"controls\">\r\n                  <input type=\"text\" id=\"email\" class=\"form-control\" required name=\"email\" [(ngModel)]=\"account.email\" #email=\"ngModel\" pattern=\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\"\r\n                    value=\"{{email}}\">\r\n                  <div *ngIf=\"email.errors && (email.dirty || email.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!email.errors.required\">\r\n                      Email is required\r\n                    </div>\r\n                    <div [hidden]=\"!email.errors.pattern\">\r\n                      Email is invalid\r\n                    </div>\r\n                  </div>\r\n\r\n\r\n\r\n                </div>\r\n              </div>\r\n              <div class=\"control-group\">\r\n                <label for=\"url\" class=\"control-label\">Website </label>\r\n                <div class=\"controls\">\r\n                  <input type=\"url\" class=\"form-control\" name=\"url\" [ngModel]=\"\" required pattern=\"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)\"\r\n                    #url=\"ngModel\">\r\n\r\n                  <div *ngIf=\"url.errors && (url.dirty || url.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!url.errors.required\">\r\n                      Url is required\r\n                    </div>\r\n                    <div [hidden]=\"!url.errors.pattern\">\r\n                      Url is invalid\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <div class=\"control-group\">\r\n                <label for=\"message\" class=\"control-label\">Nội dung </label>\r\n                <div class=\"controls\">\r\n                  <textarea class=\"required\" rows=\"6\" cols=\"40\" id=\"message\" name=\"messagee\" [ngModel]=\"\" required #messagee=\"ngModel\"></textarea>\r\n                  <div *ngIf=\"messagee.errors && (messagee.dirty || messagee.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!messagee.errors.required\">\r\n                      Messagee is required\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <div class=\"form-actions\">\r\n                <button class=\"btn btn-orange\" id=\"submit_id\" [disabled]=\"!f.form.valid\">Gửi</button>\r\n                <button class=\"btn\" type=\"reset\">Xóa</button>\r\n              </div>\r\n              <div class=\"clearfix\"></div>\r\n              <div [@visibilityChanged]=\"visibility\" *ngIf=\"flag_success\" class=\"alert alert-success\" style=\"margin-top: 10px\">\r\n                Congratulations! You sent the message successfully\r\n              </div>\r\n            </fieldset>\r\n          </form>\r\n        </div>\r\n\r\n        <!-- Sidebar Start-->\r\n        <div class=\"span3\">\r\n          <aside>\r\n            <div class=\"sidewidt\">\r\n              <h2 class=\"heading2\"><span>Thông tin liên lạc</span></h2>\r\n              <p> Lorem Ipsum is simply<br> Lorem Ipsum is simply<br> Lorem Ipsum is simply<br>\r\n                <br> Phone: +84 905992386<br> Fax: (84) 905992386<br> Email: hunglaravel@gmail.com<br> Website: hunglaravel.com<br>\r\n              </p>\r\n            </div>\r\n          </aside>\r\n        </div>\r\n        <!-- Sidebar End-->\r\n\r\n      </div>\r\n    </div>\r\n  </section>\r\n</div>"
 
 /***/ }),
 
-/***/ 565:
+/***/ 584:
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <!--  breadcrumb -->\r\n      <ul class=\"breadcrumb\">\r\n        <li>\r\n          <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n          <span class=\"divider\">/</span>\r\n        </li>\r\n        <li class=\"active\">Chi tiết sản phẩm</li>\r\n      </ul>\r\n      <!-- Product Details-->\r\n      <div class=\"row\">\r\n        <!-- Left Image-->\r\n        <div class=\"span5\">\r\n          <ul class=\"thumbnails mainimage\">\r\n\r\n            <li class=\"span5\">\r\n              <a rel=\"position: 'inside' , showTitle: false, adjustX:-4, adjustY:-4\" class=\"thumbnail cloud-zoom\" href=\"{{link_img}}{{image_product_detail}}\">\r\n                <img id=\"largeImage\" src=\"{{link_img}}{{image_product_detail}}\" alt=\"\" title=\"\">\r\n              </a>\r\n            </li>\r\n            \r\n          </ul>\r\n          <ul class=\"thumbnails mainimage\" id=\"js-click\">\r\n            <li class=\"producthtumb\">\r\n              <a class=\"thumbnail\">\r\n                <img src=\"{{link_img}}{{image_product_detail}}\" alt=\"\" title=\"\">\r\n              </a>\r\n            </li>\r\n\r\n            <li class=\"producthtumb\" *ngFor=\"let item of images\">\r\n              <a class=\"thumbnail\">\r\n                <img src=\"{{link_img}}/detail/{{item.image}}\" alt=\"\" title=\"\">\r\n              </a>\r\n            </li>\r\n\r\n\r\n          </ul>\r\n        </div>\r\n        <!-- Right Details-->\r\n        <div class=\"span7\">\r\n          <div class=\"row\">\r\n            <div class=\"span7\">\r\n              <h1 class=\"productname\"><span class=\"bgnone\">{{name_product_detail}}</span></h1>\r\n              <div class=\"productprice\">\r\n                <div class=\"productpageprice\">\r\n                  <span class=\"spiral\"></span>{{price_product_detail | formatNumVN }} D</div>\r\n              </div>\r\n              <ul class=\"productpagecart\">\r\n                <li><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{id_product_detail}}\" #cart>ADD TO CART</a>\r\n                </li>\r\n              </ul>\r\n              <!-- Product Description tab & comments-->\r\n              <div class=\"productdesc\">\r\n                <h2>Mô tả</h2>\r\n                {{des_product_detail}}\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </section>\r\n  <!--  Related Products-->\r\n  <section id=\"related\" class=\"row\">\r\n    <div class=\"container\">\r\n      <h1 class=\"heading1\"><span class=\"maintext\">Sản phẩm liên quan</span></h1>\r\n      <ul class=\"thumbnails\">\r\n        <li class=\"span3\" *ngFor=\"let item of related_product\">\r\n          <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n          <div class=\"thumbnail\">\r\n            <span class=\"sale tooltip-test\">Sale</span>\r\n            <a routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\"><img alt=\"\" src=\"{{link_img}}{{item.image}}\"></a>\r\n            <div class=\"pricetag\">\r\n              <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{id_product_detail}}\" #cart>ADD TO CART</a>\r\n              <div class=\"price\">\r\n                <div class=\"pricenew\">{{item.price | formatNumVN }} D</div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </li>\r\n\r\n      </ul>\r\n      <div class=\"container\" *ngIf=\"no_product_related\">\r\n        <p>Không có sản phẩm liên quan đến sản phẩm này</p>\r\n      </div>\r\n    </div>\r\n  </section>\r\n  <!-- Popular Brands-->\r\n</div>"
+module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\" #container>\r\n\r\n    <section id=\"product\">\r\n        <div class=\"container\">\r\n            <!--  breadcrumb -->\r\n            <ul class=\"breadcrumb\">\r\n                <li>\r\n                    <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n                    <span class=\"divider\">/</span>\r\n                </li>\r\n                <li class=\"active\">Chi tiết sản phẩm</li>\r\n            </ul>\r\n            <!-- Product Details-->\r\n            <div class=\"row\">\r\n                <!-- Left Image-->\r\n                <div class=\"span5\">\r\n                    <ul class=\"thumbnails mainimage\">\r\n\r\n                        <li class=\"span5\">\r\n                            <a rel=\"position: 'inside' , showTitle: false, adjustX:-4, adjustY:-4\" class=\"thumbnail cloud-zoom\" href=\"{{link_img}}{{image_product_detail}}\">\r\n                                <img id=\"largeImage\" [lazyLoad]=\"link_img + image_product_detail\" [offset]=\"'100'\" [defaultImage]=\"'https://i.giphy.com/3oEjI6SIIHBdRxXI40.gif'\" [scrollObservable]=\"container.ionScroll\">\r\n                            </a>\r\n                        </li>\r\n\r\n                    </ul>\r\n                    <ul class=\"thumbnails mainimage\" id=\"js-click\">\r\n                        <li class=\"producthtumb\">\r\n                            <a class=\"thumbnail\">\r\n                                <img [lazyLoad]=\"link_img + image_product_detail\" [offset]=\"'50'\" [defaultImage]=\"'https://i.giphy.com/3oEjI6SIIHBdRxXI40.gif'\" [scrollObservable]=\"container.ionScroll\">\r\n                            </a>\r\n                        </li>\r\n\r\n                        <li class=\"producthtumb\" *ngFor=\"let item of images\">\r\n                            <a class=\"thumbnail\">\r\n                                <img [lazyLoad]=\"link_img +'/detail/'+ item.image\" [offset]=\"'50'\" [defaultImage]=\"'https://i.giphy.com/3oEjI6SIIHBdRxXI40.gif'\" [scrollObservable]=\"container.ionScroll\">\r\n                            </a>\r\n                        </li>\r\n\r\n\r\n                    </ul>\r\n                </div>\r\n                <!-- Right Details-->\r\n                <div class=\"span7\">\r\n                    <div class=\"row\">\r\n                        <div class=\"span7\">\r\n                            <h1 class=\"productname\"><span class=\"bgnone\">{{name_product_detail}}</span></h1>\r\n                            <div class=\"productprice\">\r\n                                <div class=\"productpageprice\">\r\n                                    <span class=\"spiral\"></span>{{price_product_detail | formatNumVN }} D</div>\r\n                            </div>\r\n                            <ul class=\"productpagecart\">\r\n                                <li><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{id_product_detail}}\" #cart>ADD TO CART</a>\r\n                                </li>\r\n                            </ul>\r\n                            <!-- Product Description tab & comments-->\r\n                            <div class=\"productdesc\">\r\n                                <h2>Mô tả</h2>\r\n                                {{des_product_detail}}\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </section>\r\n    <!--  Related Products-->\r\n    <section id=\"related\" class=\"row\">\r\n        <div class=\"container\">\r\n            <h1 class=\"heading1\"><span class=\"maintext\">Sản phẩm liên quan</span></h1>\r\n            <ul class=\"thumbnails\">\r\n                <li class=\"span3\" *ngFor=\"let item of related_product\">\r\n                    <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\">{{item.name}}</a>\r\n                    <div class=\"thumbnail\">\r\n                        <span class=\"sale tooltip-test\">Sale</span>\r\n                        <a routerLink=\"/chi-tiet-san-pham/{{item.id}}/{{item.alias}}\"><img [lazyLoad]=\"link_img + item.image\" [offset]=\"'100'\" [defaultImage]=\"'https://i.giphy.com/3oEjI6SIIHBdRxXI40.gif'\" [scrollObservable]=\"container.ionScroll\"></a>\r\n                        <div class=\"pricetag\">\r\n                            <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{id_product_detail}}\" #cart>ADD TO CART</a>\r\n                            <div class=\"price\">\r\n                                <div class=\"pricenew\">{{item.price | formatNumVN }} D</div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </li>\r\n\r\n            </ul>\r\n            <div class=\"container\" *ngIf=\"no_product_related\">\r\n                <p>Không có sản phẩm liên quan đến sản phẩm này</p>\r\n            </div>\r\n        </div>\r\n    </section>\r\n    <!-- Popular Brands-->\r\n</div>"
 
 /***/ }),
 
-/***/ 566:
+/***/ 585:
 /***/ (function(module, exports) {
 
 module.exports = "<div [@dialog] *ngIf=\"visible\" class=\"dialog\">\r\n  <ng-content></ng-content>\r\n  <button *ngIf=\"closable\" (click)=\"close()\" aria-label=\"Close\" class=\"dialog__close-btn\">x</button>\r\n  \r\n</div>\r\n<div *ngIf=\"visible\" class=\"overlay\" (click)=\"close()\"></div>"
 
 /***/ }),
 
-/***/ 567:
+/***/ 586:
 /***/ (function(module, exports) {
 
 module.exports = "<div id=\"maincontainer\">\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <tp-collapse-group [multiple]=\"false\">\r\n        <tp-collapse *ngFor=\"let post of posts\" [title]=\"post.title\" [selected]=\"false\">\r\n          <div>\r\n            {{ post.body }}\r\n          </div>\r\n        </tp-collapse>\r\n      </tp-collapse-group>\r\n    </div>\r\n  </section>\r\n</div>"
 
 /***/ }),
 
-/***/ 568:
+/***/ 587:
 /***/ (function(module, exports) {
 
 module.exports = "<!-- Footer -->\r\n<footer id=\"footer\">\r\n  <section class=\"footersocial\">\r\n    <div class=\"container\">\r\n      <div class=\"row\">\r\n        <div class=\"span3 aboutus\">\r\n          <h2>Về chúng tôi</h2>\r\n          <p>\r\n            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt facere incidunt aliquid, officia laborum debitis. Aliquam provident voluptatem, reiciendis unde quis harum maxime doloribus, a corrupti, facere eos dolor voluptate.\r\n          </p>\r\n        </div>\r\n        <div class=\"span3 contact\">\r\n          <h2>Liên hệ</h2>\r\n          <ul>\r\n            <li class=\"phone\"> +84 905992386</li>\r\n            <li class=\"email\"> laravelhung@gmail.com</li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"span3 twitter\">\r\n          <h2>Twitter </h2>\r\n          <p>coming soon</p>\r\n        </div>\r\n        <div class=\"span3 twitter\">\r\n          <h2>Facebook </h2>\r\n          <p>coming soon</p>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </section>\r\n  <section class=\"footerlinks\">\r\n    <div class=\"container\">\r\n      <div class=\"info\">\r\n        <ul>\r\n          <li><a href=\"#\">Chính sách bảo mật</a>\r\n          </li>\r\n          <li><a href=\"#\">Điều khoản và điều kiện</a>\r\n          </li>\r\n          <li><a href=\"#\">Đại lý</a>\r\n          </li>\r\n          <li><a href=\"#\">Tin tức</a>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n      <div id=\"footersocial\">\r\n        <a href=\"#\" title=\"Facebook\" class=\"facebook\">Facebook</a>\r\n        <a href=\"#\" title=\"Twitter\" class=\"twitter\">Twitter</a>\r\n        <a href=\"#\" title=\"Googleplus\" class=\"googleplus\">Googleplus</a>\r\n        <a href=\"#\" title=\"Skype\" class=\"skype\">Skype</a>\r\n      </div>\r\n    </div>\r\n  </section>\r\n  <section class=\"copyrightbottom\">\r\n    <div class=\"container\">\r\n      <div class=\"row\">\r\n        <div class=\"span6 textright pull-right\">Angular Shop @2017</div>\r\n      </div>\r\n    </div>\r\n  </section>\r\n  <a id=\"gotop\">Back to top</a>\r\n</footer>"
 
 /***/ }),
 
-/***/ 569:
+/***/ 588:
 /***/ (function(module, exports) {
 
 module.exports = "<!-- Header Start -->\r\n<app-spinner [isRunning]=\"loadSearch\" id=\"searchFlag\"></app-spinner>\r\n<ng-content></ng-content>\r\n<header>\r\n    <div class=\"headerstrip\">\r\n        <div class=\"container\">\r\n            <div class=\"row\">\r\n                <div class=\"span12\">\r\n                    <a routerLink=\"\" class=\"logo pull-left\"><img src=\"{{domain}}public/user/img/logo.png\" alt=\"SimpleOne\" title=\"SimpleOne\"></a>\r\n                    <!-- Top Nav Start -->\r\n                    <div class=\"pull-left\">\r\n                        <div class=\"navbar\" id=\"topnav\">\r\n                            <div class=\"navbar-inner\">\r\n                                <ul class=\"nav\">\r\n                                    <li><a class=\"home active\" routerLink=\"\">Trang chủ</a>\r\n                                    </li>\r\n                                    <li><a class=\"myaccount\" routerLink=\"/thong-tin\">Tài khoản</a>\r\n                                    </li>\r\n                                    <li><a class=\"shoppingcart\" routerLink=\"/gio-hang\">Giỏ hàng {{count_c}}</a>\r\n                                    </li>\r\n                                    <li><a class=\"checkout\" routerLink=\"/thanh-toan\">Thanh Toán</a>\r\n                                    </li>\r\n                                    <li><a class=\"shoppingcart\" routerLink=\"/faq\">FAQ</a>\r\n                                    </li>\r\n                                    <li *ngIf=\"check_login || (flag_login == 1) || (flag_login == 2)\"><a class=\"myaccount\" (click)=\"thoat()\">Thoát</a>\r\n                                    </li>\r\n                                </ul>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <!-- Top Nav End -->\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"container\">\r\n        <h6 style=\"text-align: right;\">Thời tiết Đà Nẵng hôm nay {{ date | date:'fullDate' | uppercase }}, Nhiệt độ: {{ nhietdo | tempConverter}} C. {{day}}.</h6>\r\n    </div>\r\n    <div class=\"container\">\r\n\r\n        <div id=\"categorymenu\">\r\n            <nav class=\"subnav\">\r\n                <ul class=\"nav-pills categorymenu\">\r\n                    <li><a class=\"active\" routerLink=\"\">Trang chủ</a></li>\r\n                    <li *ngFor=\"let item of menu\" #name id=\"{{item.id}}\"><a on-mouseover=\"menu_cap_2(name.id)\">{{item.name}}</a>\r\n                        <div *ngIf=\"id_menu_current == item.id\">\r\n                            <app-spinner [isRunning]=\"isRequesting\"></app-spinner>\r\n\r\n                            <ul>\r\n                                <li *ngFor=\"let item of menu_2\" #name2 id=\"{{item.id}}\"><a routerLink=\"/loai-san-pham/{{item.id}}/{{item.alias}}\" class=\"js-img\">{{item.name}}</a>\r\n                                </li>\r\n                            </ul>\r\n                        </div>\r\n                    </li>\r\n                    <li><a routerLink=\"/lien-he\">Liên hệ</a>\r\n                    </li>\r\n                </ul>\r\n            </nav>\r\n        </div>\r\n    </div>\r\n    <section id=\"featured\" class=\"row\">\r\n        <div class=\"container\">\r\n\r\n            <div class=\"input-group\" style=\"width: 20%;float: left\">\r\n                <input #search style=\"width: 100%\" type=\"text\" class=\"form-control\" placeholder=\"Tìm kiểm sản phẩm\" [(ngModel)]=\"filter\" (keyup)=\"onFilter(filter,select_cate_search,selectedPrice)\" id=\"search\">\r\n            </div>\r\n            <div style=\"float: left\" *ngIf=\"flag_search\" [style.color]=\"wselect\" class=\"pdl15\">\r\n                <select [(ngModel)]=\"selectedCate\" (change)=\"CateChild(selectedCate)\" (change)=\"onFilter(filter,selectedCate,selectedPrice)\">\r\n          <option value=\"\">Chọn danh mục tìm kiếm</option>\r\n          <option value=\"{{cate.id}}\" *ngFor=\"let cate of cates\">{{cate.name}}</option>\r\n      </select>\r\n                <select [(ngModel)]=\"selectedCateChild\" *ngIf=\"selectedCate!==''\" (change)=\"onFilter(filter,selectedCateChild,selectedPrice)\">\r\n          <option value=\"\">Chọn danh mục tìm kiếm</option>\r\n          <option value=\"{{cate.id}}\" *ngFor=\"let cate of catechild\">{{cate.name}}</option>\r\n      </select>\r\n            </div>\r\n            <div style=\"width: 20%;float: left\" *ngIf=\"flag_price\" class=\"pdl15\">\r\n                <select [(ngModel)]=\"selectedPrice\" (change)=\"onFilter(filter,selectedCateChild,selectedPrice)\">\r\n          <option value=\"\">Chọn giá tìm kiếm</option>\r\n          <option value=\"0\">> 0k</option>\r\n          <option value=\"50000\">> 50k</option>\r\n          <option value=\"100000\">> 100k</option>\r\n          <option value=\"200000\">> 200k</option>\r\n          <option value=\"500000\">> 500k</option>\r\n          <option value=\"800000\">> 800k</option>\r\n          <option value=\"1000000\">> 1000k</option>\r\n      </select>\r\n            </div>\r\n            <div style=\"width: 20%;float: left\" class=\"pdl15\" *ngIf=\"del\">\r\n                <button style=\"padding: 5px;border: 0;border-radius: 5px\" class=\"btn-orange js-home\" type=\"button\" (click)=\"onClear()\">Xóa</button>\r\n            </div>\r\n\r\n            <h1 style=\"width: 100%;float: left\" class=\"heading1\" *ngIf=\"flag_search\">\r\n                <span class=\"maintext\">Kết quả tìm kiếm</span>\r\n            </h1>\r\n            <div class=\"clearfix\"></div>\r\n            <div>{{noresult}}</div>\r\n            <ul class=\"thumbnails\">\r\n                <li class=\"span3\" *ngFor=\"let product of products_search\">\r\n                    <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\">{{product.name}}</a>\r\n                    <div class=\"thumbnail\">\r\n                        <span class=\"sale tooltip-test\">Sale</span>\r\n                        <a routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\"><img alt=\"\" src=\"{{link_img}}{{product.image}}\"></a>\r\n                        <div class=\"pricetag\">\r\n                            <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{product.id}}\" #cart>ADD TO CART</a>\r\n                            <div class=\"price\">\r\n                                <div class=\"pricenew\">{{product.price | formatNumVN }} D</div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </li>\r\n\r\n            </ul>\r\n        </div>\r\n    </section>\r\n</header>\r\n<!-- Header End -->\r\n\r\n<app-dialog [(visible)]=\"showDialog\">\r\n    <p class=\"alert alert-success\" style=\"margin:0\">Mua sản phẩm thành công</p>\r\n    <p style=\"margin-top:10px\"><a routerLink=\"/gio-hang\"><button (click)=\"hidepop()\" class=\"btn btn-orange pull-right\">Xem giỏ hàng</button></a></p>\r\n</app-dialog>"
 
 /***/ }),
 
-/***/ 570:
+/***/ 589:
 /***/ (function(module, exports) {
 
-module.exports = "<app-spinner [isRunning]=\"(!(!isRequesting1 && !isRequesting2 && load))\" id=\"home\"></app-spinner>\r\n<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n    <!-- Slider Start-->\r\n    <section class=\"slider\">\r\n        <div class=\"container\">\r\n            <div class=\"flexslider\" id=\"mainslider\" #slider>\r\n                <ul class=\"slides\">\r\n                    <li>\r\n                        <img src=\"{{domain}}public/user/img/banner1.jpg\" alt=\"\" />\r\n                    </li>\r\n                    <li>\r\n                        <img src=\"{{domain}}public/user/img/banner2.jpg\" alt=\"\" />\r\n                    </li>\r\n                    <li>\r\n                        <img src=\"{{domain}}public/user/img/banner1.jpg\" alt=\"\" />\r\n                    </li>\r\n                    <li>\r\n                        <img src=\"{{domain}}public/user/img/banner2.jpg\" alt=\"\" />\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n\r\n        </div>\r\n    </section>\r\n\r\n    <!-- Slider End-->\r\n    <!-- Search Product-->\r\n\r\n    <!-- Featured Product-->\r\n\r\n    <section id=\"featured\" class=\"row mt40\">\r\n        <div class=\"container\">\r\n            <h2 class=\"heading1\">\r\n                <span class=\"maintext\">Sản phẩm mới nhất</span>\r\n            </h2>\r\n            <ul class=\"thumbnails\">\r\n                <li class=\"span3\" *ngFor=\"let product of products\">\r\n                    <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\">{{product.name}}</a>\r\n                    <div class=\"thumbnail\">\r\n                        <span class=\"sale tooltip-test\">Sale</span>\r\n                        <a routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\"><img alt=\"\" src=\"{{link_img}}{{product.image}}\"></a>\r\n                        <div class=\"pricetag\">\r\n                            <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{product.id}}\" #cart>ADD TO CART</a>\r\n                            <div class=\"price\">\r\n                                <div class=\"pricenew\">{{product.price | formatNumVN }} D</div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </li>\r\n\r\n            </ul>\r\n        </div>\r\n    </section>\r\n\r\n    <!-- Latest Product-->\r\n    <section id=\"latest\" class=\"row\">\r\n        <div class=\"container\">\r\n            <h2 class=\"heading1\"><span class=\"maintext\">Sản phẩm mua nhiều nhất</span></h2>\r\n            <ul class=\"thumbnails\">\r\n                <li class=\"span3\" *ngFor=\"let product of products_order\">\r\n                    <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\">{{product.name}}</a>\r\n                    <div class=\"thumbnail\">\r\n                        <a routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\"><img alt=\"\" src=\"{{link_img}}{{product.image}}\"></a>\r\n                        <div class=\"pricetag\">\r\n                            <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{product.id}}\" #cart>ADD TO CART</a>\r\n                            <div class=\"price\">\r\n                                <div class=\"pricenew\">{{product.price | formatNumVN }} D</div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </section>\r\n</div>"
+module.exports = "<app-spinner [isRunning]=\"(!(!isRequesting1 && !isRequesting2 && load))\" id=\"home\"></app-spinner>\r\n<div id=\"maincontainer\" *ngIf=\"!flag_search1\" #container>\r\n    <!-- Slider Start-->\r\n    <section class=\"slider\">\r\n        <div class=\"container\">\r\n            <div class=\"flexslider\" id=\"mainslider\" #slider>\r\n                <ul class=\"slides\">\r\n                    <li>\r\n                        <img src=\"{{domain}}public/user/img/banner1.jpg\" alt=\"\" />\r\n                    </li>\r\n                    <li>\r\n                        <img src=\"{{domain}}public/user/img/banner2.jpg\" alt=\"\" />\r\n                    </li>\r\n                    <li>\r\n                        <img src=\"{{domain}}public/user/img/banner1.jpg\" alt=\"\" />\r\n                    </li>\r\n                    <li>\r\n                        <img src=\"{{domain}}public/user/img/banner2.jpg\" alt=\"\" />\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n\r\n        </div>\r\n    </section>\r\n\r\n    <!-- Slider End-->\r\n    <!-- Search Product-->\r\n\r\n    <!-- Featured Product-->\r\n\r\n    <section id=\"featured\" class=\"row mt40\">\r\n        <div class=\"container\">\r\n            <h2 class=\"heading1\">\r\n                <span class=\"maintext\">Sản phẩm mới nhất</span>\r\n            </h2>\r\n            <ul class=\"thumbnails\">\r\n                <li class=\"span3\" *ngFor=\"let product of products\">\r\n                    <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\">{{product.name}}</a>\r\n                    <div class=\"thumbnail\">\r\n                        <span class=\"sale tooltip-test\">Sale</span>\r\n                        <a routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\"><img alt=\"\" [lazyLoad]=\"link_img + product.image\" [offset]=\"'100'\" [defaultImage]=\"'https://i.giphy.com/3oEjI6SIIHBdRxXI40.gif'\" [scrollObservable]=\"container.ionScroll\"></a>\r\n                        <div class=\"pricetag\">\r\n                            <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{product.id}}\" #cart>ADD TO CART</a>\r\n                            <div class=\"price\">\r\n                                <div class=\"pricenew\">{{product.price | formatNumVN }} D</div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </li>\r\n\r\n            </ul>\r\n        </div>\r\n    </section>\r\n\r\n    <!-- Latest Product-->\r\n    <section id=\"latest\" class=\"row\">\r\n        <div class=\"container\">\r\n            <h2 class=\"heading1\"><span class=\"maintext\">Sản phẩm mua nhiều nhất</span></h2>\r\n            <ul class=\"thumbnails\">\r\n                <li class=\"span3\" *ngFor=\"let product of products_order\">\r\n                    <a class=\"prdocutname\" routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\">{{product.name}}</a>\r\n                    <div class=\"thumbnail\">\r\n                        <a routerLink=\"/chi-tiet-san-pham/{{product.id}}/{{product.alias}}\"><img [lazyLoad]=\"link_img + product.image\" [offset]=\"'100'\" [defaultImage]=\"'https://i.giphy.com/3oEjI6SIIHBdRxXI40.gif'\" [scrollObservable]=\"container.ionScroll\"></a>\r\n                        <div class=\"pricetag\">\r\n                            <span class=\"spiral\"></span><a (click)=\"addcart(cart.id)\" class=\"productcart\" id=\"{{product.id}}\" #cart>ADD TO CART</a>\r\n                            <div class=\"price\">\r\n                                <div class=\"pricenew\">{{product.price | formatNumVN }} D</div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </section>\r\n</div>"
 
 /***/ }),
 
-/***/ 571:
+/***/ 590:
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <!--  breadcrumb -->\r\n      <ul class=\"breadcrumb\">\r\n        <li>\r\n          <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n          <span class=\"divider\">/</span>\r\n        </li>\r\n        <li class=\"active\">Thông tin tài khoản</li>\r\n      </ul>\r\n      <!-- Account Login-->\r\n      <ul class=\"tabs\">\r\n        <li class=\"tab-link current\" data-tab=\"tab-1\">Thông tin</li>\r\n        <li class=\"tab-link\" data-tab=\"tab-2\" (click)=\"loading()\">Đơn hàng</li>\r\n      </ul>\r\n      <div id=\"tab-1\" class=\"tab-container current\">\r\n        Xin chào {{account.name}}\r\n        <p>Chúc bạn một ngày tốt lành</p>\r\n\r\n        <form class=\"form-horizontal\" (ngSubmit)=\"updateInfo(f,id)\" #f=\"ngForm\" *ngIf=\"!(flag_info == 2)\">\r\n\r\n          <h3 class=\"heading3\">Your Email</h3>\r\n          <div class=\"registerbox\">\r\n            <fieldset>\r\n              <div class=\"control-group\">\r\n                <label class=\"control-label\"><span class=\"red\">*</span> Name:</label>\r\n                <div class=\"controls\">\r\n                  <input type=\"text\" id=\"name\" class=\"form-control\" required minlength=\"4\" maxlength=\"24\" name=\"name\" [(ngModel)]=\"account.name\"\r\n                    #name=\"ngModel\" value=\"{{name}}\" (change)=\"isDirty = true\">\r\n                  <div *ngIf=\"name.errors && (name.dirty || name.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!name.errors.required\">\r\n                      name is required\r\n                    </div>\r\n                    <div [hidden]=\"!name.errors.minlength\">\r\n                      name must be at least 4 characters long.\r\n                    </div>\r\n                    <div [hidden]=\"!name.errors.maxlength\">\r\n                      name cannot be more than 24 characters long.\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n\r\n              <div class=\"control-group\">\r\n                <label class=\"control-label\"><span class=\"red\">*</span> Email:</label>\r\n                <div class=\"controls\">\r\n                  <input type=\"text\" id=\"email\" class=\"form-control\" required name=\"email\" [(ngModel)]=\"account.email\" #email=\"ngModel\" pattern=\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\"\r\n                    value=\"{{email}}\" (keyup)=\"checkemail_same(email.value)\" (change)=\"isDirty = true\">\r\n                  <div *ngIf=\"email.errors && (email.dirty || email.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!email.errors.required\">\r\n                      Email is required\r\n                    </div>\r\n                    <div [hidden]=\"!email.errors.pattern\">\r\n                      Email is invalid\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div *ngIf=\"flag_validate_email\" class=\"alert alert-danger\">\r\n                    Email has been used\r\n                  </div>\r\n\r\n                </div>\r\n              </div>\r\n            </fieldset>\r\n          </div>\r\n          <h3 class=\"heading3\">Your Password</h3>\r\n          <div class=\"registerbox\">\r\n            <fieldset>\r\n              <div class=\"control-group\">\r\n                <label class=\"control-label\"><span class=\"red\">*</span> Password New:</label>\r\n                <div class=\"controls\">\r\n                  <input type=\"password\" class=\"form-control\" name=\"password\" [ngModel]=\"account.password\" required validateEqual=\"confirmPassword\"\r\n                    reverse=\"true\" #password=\"ngModel\" (change)=\"isDirty = true\">\r\n                  <div *ngIf=\"password.errors && (password.dirty || password.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!password.errors.required\">\r\n                      Password is required\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n\r\n              <div class=\"control-group\">\r\n                <label class=\"control-label\"><span class=\"red\">*</span> Password New Confirm:</label>\r\n                <div class=\"controls\">\r\n                  <input type=\"password\" class=\"form-control\" name=\"confirmPassword\" [ngModel]=\"\" required validateEqual=\"password\" reverse=\"false\"\r\n                    #confirmPassword=\"ngModel\" (change)=\"isDirty = true\">\r\n\r\n                  <div *ngIf=\"confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)\" class=\"alert alert-danger\">\r\n                    <div [hidden]=\"!confirmPassword.errors.required\">\r\n                      Password is required\r\n                    </div>\r\n                    <div [hidden]=\"confirmPassword.valid || (confirmPassword.pristine )\">\r\n                      Password not same\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n\r\n              <div class=\"control-group\">\r\n                <div class=\"controls\">\r\n                  <input type=\"submit\" [disabled]=\"!f.form.valid || flag_validate_email\" class=\"btn btn-orange\" value=\"Edit\">\r\n                </div>\r\n              </div>\r\n              <div [@visibilityChanged]=\"visibility\" *ngIf=\"flag_success\" class=\"alert alert-success\">\r\n                You have updated the information successfully\r\n              </div>\r\n\r\n            </fieldset>\r\n          </div>\r\n        </form>\r\n      </div>\r\n      <app-spinner [isRunning]=\"!(products_order$ | async) && tab\"></app-spinner>\r\n      <div id=\"tab-2\" class=\"tab-container\">\r\n        <div *ngIf=\"products_order$ | async as product_orders \">\r\n          <div class=\"cart-info\" id=\"cart-info\" *ngIf=\"product_orders.length > 0\">\r\n\r\n            <table class=\"table table-striped table-bordered\">\r\n              <tr>\r\n                <th>STT</th>\r\n                <th>Date</th>\r\n                <th>Email</th>\r\n                <th>Name</th>\r\n                <th>Phone</th>\r\n                <th>Xem chi tiết</th>\r\n              </tr>\r\n\r\n              <tr *ngFor=\"let item of product_orders; let i= index;\">\r\n                <td>{{i + 1}}</td>\r\n                <td>{{item.created_at}}</td>\r\n                <td>{{item.email}}</td>\r\n                <td>{{item.name}}</td>\r\n                <td>{{item.phone}}</td>\r\n\r\n                <td><a #id_order (click)=\"detail_order(id_order.id)\" class=\"js-open-modal\" data-modal-id=\"popup\" id=\"{{item.id}}\"> Click me </a></td>\r\n              </tr>\r\n\r\n            </table>\r\n\r\n          </div>\r\n        </div>\r\n        <div class=\"container\" *ngIf=\"(products_order$ | async)?.length==0\">\r\n          <p>Không có sản phẩm nào trong giỏ hàng. Vui lòng quay lại mua sắm !</p>\r\n          <p>\r\n            <a routerLink=\"\"><input value=\"Tiếp tục mua sắm\" class=\"btn btn-orange pull-left\"></a>\r\n          </p>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </section>\r\n</div>\r\n<div id=\"popup\" class=\"modal-box\">\r\n  <header>\r\n    <a class=\"js-modal-close close\">×</a>\r\n    <h3>Chi tiết đơn hàng</h3>\r\n  </header>\r\n\r\n  <div class=\"modal-body\">\r\n    <table class=\"table table-striped table-bordered\" id=\"table_aj\">\r\n      <tr>\r\n        <th>STT</th>\r\n        <th>Hình ảnh</th>\r\n        <th>Tên sản phẩm</th>\r\n        <th>Đơn giá</th>\r\n        <th>Số lượng</th>\r\n        <th>Tổng tiền</th>\r\n      </tr>\r\n      <tr *ngFor=\"let item of detail_order_product; let i= index;\">\r\n        <td>{{i + 1}}</td>\r\n        <td><img src=\"{{link_img}}{{item.image}}\" width=\"80\" height=\"80\"></td>\r\n        <td>{{item.name}}</td>\r\n        <td>{{item.price | formatNumVN }} D</td>\r\n        <td>{{item.qty}}</td>\r\n        <td>{{item.price*item.qty | formatNumVN }} D</td>\r\n      </tr>\r\n    </table>\r\n\r\n    <div class=\"pull-right\">\r\n      <div class=\"span4 pull-right\">\r\n        <table class=\"table table-striped table-bordered \">\r\n          <tbody>\r\n            <tr>\r\n              <td><span class=\"extra bold totalamout\">Tổng tiền :</span></td>\r\n              <td><span class=\"bold totalamout\" id=\"totalamout\">{{sTotal | formatNumVN }} D</span></td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n      <div class=\"span6 pull-right\">\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <footer>\r\n    <a class=\"js-modal-close\">Close</a>\r\n  </footer>\r\n</div>\r\n<app-dialog [(visible)]=\"showDialog\">\r\n  <p>Thông tin chưa được lưu lại. Bạn có muốn chuyển hướng?</p>\r\n  <hr>\r\n  <div class=\"btn-wrap\">\r\n    <button (click)=\"obs.next($event)\" type=\"button\" class=\"btn btn-success\">OK</button>\r\n    <button (click)=\"obs1.next($event)\" type=\"button\" class=\"btn btn-danger\">Cancel</button>\r\n  </div>\r\n</app-dialog>"
+module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n    <section id=\"product\">\r\n        <div class=\"container\">\r\n            <!--  breadcrumb -->\r\n            <ul class=\"breadcrumb\">\r\n                <li>\r\n                    <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n                    <span class=\"divider\">/</span>\r\n                </li>\r\n                <li class=\"active\">Thông tin tài khoản</li>\r\n            </ul>\r\n            <!-- Account Login-->\r\n            <ul class=\"tabs\">\r\n                <li class=\"tab-link current\" data-tab=\"tab-1\">Thông tin</li>\r\n                <li class=\"tab-link\" data-tab=\"tab-2\" (click)=\"loading()\">Đơn hàng</li>\r\n            </ul>\r\n            <div id=\"tab-1\" class=\"tab-container current\">\r\n                Xin chào {{account.name}}\r\n                <p>Chúc bạn một ngày tốt lành</p>\r\n\r\n                <form class=\"form-horizontal\" (ngSubmit)=\"updateInfo(f,id)\" #f=\"ngForm\" *ngIf=\"!(flag_info == 2)\">\r\n\r\n                    <h3 class=\"heading3\">Your Email</h3>\r\n                    <div class=\"registerbox\">\r\n                        <fieldset>\r\n                            <div class=\"control-group\">\r\n                                <label class=\"control-label\"><span class=\"red\">*</span> Name:</label>\r\n                                <div class=\"controls\">\r\n                                    <input type=\"text\" id=\"name\" class=\"form-control\" required minlength=\"4\" maxlength=\"24\" name=\"name\" [(ngModel)]=\"account.name\" #name=\"ngModel\" value=\"{{name}}\" (change)=\"isDirty = true\">\r\n                                    <div *ngIf=\"name.errors && (name.dirty || name.touched)\" class=\"alert alert-danger\">\r\n                                        <div [hidden]=\"!name.errors.required\">\r\n                                            name is required\r\n                                        </div>\r\n                                        <div [hidden]=\"!name.errors.minlength\">\r\n                                            name must be at least 4 characters long.\r\n                                        </div>\r\n                                        <div [hidden]=\"!name.errors.maxlength\">\r\n                                            name cannot be more than 24 characters long.\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n\r\n                            <div class=\"control-group\">\r\n                                <label class=\"control-label\"><span class=\"red\">*</span> Email:</label>\r\n                                <div class=\"controls\">\r\n                                    <input type=\"text\" id=\"email\" class=\"form-control\" required name=\"email\" [ngModel]=\"account.email\" (ngModelChange)=\"doSomething($event)\" #email=\"ngModel\" pattern=\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\" value=\"{{email}}\" emailAvailable (change)=\"isDirty = true\">\r\n                                    <div *ngIf=\"email.errors && (email.dirty || email.touched)\" class=\"alert alert-danger\">\r\n                                        <div [hidden]=\"!email.errors.required\">\r\n                                            Email is required\r\n                                        </div>\r\n                                        <div [hidden]=\"!email.errors.pattern\">\r\n                                            Email is invalid\r\n                                        </div>\r\n                                        <!--hidden when email OK va dung dinh dang-->\r\n                                        <div [hidden]=\"!email.valid && email.errors.pattern\">\r\n                                            Email has been used\r\n                                        </div>\r\n                                    </div>\r\n\r\n                                    <!--<div *ngIf=\"flag_validate_email\" class=\"alert alert-danger\">\r\n                                      Email has been used\r\n                                    </div>-->\r\n\r\n                                </div>\r\n                            </div>\r\n                        </fieldset>\r\n                    </div>\r\n                    <h3 class=\"heading3\">Your Password</h3>\r\n                    <div class=\"registerbox\">\r\n                        <fieldset>\r\n                            <div class=\"control-group\">\r\n                                <label class=\"control-label\"><span class=\"red\">*</span> Password New:</label>\r\n                                <div class=\"controls\">\r\n                                    <input type=\"password\" class=\"form-control\" name=\"password\" [ngModel]=\"account.password\" required validateEqual=\"confirmPassword\" reverse=\"true\" #password=\"ngModel\" (change)=\"isDirty = true\">\r\n                                    <div *ngIf=\"password.errors && (password.dirty || password.touched)\" class=\"alert alert-danger\">\r\n                                        <div [hidden]=\"!password.errors.required\">\r\n                                            Password is required\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n\r\n                            <div class=\"control-group\">\r\n                                <label class=\"control-label\"><span class=\"red\">*</span> Password New Confirm:</label>\r\n                                <div class=\"controls\">\r\n                                    <input type=\"password\" class=\"form-control\" name=\"confirmPassword\" [ngModel]=\"\" required validateEqual=\"password\" reverse=\"false\" #confirmPassword=\"ngModel\" (change)=\"isDirty = true\">\r\n\r\n                                    <div *ngIf=\"confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)\" class=\"alert alert-danger\">\r\n                                        <div [hidden]=\"!confirmPassword.errors.required\">\r\n                                            Password is required\r\n                                        </div>\r\n                                        <div [hidden]=\"confirmPassword.valid || (confirmPassword.pristine )\">\r\n                                            Password not same\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n\r\n                            <div class=\"control-group\">\r\n                                <div class=\"controls\">\r\n                                    <input type=\"submit\" [disabled]=\"!f.form.valid || flag_validate_email\" class=\"btn btn-orange\" value=\"Edit\">\r\n                                </div>\r\n                            </div>\r\n                            <div [@visibilityChanged]=\"visibility\" *ngIf=\"flag_success\" class=\"alert alert-success\">\r\n                                You have updated the information successfully\r\n                            </div>\r\n\r\n                        </fieldset>\r\n                    </div>\r\n                </form>\r\n            </div>\r\n            <app-spinner [isRunning]=\"!(products_order$ | async) && tab\"></app-spinner>\r\n            <div id=\"tab-2\" class=\"tab-container\">\r\n                <div *ngIf=\"products_order$ | async as product_orders \">\r\n                    <div class=\"cart-info\" id=\"cart-info\" *ngIf=\"product_orders.length > 0\">\r\n\r\n                        <table class=\"table table-striped table-bordered\">\r\n                            <tr>\r\n                                <th>STT</th>\r\n                                <th>Date</th>\r\n                                <th>Email</th>\r\n                                <th>Name</th>\r\n                                <th>Phone</th>\r\n                                <th>Xem chi tiết</th>\r\n                            </tr>\r\n\r\n                            <tr *ngFor=\"let item of product_orders; let i= index;\">\r\n                                <td>{{i + 1}}</td>\r\n                                <td>{{item.created_at}}</td>\r\n                                <td>{{item.email}}</td>\r\n                                <td>{{item.name}}</td>\r\n                                <td>{{item.phone}}</td>\r\n\r\n                                <td><a #id_order (click)=\"detail_order(id_order.id)\" class=\"js-open-modal\" data-modal-id=\"popup\" id=\"{{item.id}}\"> Click me </a></td>\r\n                            </tr>\r\n\r\n                        </table>\r\n\r\n                    </div>\r\n                </div>\r\n                <div class=\"container\" *ngIf=\"(products_order$ | async)?.length==0\">\r\n                    <p>Không có sản phẩm nào trong giỏ hàng. Vui lòng quay lại mua sắm !</p>\r\n                    <p>\r\n                        <a routerLink=\"\"><input value=\"Tiếp tục mua sắm\" class=\"btn btn-orange pull-left\"></a>\r\n                    </p>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </section>\r\n</div>\r\n<div id=\"popup\" class=\"modal-box\">\r\n    <header>\r\n        <a class=\"js-modal-close close\">×</a>\r\n        <h3>Chi tiết đơn hàng</h3>\r\n    </header>\r\n\r\n    <div class=\"modal-body\">\r\n        <table class=\"table table-striped table-bordered\" id=\"table_aj\">\r\n            <tr>\r\n                <th>STT</th>\r\n                <th>Hình ảnh</th>\r\n                <th>Tên sản phẩm</th>\r\n                <th>Đơn giá</th>\r\n                <th>Số lượng</th>\r\n                <th>Tổng tiền</th>\r\n            </tr>\r\n            <tr *ngFor=\"let item of detail_order_product; let i= index;\">\r\n                <td>{{i + 1}}</td>\r\n                <td><img src=\"{{link_img}}{{item.image}}\" width=\"80\" height=\"80\"></td>\r\n                <td>{{item.name}}</td>\r\n                <td>{{item.price | formatNumVN }} D</td>\r\n                <td>{{item.qty}}</td>\r\n                <td>{{item.price*item.qty | formatNumVN }} D</td>\r\n            </tr>\r\n        </table>\r\n\r\n        <div class=\"pull-right\">\r\n            <div class=\"span4 pull-right\">\r\n                <table class=\"table table-striped table-bordered \">\r\n                    <tbody>\r\n                        <tr>\r\n                            <td><span class=\"extra bold totalamout\">Tổng tiền :</span></td>\r\n                            <td><span class=\"bold totalamout\" id=\"totalamout\">{{sTotal | formatNumVN }} D</span></td>\r\n                        </tr>\r\n                    </tbody>\r\n                </table>\r\n            </div>\r\n            <div class=\"span6 pull-right\">\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <footer>\r\n        <a class=\"js-modal-close\">Close</a>\r\n    </footer>\r\n</div>\r\n<app-dialog [(visible)]=\"showDialog\">\r\n    <p>Thông tin chưa được lưu lại. Bạn có muốn chuyển hướng?</p>\r\n    <hr>\r\n    <div class=\"btn-wrap\">\r\n        <button (click)=\"obs.next($event)\" type=\"button\" class=\"btn btn-success\">OK</button>\r\n        <button (click)=\"obs1.next($event)\" type=\"button\" class=\"btn btn-danger\">Cancel</button>\r\n    </div>\r\n</app-dialog>"
 
 /***/ }),
 
-/***/ 572:
+/***/ 591:
 /***/ (function(module, exports) {
 
 module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <!--  breadcrumb -->\r\n      <ul class=\"breadcrumb\">\r\n        <li>\r\n          <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n          <span class=\"divider\">/</span>\r\n        </li>\r\n        <li class=\"active\">Đăng nhập</li>\r\n      </ul>\r\n      <!-- Account Login-->\r\n      <div class=\"row\">\r\n        <div class=\"span9\">\r\n          <h1 class=\"heading1\"><span class=\"maintext\">Đăng nhập</span><span class=\"subtext\">First Login here to View All your account information</span></h1>\r\n          <section class=\"newcustomer\">\r\n            <h2 class=\"heading2\">Khách hàng mới </h2>\r\n            <div class=\"loginbox\">\r\n              <h4 class=\"heading4\"> Đăng ký tài khoản</h4>\r\n              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat, a. Alias optio repudiandae totam temporibus\r\n                autem eius laudantium eum repellat ipsa aliquid deleniti necessitatibus, quia maiores sapiente ipsam, tempore\r\n                enim!</p>\r\n              <br>\r\n              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem voluptates sed alias quam libero, rerum modi\r\n                iusto debitis repellat natus quibusdam optio sequi? Hic pariatur totam, dicta vero ad deleniti.</p>\r\n              <br>\r\n              <br>\r\n              <a routerLink=\"/dang-ky\" class=\"btn btn-orange\">Tiếp tục</a>\r\n            </div>\r\n          </section>\r\n          <section class=\"returncustomer\">\r\n            <h2 class=\"heading2\">Khách hàng </h2>\r\n            <div class=\"loginbox\">\r\n              <h4 class=\"heading4\">Đã có tài khoản</h4>\r\n              <ul class=\"social-nav clearfix\">\r\n                <li><a (click)=\"loginFacebook()\" title=\"Facebook\" rel=\"nofollow\" class=\"facebook\"><i class=\"fa fa-facebook\"></i></a></li>\r\n                <li><a (click)=\"loginGoogle()\" title=\"Google plus\" rel=\"nofollow\" class=\"google\"><i class=\"fa fa-google-plus\"></i></a></li>\r\n                <li><a (click)=\"loginTwitter()\" title=\"Twitter\" rel=\"nofollow\" class=\"twitter\"><i class=\"fa fa-twitter\"></i></a></li>\r\n                <li><a (click)=\"loginGithub()\" title=\"Github\" rel=\"nofollow\" class=\"github\"><i class=\"fa fa-github\"></i></a></li>\r\n              </ul>\r\n\r\n              <div *ngIf=\"flag_social\" class=\"alert alert-danger\">\r\n                {{error_mg}}\r\n              </div>\r\n              <p>Or sign in with email</p>\r\n              <form class=\"form-vertical\" (ngSubmit)=\"onSignin(f)\" #f=\"ngForm\">\r\n\r\n                <fieldset>\r\n                  <div class=\"control-group\">\r\n                    <input type=\"text\" id=\"email\" class=\"form-control\" required name=\"email\" [(ngModel)]=\"account.email\" #email=\"ngModel\" pattern=\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\"\r\n                      (change)=\"checkemail_same(email.value)\">\r\n                    <div *ngIf=\"email.errors && (email.dirty || email.touched)\" class=\"alert alert-danger\">\r\n                      <div [hidden]=\"!email.errors.required\">\r\n                        Email is required\r\n                      </div>\r\n                      <div [hidden]=\"!email.errors.pattern\">\r\n                        Email is invalid\r\n                      </div>\r\n                    </div>\r\n                    <div *ngIf=\"flag_validate_email\" class=\"alert alert-danger\">\r\n                      Email does not exist in the system\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div class=\"control-group\">\r\n                    <input type=\"password\" id=\"password\" class=\"form-control\" required name=\"password\" [(ngModel)]=\"account.password\" #password=\"ngModel\">\r\n                    <div *ngIf=\"password.errors && (password.dirty || password.touched)\" class=\"alert alert-danger\">\r\n                      <div [hidden]=\"!password.errors.required\">\r\n                        Password is required\r\n                      </div>\r\n                    </div>\r\n                    <div *ngIf=\"flag_validate_pass\" class=\"alert alert-danger\">\r\n                      Wrong password\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div class=\"control-group\">\r\n                    <input type=\"checkbox\" name=\"remember\" (click)=\"doCheck($event)\" [checked]=\"isChecked\" style=\"float: left;display: inline-block;\"\r\n                    />\r\n\r\n                    <label class=\"control-label\" style=\"float: left;display: inline-block;\">Remember Me</label>\r\n                  </div>\r\n\r\n                  <div class=\"clearfix\"></div>\r\n                  <button [disabled]=\"!f.form.valid\" type=\"submit\" class=\"btn btn-orange\" style=\"margin-top: 20px\">Login</button>\r\n                </fieldset>\r\n              </form>\r\n            </div>\r\n          </section>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </section>\r\n</div>"
 
 /***/ }),
 
-/***/ 573:
+/***/ 592:
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n  <section id=\"product\">\r\n    <div class=\"container\">\r\n      <!--  breadcrumb -->\r\n      <ul class=\"breadcrumb\">\r\n        <li>\r\n          <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n          <span class=\"divider\">/</span>\r\n        </li>\r\n        <li class=\"active\">Đăng ký tài khoản</li>\r\n      </ul>\r\n      <div class=\"row\">\r\n        <!-- Register Account-->\r\n        <div class=\"span9\">\r\n\r\n          <h1 class=\"heading1\"><span class=\"maintext\">Đăng ký tài khoản</span><span class=\"subtext\">Register Your details with us</span></h1>\r\n          <form class=\"form-horizontal\" (ngSubmit)=\"onSignup(f)\" #f=\"ngForm\">\r\n\r\n            <h3 class=\"heading3\">Your Personal Details</h3>\r\n            <div class=\"registerbox\">\r\n              <fieldset>\r\n                <div class=\"control-group\">\r\n                  <label class=\"control-label\"><span class=\"red\">*</span> Name:</label>\r\n                  <div class=\"controls\">\r\n                    <input type=\"text\" id=\"name\" class=\"form-control\" required minlength=\"4\" maxlength=\"24\" name=\"name\" [(ngModel)]=\"account.name\"\r\n                      #name=\"ngModel\" value=\"{{name}}\">\r\n                    <div *ngIf=\"name.errors && (name.dirty || name.touched)\" class=\"alert alert-danger\">\r\n                      <div [hidden]=\"!name.errors.required\">\r\n                        Name is required\r\n                      </div>\r\n                      <div [hidden]=\"!name.errors.minlength\">\r\n                        Name must be at least 4 characters long.\r\n                      </div>\r\n                      <div [hidden]=\"!name.errors.maxlength\">\r\n                        Name cannot be more than 24 characters long.\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"control-group\">\r\n                  <label class=\"control-label\"><span class=\"red\">*</span> Email:</label>\r\n                  <div class=\"controls\">\r\n                    <input type=\"text\" id=\"email\" class=\"form-control\" required name=\"email\" [(ngModel)]=\"account.email\" #email=\"ngModel\" pattern=\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\"\r\n                      value=\"{{email}}\" emailAvailable>\r\n                    <div *ngIf=\"email.errors && (email.dirty || email.touched)\" class=\"alert alert-danger\">\r\n                      <div [hidden]=\"!email.errors.required\">\r\n                        Email is required\r\n                      </div>\r\n                      <div [hidden]=\"!email.errors.pattern\">\r\n                        Email is invalid\r\n                      </div>\r\n                      <div [hidden]=\"email.valid || (email.pristine)\">\r\n                        Email has been used\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </fieldset>\r\n            </div>\r\n            <h3 class=\"heading3\">Your Password</h3>\r\n            <div class=\"registerbox\">\r\n              <fieldset>\r\n                <div class=\"control-group\">\r\n                  <label class=\"control-label\"><span class=\"red\">*</span> Password New:</label>\r\n                  <div class=\"controls\">\r\n                    <input type=\"password\" class=\"form-control\" name=\"password\" [ngModel]=\"account.password\" required validateEqual=\"confirmPassword\"\r\n                      reverse=\"true\" #password=\"ngModel\">\r\n                    <div *ngIf=\"password.errors && (password.dirty || password.touched)\" class=\"alert alert-danger\">\r\n                      <div [hidden]=\"!password.errors.required\">\r\n                        Password is required\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"control-group\">\r\n                  <label class=\"control-label\"><span class=\"red\">*</span> Password New Confirm:</label>\r\n                  <div class=\"controls\">\r\n                    <input type=\"password\" class=\"form-control\" name=\"confirmPassword\" [ngModel]=\"\" required validateEqual=\"password\" reverse=\"false\"\r\n                      #confirmPassword=\"ngModel\">\r\n\r\n                    <div *ngIf=\"confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)\" class=\"alert alert-danger\">\r\n                      <div [hidden]=\"!confirmPassword.errors.required\">\r\n                        Password is required\r\n                      </div>\r\n                      <div [hidden]=\"confirmPassword.valid || (confirmPassword.pristine )\">\r\n                        Password not same\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </fieldset>\r\n            </div>\r\n            <div class=\"pull-right\">\r\n              <input type=\"submit\" [disabled]=\"!f.form.valid\" class=\"btn btn-orange\" value=\"Đăng ký\">\r\n            </div>\r\n          </form>\r\n          <div class=\"clearfix\"></div>\r\n          <div [@visibilityChanged]=\"visibility\" *ngIf=\"flag_success\" class=\"alert alert-success\" style=\"margin-top: 10px\">\r\n            Congratulations! You have successfully registered your account\r\n          </div>\r\n          <br>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </section>\r\n</div>"
+module.exports = "<div id=\"maincontainer\" *ngIf=\"!flag_search1\">\r\n    <section id=\"product\">\r\n        <div class=\"container\">\r\n            <!--  breadcrumb -->\r\n            <ul class=\"breadcrumb\">\r\n                <li>\r\n                    <a routerLink=\"\" class=\"js-home\">Trang chủ</a>\r\n                    <span class=\"divider\">/</span>\r\n                </li>\r\n                <li class=\"active\">Đăng ký tài khoản</li>\r\n            </ul>\r\n            <div class=\"row\">\r\n                <!-- Register Account-->\r\n                <div class=\"span9\">\r\n\r\n                    <h1 class=\"heading1\"><span class=\"maintext\">Đăng ký tài khoản</span><span class=\"subtext\">Register Your details with us</span></h1>\r\n                    <form class=\"form-horizontal\" (ngSubmit)=\"onSignup(f)\" #f=\"ngForm\">\r\n\r\n                        <h3 class=\"heading3\">Your Personal Details</h3>\r\n                        <div class=\"registerbox\">\r\n                            <fieldset>\r\n                                <div class=\"control-group\">\r\n                                    <label class=\"control-label\"><span class=\"red\">*</span> Name:</label>\r\n                                    <div class=\"controls\">\r\n                                        <input type=\"text\" id=\"name\" class=\"form-control\" required minlength=\"4\" maxlength=\"24\" name=\"name\" [(ngModel)]=\"account.name\" #name=\"ngModel\" value=\"{{name}}\">\r\n                                        <div *ngIf=\"name.errors && (name.dirty || name.touched)\" class=\"alert alert-danger\">\r\n                                            <div [hidden]=\"!name.errors.required\">\r\n                                                Name is required\r\n                                            </div>\r\n                                            <div [hidden]=\"!name.errors.minlength\">\r\n                                                Name must be at least 4 characters long.\r\n                                            </div>\r\n                                            <div [hidden]=\"!name.errors.maxlength\">\r\n                                                Name cannot be more than 24 characters long.\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"control-group\">\r\n                                    <label class=\"control-label\"><span class=\"red\">*</span> Email:</label>\r\n                                    <div class=\"controls\">\r\n                                        <input type=\"text\" id=\"email\" class=\"form-control\" required name=\"email\" [(ngModel)]=\"account.email\" #email=\"ngModel\" pattern=\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\" value=\"{{email}}\" emailAvailable>\r\n                                        <div *ngIf=\"email.errors && (email.dirty || email.touched)\" class=\"alert alert-danger\">\r\n                                            <div [hidden]=\"!email.errors.required\">\r\n                                                Email is required\r\n                                            </div>\r\n                                            <div [hidden]=\"!email.errors.pattern\">\r\n                                                Email is invalid\r\n                                            </div>\r\n                                            <!--hidden when email OK va dung dinh dang-->\r\n                                            <div [hidden]=\"!email.valid && email.errors.pattern\">\r\n                                                Email has been used\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </fieldset>\r\n                        </div>\r\n                        <h3 class=\"heading3\">Your Password</h3>\r\n                        <div class=\"registerbox\">\r\n                            <fieldset>\r\n                                <div class=\"control-group\">\r\n                                    <label class=\"control-label\"><span class=\"red\">*</span> Password New:</label>\r\n                                    <div class=\"controls\">\r\n                                        <input type=\"password\" class=\"form-control\" name=\"password\" [ngModel]=\"account.password\" required validateEqual=\"confirmPassword\" reverse=\"true\" #password=\"ngModel\">\r\n                                        <div *ngIf=\"password.errors && (password.dirty || password.touched)\" class=\"alert alert-danger\">\r\n                                            <div [hidden]=\"!password.errors.required\">\r\n                                                Password is required\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"control-group\">\r\n                                    <label class=\"control-label\"><span class=\"red\">*</span> Password New Confirm:</label>\r\n                                    <div class=\"controls\">\r\n                                        <input type=\"password\" class=\"form-control\" name=\"confirmPassword\" [ngModel]=\"\" required validateEqual=\"password\" reverse=\"false\" #confirmPassword=\"ngModel\">\r\n\r\n                                        <div *ngIf=\"confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)\" class=\"alert alert-danger\">\r\n                                            <div [hidden]=\"!confirmPassword.errors.required\">\r\n                                                Password is required\r\n                                            </div>\r\n                                            <div [hidden]=\"confirmPassword.valid || (confirmPassword.pristine )\">\r\n                                                Password not same\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </fieldset>\r\n                        </div>\r\n                        <div class=\"pull-right\">\r\n                            <input type=\"submit\" [disabled]=\"!f.form.valid\" class=\"btn btn-orange\" value=\"Đăng ký\">\r\n                        </div>\r\n                    </form>\r\n                    <div class=\"clearfix\"></div>\r\n                    <div [@visibilityChanged]=\"visibility\" *ngIf=\"flag_success\" class=\"alert alert-success\" style=\"margin-top: 10px\">\r\n                        Congratulations! You have successfully registered your account\r\n                    </div>\r\n                    <br>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </section>\r\n</div>"
 
 /***/ }),
 
-/***/ 574:
+/***/ 593:
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"sk-circle-wrap\">\r\n<div [hidden]=\"!isDelayedRunning\" class=\"sk-circle\">\r\n  <div class=\"sk-circle1 sk-child\"></div>\r\n  <div class=\"sk-circle2 sk-child\"></div>\r\n  <div class=\"sk-circle3 sk-child\"></div>\r\n  <div class=\"sk-circle4 sk-child\"></div>\r\n  <div class=\"sk-circle5 sk-child\"></div>\r\n  <div class=\"sk-circle6 sk-child\"></div>\r\n  <div class=\"sk-circle7 sk-child\"></div>\r\n  <div class=\"sk-circle8 sk-child\"></div>\r\n  <div class=\"sk-circle9 sk-child\"></div>\r\n  <div class=\"sk-circle10 sk-child\"></div>\r\n  <div class=\"sk-circle11 sk-child\"></div>\r\n  <div class=\"sk-circle12 sk-child\"></div>\r\n</div>\r\n</div>\r\n"
 
 /***/ }),
 
-/***/ 842:
+/***/ 847:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(277);
+module.exports = __webpack_require__(291);
 
 
 /***/ }),
 
-/***/ 91:
+/***/ 92:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3253,5 +3277,5 @@ var Account = (function () {
 
 /***/ })
 
-},[842]);
+},[847]);
 //# sourceMappingURL=main.bundle.js.map
