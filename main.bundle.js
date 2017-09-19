@@ -1848,13 +1848,20 @@ var HeaderComponent = (function () {
     }
     HeaderComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.xyzUserListService.weather().subscribe(function (response) {
+        this.xyzUserListService.weather().subscribe(
+        //next
+        function (response) {
             console.log(response.query.results.channel.item.condition.temp);
             _this.nhietdo = response.query.results.channel.item.condition.temp;
             _this.date = response.query.created;
             _this.day = response.query.results.channel.item.condition.text;
-        }, function (errorData) {
-        });
+        }, 
+        //error
+        function (errorData) {
+            console.error('error: ' + errorData);
+        }, 
+        //completed
+        function () { return console.log('done'); });
         this.xyzUserListService.get().subscribe(function (response) {
             _this.cates = response.cates;
         });
@@ -1909,7 +1916,10 @@ var HeaderComponent = (function () {
                 });
             }, 10000);
             this.del = false;
-            this.xyzUserListService.get().subscribe(function (response) {
+            this.xyzUserListService.get()
+                .debounceTime(1000)
+                .distinctUntilChanged()
+                .subscribe(function (response) {
                 //console.log(response.products_buy);
                 _this.products = response.products;
                 _this.products_order = response.products_buy;
